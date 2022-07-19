@@ -1,0 +1,55 @@
+{
+  "name": "employee_app",
+  "plugins": [
+    {
+      "name": "TailwindCSS",
+      "description": "A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.",
+      "url": "https://tailwindcss.com/docs"
+    },
+    {
+      "name": "CSS / styled-jsx",
+      "description": "CRA comes with built-in support for CSS and CSS Modules.",
+      "url": "https://create-react-app.dev/docs/adding-a-stylesheets"
+    },
+    {
+      "name": "Axios",
+      "description": "Promise based HTTP client for the browser and node.js.",
+      "url": "https://github.com/axios/axios"
+    },
+    {
+      "name": "Storybook",
+      "description": "Storybook is an open source tool for developing UI components in isolation for React, Vue, Angular, and more. It makes building stunning UIs organized and efficient.",
+      "url": "https://storybook.js.org/docs/react/get-started/introduction"
+    },
+    {
+      "name": "Environment Variables",
+      "description": "Use environment variables in your react project for server side, client or both.",
+      "url": "https://create-react-app.dev/docs/adding-custom-environment-variables/"
+    },
+    {
+      "name": "React Redux",
+      "description": "Redux helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test.",
+      "url": "https://redux.js.org/introduction/getting-started"
+    },
+    {
+      "name": "RTK Query",
+      "description": "RTK Query is a powerful data fetching and caching tool",
+      "url": "https://redux-toolkit.js.org/rtk-query/overview"
+    },
+    {
+      "name": "eslint",
+      "description": "",
+      "url": ""
+    },
+    {
+      "name": "jest",
+      "description": "",
+      "url": ""
+    },
+    {
+      "name": "no",
+      "description": "",
+      "url": ""
+    }
+  ]
+}
