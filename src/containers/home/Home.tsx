@@ -1,10 +1,11 @@
 import React,{FC} from 'react';
+import CreateEmployee from 'components/CreateEmployee';
 
 const Home:FC =()=>{
     return(
-    <div>
-
-    </div>
+        <div className="w-full">
+            <CreateEmployee/>
+        </div>
     );
 };
 
