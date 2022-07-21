@@ -21,7 +21,7 @@ const schema = yup.object({
 
 });
 
-const CreateEmployee: FC = () => {
+const CreateEmployeeComponent: FC = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
             resolver: yupResolver(schema),
@@ -36,9 +36,9 @@ const CreateEmployee: FC = () => {
         <div className='flex'>
             {/* <div className='flex-initial w-2/5 mt-40'/> */}
             <div className='flex-initial w-3/5 m-6 mt-40'>
-                <div className='p-2 m-2 rounded-lg bg-white shadow-xl h-24'>
+                {/* <div className='p-2 m-2 rounded-lg bg-white shadow-xl h-24'>
                     <h2 className='p-4 pl-4 m-4 mb-3 font-sans text-2xl font-semibold'>Create Employee</h2>
-                </div>
+                </div> */}
                 <div className='m-2 rounded-lg bg-white shadow-xl h-[500px]'>
                     <form onSubmit={handleSubmit((data) => {
                         console.log(data);
@@ -109,4 +109,4 @@ const CreateEmployee: FC = () => {
         </div>
     );
 };
-export default CreateEmployee
+export default CreateEmployeeComponent;

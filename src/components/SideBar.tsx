@@ -22,8 +22,8 @@ const SideBar: FC = () => {
                         <div
                             key={sideBarItem.id}>
                             <button onClick={() => handleButtonColorChange(sideBarItem.id,sideBarItem.url)}
-                                className={`h-[50px] w-[330px] text-blue-500 text-left pl-[50px] rounded-l-full font-semibold 
-                    hover:text-lg duration-200 ${buttonId === sideBarItem.id ? 'bg-blue-500 text-white' : 'bg-white'}`}>
+                                className={`h-[50px] w-[330px] text-left pl-[50px] rounded-l-full font-semibold 
+                    hover:text-lg duration-200 ${buttonId === sideBarItem.id ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}>
                                 <span className={`pr-[30px] w-[15px] h-[15px] ${sideBarItem.icon}`} />
                                 {sideBarItem.description}</button>
                         </div>
