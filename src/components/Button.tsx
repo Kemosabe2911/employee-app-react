@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { ButtonProps } from "./types";
+import React, { FC } from 'react';
+import { ButtonProps } from './types';
 
 const Button: FC<ButtonProps> = (props) => {
     const { bgcolor, textcolor, bghover, text, border, types } = props;
@@ -8,12 +8,11 @@ const Button: FC<ButtonProps> = (props) => {
         <>
             <button
                 type={types}
-                className={`p-2 m-4 w-36 h-10 text-sm 
-        leading-5  ${bgcolor} ${textcolor} ${bghover} ${border}} rounded-md`}>
+                className={`m-4 h-10 w-36 p-2 text-sm 
+        leading-5  ${bgcolor} ${textcolor} ${bghover} ${border} rounded-md`}>
                 {text}
             </button>
         </>
     );
-
-}
+};
 export default Button;

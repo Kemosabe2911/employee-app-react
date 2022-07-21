@@ -1,10 +1,15 @@
-import React,{FC} from 'react';
+import React, { FC } from 'react';
 
 import MainBar from 'components/MainBar';
+import CreateEmployeeForm from 'components/CreateEmployeeForm';
 
-const CreateEmployee:FC =()=>{
-    return(
-        <MainBar description="Create Employee"/>
+const CreateEmployee: FC = () => {
+    return (
+        <div>
+            <MainBar description="Create Employee" />
+            <CreateEmployeeForm />
+        </div>
+
     );
 };
 
