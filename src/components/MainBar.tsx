@@ -1,15 +1,15 @@
 import React,{FC} from 'react';
-import { MainBarInputField } from './type';
+
+import { MainBarInputField } from './types';
 
 const MainBar: FC <MainBarInputField> = (props) => {
 
-    const {description} =props
+    const {description} =props;
 
     return(
-        <div className=" w-[1496px] h-[140px] bg-white border-y-2">
+        <div className=" h-[140px] w-[1496px] border-y-2 bg-white">
             <div className="mt-[65px] ml-[40px] text-2xl font-semibold text-slate-700">{description}</div>
         </div>
     );
-
-}
+};
 export default MainBar;

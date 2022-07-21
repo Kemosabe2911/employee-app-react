@@ -6,4 +6,4 @@ export const EMPLOYEE_DETAIL_ITEM=
         role: 'Trainee',
         status: 'Active',
         departmentId: '1'
-    }
+    };

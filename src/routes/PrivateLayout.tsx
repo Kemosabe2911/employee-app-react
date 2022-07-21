@@ -10,7 +10,7 @@ import DepartmentDetailsPage from 'pages/DepartmentDetailsPage';
 import EmployeeListPage from 'pages/EmployeeListPage';
 
 const PrivateLayout = () => (
-    <div className="flex flex-row">
+    <div className="flex flex-row overflow-hidden">
         <SideBar />
         <Suspense fallback="Loading">
             <Routes>

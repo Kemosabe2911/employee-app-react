@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import { store } from "./store";
-import counter from "reducer/slices/counter";
+import { store } from './store';
+import counter from 'reducer/slices/counter';
 
 const rootReducer = combineReducers({ counter });
 

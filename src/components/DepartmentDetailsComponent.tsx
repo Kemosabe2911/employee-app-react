@@ -4,24 +4,25 @@ import { DEPARTMENT_DETAIL_ITEM as department } from 'constants/departmentDetail
 
 const DepartmentDetailsComponent: FC = () => {
     return(
-        <div className="grid gap-x-8 gap-y-4 grid-cols-4 m-12 w-[1400px] h-[110px] p-5 bg-white border-y-2 rounded-xl font-semibold text-sm">
+        <div className="m-12 grid h-[110px] w-[1400px] grid-cols-4 gap-x-8 gap-y-4 
+        rounded-xl border-y-2 bg-white p-5 text-sm font-semibold">
             <div className="flex flex-col">
-                <div className="font-bold text-base">Department Name</div>
-                <div className="text-sm font-normal">{department.departmentName}</div>
+                <div className="text-lg font-bold text-gray-600">Department Name</div>
+                <div className="pl-1 pt-1 text-sm font-normal text-gray-500">{department.departmentName}</div>
             </div>
             <div className="flex flex-col">
-                <div className="font-bold text-base">Department Id</div>
-                <div className="text-sm font-normal">{department.departmentId}</div>
+                <div className="text-lg font-bold text-gray-600">Department Id</div>
+                <div className="pl-1 pt-1 text-sm font-normal text-gray-500">{department.departmentId}</div>
             </div>
             <div className="flex flex-col">
-                <div className="font-bold text-base">Head Count</div>
-                <div className="text-sm font-normal">{department.headCount}</div>
+                <div className="text-lg font-bold text-gray-600">Head Count</div>
+                <div className="pl-1 pt-1 text-sm font-normal text-gray-500">{department.headCount}</div>
             </div>
             <div className="flex flex-col">
-                <div className="font-bold text-base">Location</div>
-                <div className="text-sm font-normal">{department.location}</div>
+                <div className="text-lg font-bold text-gray-600">Location</div>
+                <div className="pl-1 pt-1 text-sm font-normal text-gray-500">{department.location}</div>
                 </div>
         </div>
     );
-}
+};
 export default DepartmentDetailsComponent;

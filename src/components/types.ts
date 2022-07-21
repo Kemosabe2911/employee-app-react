@@ -23,5 +23,9 @@ export type ButtonProps={
   bghover:string;
   text:string;
   border:string;
-  types: "button" | "submit" | "reset";
-}
+  types: 'button' | 'submit' | 'reset';
+};
+
+export type MainBarInputField={
+  description:string;
+};

@@ -5,32 +5,32 @@ import { EMPLOYEE_DETAIL_ITEM as employee } from 'constants/employeeDetailItem';
 const EmployeeDetailsComponent: FC = () => {
 
     return (
-        <div className="grid gap-x-8 gap-y-4 grid-cols-4 m-12 w-[1400px] h-[170px] p-5 bg-white border-y-2 rounded-xl">
+        <div className="m-12 grid h-[170px] w-[1400px] grid-cols-4 gap-x-8 gap-y-4 rounded-xl border-y-2 bg-white p-5">
             <div className="flex flex-col">
-                <div className="font-bold text-base">Name</div>
-                <div className="text-sm">{employee.name}</div>
+                <div className="text-lg font-bold text-gray-600">Name</div>
+                <div className="pl-1 pt-1 text-sm text-gray-500">{employee.name}</div>
             </div>
             <div className="flex flex-col">
-                <div className="font-bold text-base">User Name</div>
-                <div className="text-sm">{employee.userName}</div>
+                <div className="text-lg font-bold text-gray-600">User Name</div>
+                <div className="pl-1 pt-1 text-sm text-gray-500">{employee.userName}</div>
             </div>
             <div className="flex flex-col">
-                <div className="font-bold text-base">Age</div>
-                <div className="text-sm">{employee.age}</div>
+                <div className="text-lg font-bold text-gray-600">Age</div>
+                <div className="pl-1 pt-1 text-sm text-gray-500">{employee.age}</div>
             </div>
             <div className="flex flex-col">
-                <div className="font-bold text-base">Role</div>
-                <div className="text-sm">{employee.role}</div>
+                <div className="text-lg font-bold text-gray-600">Role</div>
+                <div className="pl-1 pt-1 text-sm text-gray-500">{employee.role}</div>
                 </div>
             <div className="flex flex-col">
-                <div className="font-bold text-base">Status</div>
-                <div className="text-sm">{employee.status}</div>
+                <div className="text-lg font-bold text-gray-600">Status</div>
+                <div className="pl-1 pt-1 text-sm text-gray-500">{employee.status}</div>
             </div>
             <div className="flex flex-col">
-                <div className="font-bold text-base">Department Id</div>
-                <div className="text-sm">{employee.departmentId}</div>
+                <div className="text-lg font-bold text-gray-600">Department Id</div>
+                <div className="pl-1 pt-1 text-sm text-gray-500">{employee.departmentId}</div>
                 </div>
         </div>
     );
-}
+};
 export default EmployeeDetailsComponent;
