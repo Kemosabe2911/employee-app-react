@@ -11,8 +11,8 @@ import Button from './Button';
 const schema = yup.object({
     employeeName: yup.string().required('Employee Name is a required field'),
     userName: yup.string().required('User Name is a required field'),
-    age: yup.number().min(18, 'Enter a valid age').max(99, 'Enter a valid age')
-    .positive().required().typeError('Age is a required field'),
+    age: yup.number().max(99, 'Enter a valid age').min(18, 'Enter a valid age')
+    .required().typeError('Age is a required field'),
     street: yup.string().required('Street is a required field'),
     city: yup.string().required('City is a required field'),
     state: yup.string().required('State is a required field '),
