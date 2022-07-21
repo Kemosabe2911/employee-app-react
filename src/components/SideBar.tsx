@@ -1,4 +1,4 @@
-import React, { FC, useState} from 'react';
+import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SIDE_BAR_CONSTANTS as sideBarItems } from 'constants/sideBarItems';
@@ -7,7 +7,7 @@ import { LOGO, Profile } from 'assets/icons/images';
 const SideBar: FC = () => {
 
     const [buttonId, setId] = useState<string>('');
-    const navigate =useNavigate();
+    const navigate = useNavigate();
 
     const handleButtonColorChange = (selectedButtonId: string, selectedButtonUrl) => {
         setId(selectedButtonId);
@@ -21,8 +21,8 @@ const SideBar: FC = () => {
                     return (
                         <div
                             key={sideBarItem.id}>
-                            <button onClick={() => handleButtonColorChange(sideBarItem.id,sideBarItem.url)}
-                                className={`h-[50px] w-[330px] rounded-l-full pl-[50px] text-left font-semibold 
+                            <button onClick={() => handleButtonColorChange(sideBarItem.id, sideBarItem.url)}
+                                className={`h-[50px] w-[330px]  rounded-l-full pl-[50px] text-left font-semibold 
                     duration-200 hover:text-lg 
                     ${buttonId === sideBarItem.id ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}>
                                 <span className={`h-[15px] w-[15px] pr-[30px] ${sideBarItem.icon}`} />

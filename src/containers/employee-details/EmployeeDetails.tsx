@@ -5,7 +5,7 @@ import EmployeeDetailsComponent from 'components/EmployeeDetailsComponent';
 
 const EmployeeDetails:FC =()=>{
     return(
-        <div>
+        <div className="w-[calc(100vw-350px)]">
         <MainBar description="Employee Details"/>
         <EmployeeDetailsComponent></EmployeeDetailsComponent>
         </div>

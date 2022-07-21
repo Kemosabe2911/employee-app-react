@@ -1,14 +1,15 @@
-import React,{FC} from 'react';
+import React, { FC } from 'react';
 
 import MainBar from 'components/MainBar';
-import CreateEmployeeComponent from 'components/CreateEmployeeComponent';
+import CreateEmployeeForm from 'components/CreateEmployeeForm';
 
-const CreateEmployee:FC =()=>{
-    return(
-        <div>
-        <MainBar description="Create Employee"/>
-        <CreateEmployeeComponent/>
+const CreateEmployee: FC = () => {
+    return (
+        <div className="w-[calc(100vw-350px)]">
+            <MainBar description="Create Employee" />
+            <CreateEmployeeForm />
         </div>
+
     );
 };
 
