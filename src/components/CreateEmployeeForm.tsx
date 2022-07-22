@@ -34,8 +34,9 @@ const CreateEmployeeForm: FC = () => {
     const dropdown3 = ['Product Engineering', 'Human Resource', 'Finance'];
 
     return (
+        
             <div className='m-6 mt-6 flex flex-initial  '>
-                <div className=' m-4 ml-[76px] h-[500px] w-[90%] rounded-xl bg-white  shadow-xl '>
+                <div className=' m-4 mx-[30px] h-[500px] w-[90%] rounded-xl bg-white shadow-xl '>
                     <form onSubmit={handleSubmit(() => { //data
                         // console.log(data);
                         reset();
