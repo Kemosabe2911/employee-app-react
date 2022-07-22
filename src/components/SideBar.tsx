@@ -3,15 +3,24 @@ import { useNavigate } from 'react-router-dom';
 
 import { SIDE_BAR_CONSTANTS as sideBarItems } from 'constants/sideBarItems';
 import { LOGO, Profile } from 'assets/icons/images';
+import { SideBarInputField } from './types';
 
-const SideBar: FC = () => {
+const SideBar: FC<SideBarInputField> = (props) => {
+    const {setDescriptionId}=props;
 
-    const [buttonId, setId] = useState<string>('');
+    const currentUrl=window.location.href;
+    const currentPath=currentUrl.split('#');
+    if(currentPath[1]==undefined)
+    {
+        currentPath[1]='/create-employee';
+    }
+    const [buttonId, setId] = useState<string>(currentPath[1]);
     const navigate = useNavigate();
 
-    const handleButtonColorChange = (selectedButtonId: string, selectedButtonUrl) => {
-        setId(selectedButtonId);
+    const handleButtonColorChange = ( selectedButtonUrl) => {
+        setId(selectedButtonUrl);
         navigate(selectedButtonUrl);
+        setDescriptionId(selectedButtonUrl);
     };
     return (
         <div className="flex h-[100vh] w-[350px] flex-col border-2 bg-white shadow-lg">
@@ -21,10 +30,10 @@ const SideBar: FC = () => {
                     return (
                         <div
                             key={sideBarItem.id}>
-                            <button onClick={() => handleButtonColorChange(sideBarItem.id, sideBarItem.url)}
+                            <button onClick={() => handleButtonColorChange(sideBarItem.url)}
                                 className={`h-[50px] w-[330px]  rounded-l-full pl-[50px] text-left font-semibold 
                     duration-200 hover:text-lg 
-                    ${buttonId === sideBarItem.id ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}>
+                    ${buttonId === sideBarItem.url ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}>
                                 <span className={`h-[15px] w-[15px] pr-[30px] ${sideBarItem.icon}`} />
                                 {sideBarItem.description}</button>
                         </div>

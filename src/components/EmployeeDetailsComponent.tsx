@@ -8,7 +8,7 @@ const EmployeeDetailsComponent: FC = () => {
         <div className="ml-16 mt-12 flex  w-[83%] flex-wrap gap-x-48 gap-y-4 
         rounded-xl  bg-white p-5 shadow-xl">
             <div className="flex w-[150px] flex-col">
-                <div className="text-base font-bold text-gray-600">Name</div>
+                <div className="text-lg font-bold text-gray-600">Name</div>
                 <div className="pl-1 pt-1 text-sm font-normal text-gray-500">{employee[0].name}</div>
             </div>
             <div className="flex w-[150px] flex-col">
