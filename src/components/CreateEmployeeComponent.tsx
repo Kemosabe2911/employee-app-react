@@ -22,7 +22,7 @@ const schema = yup.object({
 
 });
 
-const CreateEmployee: FC = () => {
+const CreateEmployeeComponent: FC = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
             resolver: yupResolver(schema),
@@ -37,32 +37,34 @@ const CreateEmployee: FC = () => {
         <div className='flex'>
             {/* <div className='flex-initial w-2/5 mt-40'/> */}
             <div className='m-6 mt-40 w-3/5 flex-initial'>
-                <div className='m-2 h-24 rounded-lg bg-white p-2 shadow-xl'>
-                    <h2 className='m-4 mb-3 p-4 pl-4 font-sans text-2xl font-semibold'>Create Employee</h2>
-                </div>
+                {/* <div className='p-2 m-2 rounded-lg bg-white shadow-xl h-24'>
+                    <h2 className='p-4 pl-4 m-4 mb-3 font-sans text-2xl font-semibold'>Create Employee</h2>
+                </div> */}
                 <div className='m-2 h-[500px] rounded-lg bg-white shadow-xl'>
                     <form onSubmit={handleSubmit(() => {
+                        // <form onSubmit={handleSubmit((data) => { 
+                        //     console.log(data);
                         reset();
                     })}>
                         <div className='flex p-2'>
                             <div className='w-1/3 flex-initial'>
                                 <Label name='Employee Name' />
-                                <InputField registerFunction={register} placeholder='Employee Name'
-                                 registerName='employeeName' type='string' />
+                                <InputField registerFunction={register} 
+                                placeholder='Employee Name' registerName='employeeName' type='string' />
                                 <p className='pl-6 font-sans text-xs normal-case text-red-600'>
                                     {errors.employeeName?.message}</p>
                             </div>
                             <div className='w-1/3 flex-initial'>
                                 <Label name='User Name' />
-                                <InputField registerFunction={register} placeholder='User Name'
-                                 registerName='userName' type='string' />
+                                <InputField registerFunction={register} 
+                                placeholder='User Name' registerName='userName' type='string' />
                                 <p className='pl-6 font-sans text-xs normal-case text-red-600'>
                                     {errors.userName?.message}</p>
                             </div>
                             <div className='w-1/3 flex-initial' >
                                 <Label name='Age' />
-                                <InputField registerFunction={register} placeholder='Age' 
-                                registerName='age' type='number' />
+                                <InputField registerFunction={register} 
+                                placeholder='Age' registerName='age' type='number' />
                                 <p className='pl-6 font-sans text-xs normal-case text-red-600'>{errors.age?.message}</p>
                             </div>
                         </div>
@@ -76,17 +78,17 @@ const CreateEmployee: FC = () => {
                             </div>
                             <div className='w-1/3 flex-initial'>
                                 <Label name='City' />
-                                <InputField registerFunction={register} placeholder='City' registerName='city'
-                                 type='string' />
-                                <p className='pl-6 font-sans text-xs normal-case text-red-600'>{errors.city?.message}
-                                </p>
+                                <InputField registerFunction={register} placeholder='City' 
+                                registerName='city' type='string' />
+                                <p className='pl-6 font-sans text-xs normal-case text-red-600'>
+                                    {errors.city?.message}</p>
                             </div>
                             <div className='w-1/3 flex-initial' >
                                 <Label name='State' />
-                                <InputField registerFunction={register} placeholder='State' registerName='state'
-                                 type='string' />
-                                <p className='pl-6 font-sans text-xs normal-case text-red-600'>{errors.state?.message}
-                                </p>
+                                <InputField registerFunction={register} placeholder='State'
+                                 registerName='state' type='string' />
+                                <p className='pl-6 font-sans text-xs normal-case text-red-600'>
+                                    {errors.state?.message}</p>
                             </div>
                         </div>
                         <div className='flex p-2'>
@@ -104,8 +106,8 @@ const CreateEmployee: FC = () => {
                             </div>
                             <div className='w-1/3 flex-initial' >
                                 <Label name='Department' />
-                                <DropdownMenu registerFunction={register} registerName='department'
-                                 dropdown={dropdown3} />
+                                <DropdownMenu registerFunction={register} registerName='department' 
+                                dropdown={dropdown3} />
                                 <p className='pl-6 font-sans text-xs normal-case text-red-600'>
                                     {errors.department?.message}</p>
                             </div>
@@ -117,8 +119,8 @@ const CreateEmployee: FC = () => {
                             </div>
                             <div className='flex-initial'>
                                 <Button types="reset" bgcolor='bg-white' textcolor='text-black' 
-                                bghover='hover:bg-white' text='Cancel' border='border border-zinc-900 
-                                focus:border-indigo-300' />
+                                bghover='hover:bg-white' text='Cancel'
+                                 border='border border-zinc-900 focus:border-indigo-300' />
                             </div>
                         </div>
                     </form>
@@ -127,4 +129,4 @@ const CreateEmployee: FC = () => {
         </div>
     );
 };
-export default CreateEmployee;
+export default CreateEmployeeComponent;

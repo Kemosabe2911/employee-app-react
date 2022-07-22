@@ -1,12 +1,10 @@
 import React, { FC } from 'react';
 
-import MainBar from 'components/MainBar';
 import CreateEmployeeForm from 'components/CreateEmployeeForm';
 
 const CreateEmployee: FC = () => {
     return (
-        <div>
-            <MainBar description="Create Employee" />
+        <div className="w-[calc(100vw-350px)]">
             <CreateEmployeeForm />
         </div>
 

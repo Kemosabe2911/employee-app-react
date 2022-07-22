@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import { useDispatch } from "react-redux";
-import { pokemonApi } from "services/pokemon";
+import { configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { useDispatch } from 'react-redux';
+import { pokemonApi } from 'services/pokemon';
 
-import rootReducer from "./reducers";
+import rootReducer from './reducers';
 
 export const store = configureStore({
   reducer: {
