@@ -1,5 +1,6 @@
 export const EMPLOYEE_DETAIL_ITEM=[
     {
+        id:1,
         name: 'Cizil Maria',
         userName: 'cizil',
         age: '22',
@@ -8,6 +9,7 @@ export const EMPLOYEE_DETAIL_ITEM=[
         departmentId: '1'
     },
     {
+        id:2,
         name: 'Anju C A',
         userName: 'anju',
         age: '22',
@@ -16,6 +18,7 @@ export const EMPLOYEE_DETAIL_ITEM=[
         departmentId: '2'
     },
     {
+        id:3,
         name: 'Neha Rose',
         userName: 'neha',
         age: '22',
@@ -24,7 +27,8 @@ export const EMPLOYEE_DETAIL_ITEM=[
         departmentId: '2'
     },
     {
-    name: 'Stevin Prince',
+        id:4,
+        name: 'Stevin Prince',
         userName: 'stevin',
         age: '22',
         role: 'Trainee',
