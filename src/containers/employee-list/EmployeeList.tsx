@@ -6,7 +6,10 @@ import ListComponent from 'components/ListComponent';
 const EmployeeList: FC = () => {
     return (
         <div>
-            <MainBar description="Employee List" />
+            <MainBar description="Employee List">
+            
+
+            </MainBar>
             <ListComponent />
         </div>
     );
