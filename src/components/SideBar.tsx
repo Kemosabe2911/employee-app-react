@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { SIDE_BAR_CONSTANTS as sideBarItems } from 'constants/sideBarItems';
 import { LOGO, Profile } from 'assets/icons/images';
-import { SideBarInputField } from './types';
 
-const SideBar: FC<SideBarInputField> = (props) => {
-    const {setDescriptionId}=props;
+
+const SideBar: FC = () => {
 
     const currentUrl=window.location.href;
     const currentPath=currentUrl.split('#');
@@ -20,7 +19,6 @@ const SideBar: FC<SideBarInputField> = (props) => {
     const handleButtonColorChange = ( selectedButtonUrl) => {
         setId(selectedButtonUrl);
         navigate(selectedButtonUrl);
-        setDescriptionId(selectedButtonUrl);
     };
     return (
         <div className="flex h-[100vh] w-[350px] flex-col border-2 bg-white shadow-lg">
@@ -33,7 +31,7 @@ const SideBar: FC<SideBarInputField> = (props) => {
                             <button onClick={() => handleButtonColorChange(sideBarItem.url)}
                                 className={`h-[50px] w-[330px]  rounded-l-full pl-[50px] text-left font-semibold 
                     duration-200 hover:text-lg 
-                    ${buttonId === sideBarItem.url ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}>
+                    ${buttonId === sideBarItem.url ? 'bg-button-blue text-white' : 'bg-white text-button-blue'}`}>
                                 <span className={`h-[15px] w-[15px] pr-[30px] ${sideBarItem.icon}`} />
                                 {sideBarItem.description}</button>
                         </div>

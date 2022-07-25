@@ -25,11 +25,28 @@ export const SIDE_BAR_CONSTANTS = [
     }
 ];
 
-export const description={
-        '/create-employee':'Create Employee',
-        '/employee-details':'Employee Details',
-        '/department-details':'Department Details',
-        '/employee-list':'Employee List',
-        'update-employee':'Update Employee Details'
+// export const MAIN_BAR_CONSTANTS = [
+//     {
+//         id: '/create-employee',
+//         description: 'Create Employee',
+//         url: '/create-employee',
+//         button: false,
+//     },
+//     {
+//         id:  '/employee-details',
+//         description: 'Employee Details',
+//         url: '/employee-details',
+//         button:true,
+//     },
+//     {
+//         id: '/department-details',
+//         description: 'Department Details',
+//         url: '/department-details'
+//     },
+//     {
+//         id: '/employee-list',
+//         description: 'Employee List',
+//         url: '/employee-list'
+//     }
+// ];
 
-};
