@@ -39,3 +39,6 @@ export type ButtonProps = {
 export type UpdateEmployeeProps={
   employeeid:number;
 }
+export type ListComponentProps={
+  setId:(clickedId:number)=>void;
+}
