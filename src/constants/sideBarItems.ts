@@ -29,6 +29,7 @@ export const description={
         '/create-employee':'Create Employee',
         '/employee-details':'Employee Details',
         '/department-details':'Department Details',
-        '/employee-list':'Employee List'
+        '/employee-list':'Employee List',
+        'update-employee':'Update Employee Details'
 
 };
