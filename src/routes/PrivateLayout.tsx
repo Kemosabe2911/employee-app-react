@@ -1,7 +1,6 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
-import { description } from 'constants/sideBarItems';
 
 import RoutesPath from './RoutesPath';
 import SideBar from 'components/SideBar';
@@ -11,22 +10,14 @@ import DepartmentDetailsPage from 'pages/DepartmentDetailsPage';
 import EmployeeListPage from 'pages/EmployeeListPage';
 import MainBar from 'components/MainBar';
 
-
 const PrivateLayout = () => {
 
-    const currentUrl=window.location.href;
-    const currentPath=currentUrl.split('#');
-    if(currentPath[1]==undefined)
-    {
-        currentPath[1]='/create-employee';
-    }
-    const [mainBarId, setMainBarId]=useState<string>(currentPath[1]);
     
     return(
     <div className="flex flex-row overflow-hidden">
-        <SideBar setDescriptionId={setMainBarId}/>
+        <SideBar/>
         <div className="flex flex-col">
-        <MainBar description={description[mainBarId]}/>
+        <MainBar/>
         <Suspense fallback="Loading">
             <Routes>
                 <Route path={RoutesPath.CREATE_EMPLOYEE} element={<CreateEmployeePage />} />

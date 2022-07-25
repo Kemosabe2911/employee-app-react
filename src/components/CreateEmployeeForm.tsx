@@ -111,8 +111,8 @@ const CreateEmployeeForm: FC = () => {
                         </div>
                         <div className='flex p-2'>
                             <div className='ml-2 flex-initial'>
-                                <Button types="submit" bgcolor='bg-blue-500' textcolor='text-white' 
-                                bghover='hover:bg-blue-700' text='Create' border='border border-blue-500' />
+                                <Button types="submit" bgcolor='bg-button-blue' textcolor='text-white' 
+                                bghover='hover:bg-gray-400' text='Create' border='border border-white' />
                             </div>
                             <div className='flex-initial'>
                                 <Button types="reset" bgcolor='bg-white' 
