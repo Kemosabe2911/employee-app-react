@@ -4,9 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'alice-blue': '#EAF9FF',
-        'button-blue':'#03AEEE',
-      },
+        aliceBlue:'#EAF9FF',
+        teaGreen:'#D3F4BE',
+        paleRose:'#FFBFBF',
+        brightCelurean:'#03AEEE',
+        brightsCelurean:'#1DACD6',
     },
   },
   variants: {
@@ -15,4 +17,7 @@ module.exports = {
   
   plugins: [],
   
+}
 };
+
+   

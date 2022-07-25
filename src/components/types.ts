@@ -13,6 +13,7 @@ export type InputFieldProps = {
   type: string;
   registerFunction: UseFormRegister<FieldValues>;
   registerName: string;
+  value:string;
 };
 
 export type LabelProps = {
@@ -23,6 +24,7 @@ export type DropdownMenuProps = {
   dropdown: Array<string>;
   registerFunction: UseFormRegister<FieldValues>;
   registerName: string;
+  defaults:string;
 };
 
 export type ButtonProps = {
@@ -32,4 +34,8 @@ export type ButtonProps = {
   text: string;
   border: string;
   types: 'button' | 'submit' | 'reset';
+  onclick:()=>void;
+}
+export type UpdateEmployeeProps={
+  employeeid:number;
 }

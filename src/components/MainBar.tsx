@@ -25,10 +25,10 @@ const MainBar: FC = () => {
             {mainBarItem[path][1]?
             <button onClick={()=>handleCreateClick(mainBarItem[path][4])} 
             className="absolute right-24 top-[60px] h-[48px] w-[259px] rounded-full
-             bg-alice-blue ">
+             bg-aliceBlue ">
                 <div className="flex">
                 <span className={`h-[48px] w-[48px]
-                 rounded-full bg-button-blue p-[15px] text-white ${mainBarItem[path][3]}`} />
+                 rounded-full bg-brightCelurean p-[15px] text-white ${mainBarItem[path][3]}`} />
                 <span className="py-3 pl-7 text-base font-normal text-black">{mainBarItem[path][2]}</span>
                 </div>
                 </button>:<div></div>}
