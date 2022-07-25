@@ -8,6 +8,7 @@ import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import Label from './Label';
 import Button from './Button';
+import FileInput from './FileInput';
 
 const schema = yup.object({
     employeeName: yup.string().required('Employee Name is a required field'),
@@ -41,7 +42,7 @@ const CreateEmployeeForm: FC = () => {
     return (
         
             <div className='mx-auto mt-6 flex flex-initial  '>
-                <div className=' m-4 mx-auto h-[1100px] w-[55%] rounded-xl bg-white shadow-xl lg:h-[500px] lg:w-[90%]'>
+                <div className=' m-4 mx-auto h-[1200px] w-[55%] rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%]'>
                     <form onSubmit={handleSubmit(() => { //data
                         // console.log(data);
                         reset();
@@ -115,6 +116,16 @@ const CreateEmployeeForm: FC = () => {
                                 text-red-600'>{errors.department?.message}</p>
                             </div>
                         </div>
+                        <div className='p-2 xl:flex'>
+                        <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
+                                {/* <Label name='Upload Proof' /> */}
+                                {/* <InputField registerFunction={register} placeholder='Upload File' 
+                                registerName='file' type='file'  value=''/>
+                                <p className='pl-6 font-sans text-xs normal-case
+                                 text-red-600'>{errors.street?.message}</p> */}
+                                 <FileInput/>
+                            </div>
+                            </div>
                         <div className='flex p-2'>
                             <div className='ml-2 flex-initial'>
                                 <Button types="submit" bgcolor='bg-brightCelurean' textcolor='text-white' 

@@ -7,16 +7,15 @@ import { LOGO, Profile } from 'assets/icons/images';
 
 const SideBar: FC = () => {
 
-    const currentUrl=window.location.href;
-    const currentPath=currentUrl.split('#');
-    if(currentPath[1]==undefined)
-    {
-        currentPath[1]='/create-employee';
+    const currentUrl = window.location.href;
+    const currentPath = currentUrl.split('#');
+    if (currentPath[1] == undefined) {
+        currentPath[1] = '/create-employee';
     }
     const [buttonId, setId] = useState<string>(currentPath[1]);
     const navigate = useNavigate();
 
-    const handleButtonColorChange = ( selectedButtonUrl) => {
+    const handleButtonColorChange = (selectedButtonUrl) => {
         setId(selectedButtonUrl);
         navigate(selectedButtonUrl);
     };
@@ -31,7 +30,8 @@ const SideBar: FC = () => {
                             <button onClick={() => handleButtonColorChange(sideBarItem.url)}
                                 className={`h-[50px] w-[330px]  rounded-l-full pl-[50px] text-left font-semibold 
                     duration-200 hover:text-lg 
-                    ${buttonId === sideBarItem.url ? 'bg-button-blue text-white' : 'bg-white text-button-blue'}`}>
+                    ${buttonId === sideBarItem.url ?
+                                        'bg-brightCelurean text-white' : 'bg-white text-brightCelurean'}`}>
                                 <span className={`h-[15px] w-[15px] pr-[30px] ${sideBarItem.icon}`} />
                                 {sideBarItem.description}</button>
                         </div>
