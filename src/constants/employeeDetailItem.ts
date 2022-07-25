@@ -4,6 +4,9 @@ export const EMPLOYEE_DETAIL_ITEM=[
         name: 'Cizil Maria',
         userName: 'cizil',
         age: '22',
+        street:'X',
+        city:'Y',
+        state:'Z',
         role: 'Trainee',
         status: 'Active',
         departmentId: '1'
@@ -13,8 +16,11 @@ export const EMPLOYEE_DETAIL_ITEM=[
         name: 'Anju C A',
         userName: 'anju',
         age: '22',
+        street:'X',
+        city:'Y',
+        state:'Z',
         role: 'Trainee',
-        status: 'Active',
+        status: 'Inactive',
         departmentId: '2'
     },
     {
@@ -22,6 +28,9 @@ export const EMPLOYEE_DETAIL_ITEM=[
         name: 'Neha Rose',
         userName: 'neha',
         age: '22',
+        street:'X',
+        city:'Y',
+        state:'Z',
         role: 'Trainee',
         status: 'Active',
         departmentId: '2'
@@ -31,6 +40,9 @@ export const EMPLOYEE_DETAIL_ITEM=[
         name: 'Stevin Prince',
         userName: 'stevin',
         age: '22',
+        street:'X',
+        city:'Y',
+        state:'Z',
         role: 'Trainee',
         status: 'Active',
         departmentId: '1'
