@@ -3,6 +3,6 @@ export const MAIN_BAR_CONSTANTS={
     '/employee-details':['Employee Details',false],
     '/department-details':['Department Details',false],
     '/employee-list':['Employee List',true,'Create Employee','fa fa-plus','/create-employee'],
-    '/update-employee':['Update Employee',false],
+    '/update-employee' : ['Update Employee',false],
 
 };
