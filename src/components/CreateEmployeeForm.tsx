@@ -41,7 +41,7 @@ const CreateEmployeeForm: FC = () => {
 
     return (
         
-            <div className='mx-auto mt-6 flex flex-initial  '>
+            <div className='mx-auto mt-6 flex flex-initial'>
                 <div className=' m-4 mx-auto h-[1200px] w-[55%] rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%]'>
                     <form onSubmit={handleSubmit(() => { //data
                         // console.log(data);

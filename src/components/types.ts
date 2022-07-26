@@ -42,3 +42,15 @@ export type UpdateEmployeeProps={
 export type ListComponentProps={
   setId:(clickedId:number)=>void;
 }
+
+export type DepartmentDetailsApi={  
+    Id:number;
+    name:string;
+    department_details_id:number;
+    Department:{
+      Id:number;
+      department_room:string;
+      department_code:string;
+      website:string;}
+    }
+  

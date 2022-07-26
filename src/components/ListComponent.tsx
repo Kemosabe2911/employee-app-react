@@ -1,13 +1,12 @@
-import React,{FC} from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { EMPLOYEE_DETAIL_ITEM as employees } from 'constants/employeeDetailItem';
 import { columns } from 'constants/ListHeader';
 import DeleteModal from './DeleteModal';
 import { DeleteIcon, EditIcon } from 'assets/icons/images';
-import { ListComponentProps } from './types';
 
-const ListComponent:FC<ListComponentProps> = (props) => {
+const ListComponent = (props) => {
     const { setId } = props;
     const navigate = useNavigate();
 
@@ -21,12 +20,13 @@ const ListComponent:FC<ListComponentProps> = (props) => {
     };
     return (
         <>
-            <table className='mx-auto  mt-10 w-[96%] table-auto align-middle md:table-fixed'>
+            <table className='mx-auto mt-10 w-[96%] table-auto align-middle md:table-fixed'>
                 <thead>
                     <tr className=" h-[60px] rounded-xl bg-aliceBlue shadow-xl" >
                         {columns.map(column => {
                             return (
-                                <th className='p-4  text-center text-base font-normal' key={column}> {column}</th>
+                                <th className='w-[200px] p-4 text-center text-base 
+                                font-normal' key={column}> {column}</th>
                             );
                         })}
                     </tr>
@@ -66,6 +66,83 @@ const ListComponent:FC<ListComponentProps> = (props) => {
                 })}
 
             </table>
+            {/* <div >
+                   
+                </div>
+                <div className="w-2/12 flex-initial  pt-3 ">
+                   
+                </div>
+                <div className="w-1/12 flex-initial  pt-3">
+                   
+                </div>
+                <div className="w-2/12 flex-initial  pt-3">
+                    Role
+                </div>
+                <div className="w-2/12 flex-initial pt-3">
+                    Status
+                </div>
+                <div className="w-1/12  flex-initial pt-3">
+                    Department ID
+                </div>
+                <div className="w-2/12  flex-initial pl-10 pt-3">
+                    Action
+                </div> */}
+
+
+            {/* // <div className="w-2/12 flex-initial pl-5 pt-3  text-gray-600">
+                        //     {employee.name}
+                        // </div>
+                        // <div className="w-2/12 flex-initial pt-3 pl-4  text-gray-600">
+                        //     {employee.userName}
+                        // </div>
+                        // <div className="w-1/12 flex-initial pt-3 pl-2 text-gray-600">
+                        //     {employee.age}
+                        // </div>
+                        // <div className="w-2/12 flex-initial pt-3  text-gray-600">
+                        //     {employee.role}
+                        // </div>
+                        // <div className={`h-[40px] w-[111px] flex-initial rounded-xl p-2 pl-[12px]
+                        // ${(employee.status) === 'Active' ? 'bg-teaGreen' : 'bg-paleRose'}
+                         text-center text-gray-600`}>
+                        //     {employee.status}
+                        // </div>
+                        // <div className="w-1/12  flex-initial pt-3 pl-8 text-gray-600">
+                        //     {employee.departmentId}
+                        // </div> */}
+            {/* <div className="w-2/12  flex-initial pt-3 pl-8 text-gray-600" > */}
+            {/* <button onClick={handleDelete}>
+                                {/* <span className={`h-[15px] w-[15px] pr-[30px]  ${deleted}`} /> */}
+            {/* <DeleteIcon /> */}
+            {/* </button> */}
+            {/* <DeleteModal />
+                            <button className="pl-5" onClick={() => handleEdit(employee.id)}>
+                                {/* <span className={`h-[15px] w-[15px] pr-[30px] ${edit}`} /> */}
+            {/* <EditIcon /> */}
+            {/* </button> */}
+            {/* </div> */}
+            {/* <tr className="rounded-xl  ">
+                       
+                        <th>
+                            Employee Name
+                        </th>
+                        <th>
+                            User Name
+                        </th>
+                        <th>
+                            Age
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Department ID
+                        </th>
+                        <th>
+                            Actions
+                        </th> */}
         </>
 
     );
