@@ -9,7 +9,7 @@ import Button from './Button';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import { EMPLOYEE_DETAIL_ITEM as employees } from 'constants/employeeDetailItem';
-import { UpdateEmployeeProps } from './types';
+// import { UpdateEmployeeProps } from './types';
 import FileInput from './FileInput';
 
 const schema = yup.object({
@@ -27,7 +27,7 @@ const schema = yup.object({
 });
 
 
-const UpdateEmployee:FC<UpdateEmployeeProps>= (props)=>{
+const UpdateEmployee:FC= (props)=>{
 
     const {employeeid}=props;
     const { register, handleSubmit, reset, formState: { errors } } = useForm(

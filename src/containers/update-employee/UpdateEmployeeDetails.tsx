@@ -1,10 +1,10 @@
-// import UpdateEmployee from 'components/UpdateEmployee';
+import UpdateEmployee from 'components/UpdateEmployee';
 import React from 'react';
 
 const UpdateEmployeeDetails =()=>{
     return (
      <div>
-       {/* <UpdateEmployee/> */}
+       <UpdateEmployee/>
      </div>
     );
 };

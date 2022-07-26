@@ -36,12 +36,23 @@ export type ButtonProps = {
   types: 'button' | 'submit' | 'reset';
   onclick?:()=>void;
 }
-export type UpdateEmployeeProps={
-  employeeid:number;
-}
-export type ListComponentProps={
-  setId:(clickedId:number)=>void;
-}
+// export type UpdateEmployeeProps={
+//   employeeid:number;
+// }
+// export type ListComponentProps={
+//   setId:(clickedId:number)=>void;
+// }
+
+export type DepartmentDetailsApi={  
+  Id:number;
+  name:string;
+  department_details_id:number;
+  Department:{
+    Id:number;
+    department_room:string;
+    department_code:string;
+    website:string;}
+  }
 
 export type EmployeeListApiResponse = {
   Id:number;
@@ -55,15 +66,7 @@ export type EmployeeListApiResponse = {
   address_id:number;
   isAdmin:boolean;
   Department:{
-    Id:number;
-    name:string;
-    department_details_id:number;
-    Department:{
-      Id:number;
-      department_room:string;
-      department_code:string;
-      website:string;}
-    }
+  
   Role:{
     Id:number;
     role:string;
@@ -75,3 +78,4 @@ export type EmployeeListApiResponse = {
   state:string;
  }
 };
+}
