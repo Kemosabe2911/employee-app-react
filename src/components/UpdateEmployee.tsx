@@ -10,6 +10,7 @@ import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import { EMPLOYEE_DETAIL_ITEM as employees } from 'constants/employeeDetailItem';
 import { UpdateEmployeeProps } from './types';
+import FileInput from './FileInput';
 
 const schema = yup.object({
     employeeName: yup.string().required('Employee Name is a required field'),
@@ -39,25 +40,19 @@ const UpdateEmployee:FC<UpdateEmployeeProps>= (props)=>{
         return employee.id === employeeid;
       });
     const dropdown1 = ['HR', 'Developer', 'Admin','Trainee'];
-    const dropdown2 = ['Active', 'Inactive'];
     const dropdown3 = ['Product Engineering', 'Human Resource', 'Finance'];
     const navigate=useNavigate();
-    const handleCancel=()=>{
-        navigate('/employee-list');
-    };
-    const handlesubmit=()=>{
-        navigate('/employee-list');
-    };
-
+    
     return(
     <div className='mx-auto mt-6 flex flex-initial  '>
-        <div className=' m-4 mx-[30px] h-[500px] w-[90%] rounded-xl bg-white shadow-xl '>
-            <form onSubmit={handleSubmit(() => { //data
-                // console.log(data);
-                reset();
-            })}>
-                <div className='flex p-2'>
-                    <div className='w-1/3 flex-initial '>
+        <div className= 'm-4 mx-auto h-[1200px] w-[55%] rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%]'>
+           <form onSubmit={handleSubmit(() => { 
+                        // console.log(data);
+                        reset();
+                        navigate('/employee-list');
+                    })}>
+                <div className='p-2  xl:flex'>
+                    <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
                         <Label name='Employee Name' />
                         <InputField registerFunction={register} placeholder='Employee Name'
                         registerName='employeeName' type='string' value={clickedEmployee[0].name} />
@@ -79,7 +74,7 @@ const UpdateEmployee:FC<UpdateEmployeeProps>= (props)=>{
                         text-red-600'>{errors.age?.message} </p>
                     </div>
                 </div>
-                <div className='flex p-2'>
+                <div className='p-2  xl:flex'>
                     <div className='w-1/3 flex-initial '>
                         <Label name='Street' />
                         <InputField registerFunction={register} placeholder='Street' 
@@ -102,21 +97,22 @@ const UpdateEmployee:FC<UpdateEmployeeProps>= (props)=>{
                          text-red-600'>{errors.state?.message}</p>
                     </div>
                 </div>
-                <div className='flex p-2'>
+                <div className='p-2  xl:flex'>
+                <div className='w-1/3 flex-initial '>
+                                <Label name='E-mail' />
+                                <InputField registerFunction={register} placeholder='E-Mail' 
+                                registerName='email' type='string'  value=''/>
+                                <p className='pl-6 font-sans text-xs normal-case
+                                 text-red-600'>{errors.email?.message}</p>
+                            </div>
                     <div className='w-1/3 flex-initial  '>
                         <Label name='Role' />
                         <DropdownMenu registerFunction={register} registerName='role' dropdown={dropdown1}
-                          defaults={clickedEmployee[0].role}/>
+                          defaults=''/>
                         <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'> {errors.role?.message}</p>
                     </div>
-                    <div className='w-1/3 flex-initial '>
-                        <Label name='Status' />
-                        <DropdownMenu registerFunction={register} 
-                        registerName='status' dropdown={dropdown2} defaults={clickedEmployee[0].status}/>
-                        <p className='pl-6 font-sans text-xs normal-case 
-                        text-red-600'>{errors.status?.message}</p>
-                    </div>
+        
                     <div className=' w-1/3 flex-initial' >
                         <Label name='Department' />
                         <DropdownMenu registerFunction={register} 
@@ -125,17 +121,23 @@ const UpdateEmployee:FC<UpdateEmployeeProps>= (props)=>{
                         text-red-600'>{errors.department?.message}</p>
                     </div>
                 </div>
+                <div className='p-2 xl:flex'>
+                        <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
+                                 <FileInput />
+                            </div>
+                            </div>
                 <div className='flex p-2'>
                     <div className='ml-2 flex-initial'>
-                        <Button types="submit" bgcolor='bg-brightCelurean' textcolor='text-white' 
+                        <Button types="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white' 
                         bghover='hover:bg-brightsCelurean' text='Update' border='border border-blue-500'
-                         onclick={handlesubmit} />
+                        />
                     </div>
                     <div className='flex-initial'>
-                        <Button types="reset" bgcolor='bg-white' onclick={handleCancel}
+                        <Button types="reset" bgcolor='w-36 bg-white' 
                         textcolor='text-black' 
                         bghover='hover:bg-white' text='Cancel' 
-                        border='border border-zinc-900 hover:border-indigo-300' />
+                        border='border border-zinc-900 hover:border-indigo-300' 
+                        onclick={()=>navigate('/employee-list')}/>
                     </div>
                 </div>
             </form>

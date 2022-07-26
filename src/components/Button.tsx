@@ -8,7 +8,7 @@ const Button: FC<ButtonProps> = (props) => {
         <>
             <button
                 type={types}
-                className={`m-4 h-10 w-36 p-2 text-sm 
+                className={`m-4 h-10  p-2 text-sm 
         leading-5  ${bgcolor} ${textcolor} ${bghover} ${border} rounded-md`}  onClick={onclick}>
                 {text}
                

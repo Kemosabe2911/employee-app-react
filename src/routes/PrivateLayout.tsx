@@ -15,8 +15,8 @@ import ListComponent from 'components/ListComponent';
 
 const PrivateLayout = () => {
 
-    const [clickedId, setclickedId] = useState<number>(0);
-
+    const [clickedId, setclickedId] = useState<number>(1);
+    
 
     return (
         <div className="flex flex-row overflow-hidden">
