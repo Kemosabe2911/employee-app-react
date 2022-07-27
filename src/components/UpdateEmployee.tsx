@@ -9,9 +9,7 @@ import Label from './Label';
 import Button from './Button';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
-// import { EMPLOYEE_DETAIL_ITEM as employees } from 'constants/employeeDetailItem';
-// import { UpdateEmployeeProps } from './types';
-import { useUpdateEmployeeMutation } from 'services/api';
+import { useUpdateEmployeeMutation, useGetEmployeeListQuery } from 'services/api';
 import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import FileInput from './FileInput';
 
@@ -32,7 +30,40 @@ const schema = yup.object({
 
 const UpdateEmployee:FC= ()=>{
 
+    const {data: employeeListData}  = useGetEmployeeListQuery();
 
+    const dropdown1 = [];
+    employeeListData?.map(employee => {
+        if (dropdown1.length == 0)
+            dropdown1.push({
+                'Id': employee.Role.Id,
+                'name': employee.Role.role
+            });
+        dropdown1?.map(dropdown => {
+            if (employee.Role.Id != dropdown.Id)
+                dropdown1.push({
+                    'Id': employee.Role.Id,
+                    'name': employee.Role.role
+                });
+        });
+    });
+
+    const dropdown2 = [];
+    employeeListData?.map(employee => {
+        if (dropdown2.length == 0)
+        dropdown2.push({
+            'Id': employee.Department.Id,
+            'name': employee.Department.name
+        });
+        dropdown2?.map(dropdown => {
+            if (employee.Department.Id != dropdown.Id)
+                dropdown2.push({
+                    'Id': employee.Department.Id,
+                    'name': employee.Department.name
+                });
+        });
+    });
+    
     const urlId = useParams();
     const [getEmployeeDetails, { data: data }] =
         useLazyGetEmployeeDetailsQuery();
@@ -51,9 +82,9 @@ const UpdateEmployee:FC= ()=>{
         }
     );
     
-    
-    const dropdown1 = ['HR', 'Developer', 'Admin','Trainee','FE'];
-    const dropdown3 = ['Product Engineering', 'Human Resource', 'Finance'];
+   
+    // const dropdown1 = ['HR', 'Developer',  'Admin',  'Trainee', 'FE'];
+    // const dropdown2 = ['Product Engineering', 'Human Resource', 'Finance'];
     const navigate=useNavigate();
     
     return(     
@@ -129,7 +160,7 @@ const UpdateEmployee:FC= ()=>{
                     <div className=' w-1/3 flex-initial' >
                         <Label name='Department' />
                         <DropdownMenu registerFunction={register} 
-                        registerName='department' dropdown={dropdown3} defaults={data?.Department.name}/>
+                        registerName='department' dropdown={dropdown2} defaults={data?.Department.name}/>
                         <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'>{errors.department?.message}</p>
                     </div>
@@ -141,12 +172,12 @@ const UpdateEmployee:FC= ()=>{
                             </div>
                 <div className='flex p-2'>
                     <div className='ml-2 flex-initial'>
-                        <Button types="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white' 
+                        <Button type="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white' 
                         bghover='hover:bg-brightsCelurean' text='Update' border='border border-blue-500'
                         />
                     </div>
                     <div className='flex-initial'>
-                        <Button types="reset" bgcolor='w-36 bg-white' 
+                        <Button type="reset" bgcolor='w-36 bg-white' 
                         textcolor='text-black' 
                         bghover='hover:bg-white' text='Cancel' 
                         border='border border-zinc-900 hover:border-indigo-300' 

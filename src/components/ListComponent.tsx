@@ -6,16 +6,18 @@ import { columns } from 'constants/ListHeader';
 import DeleteModal from './DeleteModal';
 import { DeleteIcon, EditIcon } from 'assets/icons/images';
 // import { ListComponentProps } from './types';
-import { useGetEmployeeListQuery } from 'services/api';
+import { useGetEmployeeListQuery,useDeleteEmployeeMutation} from 'services/api';
 
 const ListComponent: FC = () => {
     const { data } = useGetEmployeeListQuery();
-
+    const [deleteEmployee]=useDeleteEmployeeMutation();
     // const { setId } = props;
+    
     const navigate = useNavigate();
+    
 
-    const handleDelete = () => {
-        // console.log('delete');
+    const handleDelete = (clickedId) => {
+        deleteEmployee(clickedId);
     };
     const handleEdit = (id) => {
         navigate('/update-employee/'+id);
@@ -60,8 +62,7 @@ const ListComponent: FC = () => {
                                         {!employee.isActive ? 'Active' : 'Inactive'}
                                     </div> </td>
                                 <td className='p-4 text-center' >   {employee.department_id}</td>
-                                
-                                <td className='p-4 text-center'><button onClick={handleDelete}>
+                                <td className='p-4 text-center'><button onClick={()=>handleDelete(employee.Id)}>
                                     <DeleteIcon />
                                 </button>
                                     <DeleteModal />

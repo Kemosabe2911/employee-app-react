@@ -24,9 +24,13 @@ export type InputFieldProps = {
 export type LabelProps = {
   name: string;
 };
+export type Dropdown={
+  Id:number;
+  name:string;
+}
 
 export type DropdownMenuProps = {
-  dropdown: Array<string>;
+  dropdown:Array<Dropdown>;
   registerFunction: UseFormRegister<FieldValues>;
   registerName: string;
   defaults:string | number;
@@ -39,7 +43,7 @@ export type ButtonProps = {
   bghover: string;
   text: string;
   border: string;
-  types: 'button' | 'submit' | 'reset';
+  type: 'button' | 'submit' | 'reset';
   onclick?:()=>void;
 }
 // export type UpdateEmployeeProps={
@@ -81,8 +85,7 @@ export type EmployeeListApiResponse = {
     department_room:string;
     department_code:string;
     website:string;}
-  }
-  
+  } 
   Role:{
     Id:number;
     role:string;
@@ -97,6 +100,7 @@ export type EmployeeListApiResponse = {
 
 export type EmployeeDetailsApi = 
 {
+    map(arg0: (employee: any) => void);
   Id:number;
   name: string;
   Username: string;
@@ -117,8 +121,8 @@ export type EmployeeDetailsApi =
     department_room:string;
     department_code:string;
     website:string;}
-  }
-  
+  },
+
   Role:{
     Id:number;
     role:string;
@@ -130,6 +134,3 @@ export type EmployeeDetailsApi =
   state:string;
  }
 };
-// export type EmployeeDetailsApiPayload={
-//   id:string;
-// }
