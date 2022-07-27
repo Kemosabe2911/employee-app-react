@@ -15,7 +15,7 @@ const FileInput =()=>{
                 text-center text-sm leading-5 text-regentGrey' onClick={()=>setOpenModal(true)}>Browse</button>
             </div>
             {openModal &&(
-                 <FilesDragAndDrop open={setOpenModal}/>
+                 <FilesDragAndDrop open={setOpenModal} />
             )
 
             }

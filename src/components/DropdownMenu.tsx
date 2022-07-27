@@ -11,7 +11,7 @@ const DropdownMenu: FC<DropdownMenuProps> = (props) => {
                          focus:outline-none" >
                 {dropdown.map(element => {
                     return (
-                        <option key={element} value={element}>{element}</option>
+                        <option key={element.Id} value={element.Id}>{element.name}</option>
                     );
                 })}
             </select>
