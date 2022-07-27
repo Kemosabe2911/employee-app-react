@@ -9,7 +9,10 @@ const UpdateEmployeeDetails =()=>{
      <div>
       <MainBar description='Update Employee' buttonRequired = {false}
                 buttonDescription="nil" buttonIcon="nil" buttonNavigateUrl="nil"></MainBar>
-       <UpdateEmployee/>
+                <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
+                <UpdateEmployee/>
+                </div>
+      
      </div>
     );
 };

@@ -18,10 +18,9 @@ const employeeApi = apiWithTag.injectEndpoints({
             query: (id) => `/employee/${id}`,
         }),
         updateEmployee: builder.mutation({
-            query: ({ id, ...patch }) => ({
+            query: (id) => ({
               url: `/employees/${id}`,
               method: 'PUT',
-              body: patch,
             }),
             invalidatesTags: ['Employee'],
           }),

@@ -12,6 +12,7 @@ import InputField from './InputField';
 // import { EMPLOYEE_DETAIL_ITEM as employees } from 'constants/employeeDetailItem';
 // import { UpdateEmployeeProps } from './types';
 import { useUpdateEmployeeMutation } from 'services/api';
+import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import FileInput from './FileInput';
 
 const schema = yup.object({
@@ -31,16 +32,19 @@ const schema = yup.object({
 
 const UpdateEmployee:FC= ()=>{
 
+
     const urlId = useParams();
     const [getEmployeeDetails, { data: data }] =
-        useUpdateEmployeeMutation();
+        useLazyGetEmployeeDetailsQuery();
 
-    console.log(data);
+
     useEffect(() => {
         getEmployeeDetails(urlId.id);
     }, [urlId]);
 
-    // const {employeeid}=props;
+
+    const [updateData] = useUpdateEmployeeMutation();
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
             resolver: yupResolver(schema),
@@ -48,17 +52,15 @@ const UpdateEmployee:FC= ()=>{
     );
     
     
-    const dropdown1 = ['HR', 'Developer', 'Admin','Trainee'];
+    const dropdown1 = ['HR', 'Developer', 'Admin','Trainee','FE'];
     const dropdown3 = ['Product Engineering', 'Human Resource', 'Finance'];
     const navigate=useNavigate();
     
-    return(
-        
-           
+    return(     
     <div className='mx-auto mt-6 flex flex-initial  '>
-        <div className= 'm-4 mx-auto h-[1200px] w-[55%] rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%]'>
-           <form onSubmit={handleSubmit(() => { 
-                        // console.log(data);
+        <div className= ' m-4 mx-auto h-[1200px]  rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%] '>
+           <form onSubmit={handleSubmit((data1) => { 
+                       updateData(data1);
                         reset();
                         navigate('/employee-list');
                     })}>
@@ -112,14 +114,14 @@ const UpdateEmployee:FC= ()=>{
                 <div className='w-1/3 flex-initial '>
                                 <Label name='E-mail' />
                                 <InputField registerFunction={register} placeholder='E-Mail' 
-                                registerName='email' type='string'  value=''/>
+                                registerName='email' type='string'  value={data?.Email}/>
                                 <p className='pl-6 font-sans text-xs normal-case
                                  text-red-600'>{errors.email?.message}</p>
                             </div>
                     <div className='w-1/3 flex-initial  '>
                         <Label name='Role' />
                         <DropdownMenu registerFunction={register} registerName='role' dropdown={dropdown1}
-                          defaults=''/>
+                          defaults={data?.Role.role}/>
                         <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'> {errors.role?.message}</p>
                     </div>
@@ -127,7 +129,7 @@ const UpdateEmployee:FC= ()=>{
                     <div className=' w-1/3 flex-initial' >
                         <Label name='Department' />
                         <DropdownMenu registerFunction={register} 
-                        registerName='department' dropdown={dropdown3} defaults={data.Department.Id}/>
+                        registerName='department' dropdown={dropdown3} defaults={data?.Department.name}/>
                         <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'>{errors.department?.message}</p>
                     </div>
