@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Label from './Label';
 import Button from './Button';
-import DropdownMenu from './DropdownMenu';
+// import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import { EMPLOYEE_DETAIL_ITEM as employees } from 'constants/employeeDetailItem';
 // import { UpdateEmployeeProps } from './types';
@@ -27,9 +27,9 @@ const schema = yup.object({
 });
 
 
-const UpdateEmployee:FC= (props)=>{
+const UpdateEmployee:FC= ()=>{
 
-    const {employeeid}=props;
+    const employeeid=1;
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
             resolver: yupResolver(schema),
@@ -39,8 +39,8 @@ const UpdateEmployee:FC= (props)=>{
     const clickedEmployee=employees.filter(employee => {
         return employee.id === employeeid;
       });
-    const dropdown1 = ['HR', 'Developer', 'Admin','Trainee'];
-    const dropdown3 = ['Product Engineering', 'Human Resource', 'Finance'];
+    // const dropdown1 = ['HR', 'Developer', 'Admin','Trainee'];
+    // const dropdown3 = ['Product Engineering', 'Human Resource', 'Finance'];
     const navigate=useNavigate();
     
     return(
@@ -105,7 +105,7 @@ const UpdateEmployee:FC= (props)=>{
                                 <p className='pl-6 font-sans text-xs normal-case
                                  text-red-600'>{errors.email?.message}</p>
                             </div>
-                    <div className='w-1/3 flex-initial  '>
+                    {/* <div className='w-1/3 flex-initial  '>
                         <Label name='Role' />
                         <DropdownMenu registerFunction={register} registerName='role' dropdown={dropdown1}
                           defaults=''/>
@@ -119,7 +119,7 @@ const UpdateEmployee:FC= (props)=>{
                         registerName='department' dropdown={dropdown3} defaults={clickedEmployee[0].departmentId}/>
                         <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'>{errors.department?.message}</p>
-                    </div>
+                    </div> */}
                 </div>
                 <div className='p-2 xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
@@ -128,12 +128,12 @@ const UpdateEmployee:FC= (props)=>{
                             </div>
                 <div className='flex p-2'>
                     <div className='ml-2 flex-initial'>
-                        <Button types="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white' 
+                        <Button type="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white' 
                         bghover='hover:bg-brightsCelurean' text='Update' border='border border-blue-500'
                         />
                     </div>
                     <div className='flex-initial'>
-                        <Button types="reset" bgcolor='w-36 bg-white' 
+                        <Button type="reset" bgcolor='w-36 bg-white' 
                         textcolor='text-black' 
                         bghover='hover:bg-white' text='Cancel' 
                         border='border border-zinc-900 hover:border-indigo-300' 

@@ -13,9 +13,25 @@ const employeeApi = apiWithTag.injectEndpoints({
             query: () => '/employee',
             providesTags: ['Employee']
         }),
+        addEmployee: builder.mutation({
+            query: (body) => ({
+              url: '/employee',
+              method: 'POST',
+              body,
+            }),
+            invalidatesTags: ['Employee'],
+          }),
+          deleteEmployee: builder.mutation({
+            query: (id) => ({
+              url: `/employee/${id}`,
+              method: 'DELETE',
+            }),
+            invalidatesTags: ['Employee'],
+          })
+
     }),
 });
 
 export const {
-    useGetDepartmentListQuery, useGetEmployeeListQuery
+    useGetDepartmentListQuery, useGetEmployeeListQuery,useAddEmployeeMutation,useDeleteEmployeeMutation
 } = employeeApi;
