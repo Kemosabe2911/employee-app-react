@@ -28,7 +28,7 @@ export type DropdownMenuProps = {
   dropdown:Array<Dropdown>;
   registerFunction: UseFormRegister<FieldValues>;
   registerName: string;
-  defaults:string;
+  defaults?:string;
 };
 
 export type ButtonProps = {
@@ -61,7 +61,7 @@ export type DepartmentDetailsApi={
 export type EmployeeListApiResponse = {
   Id:number;
   name: string;
-  Username: number;
+  Username: string;
   Email: string;
   age:number;
   isActive:boolean;

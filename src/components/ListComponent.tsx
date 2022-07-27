@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // import { EMPLOYEE_DETAIL_ITEM as employees } from 'constants/employeeDetailItem';
@@ -6,18 +6,22 @@ import { columns } from 'constants/ListHeader';
 import DeleteModal from './DeleteModal';
 import { DeleteIcon, EditIcon } from 'assets/icons/images';
 // import { ListComponentProps } from './types';
-import { useGetEmployeeListQuery,useDeleteEmployeeMutation} from 'services/api';
+import { useGetEmployeeListQuery} from 'services/api';
 
 const ListComponent: FC = () => {
     const { data } = useGetEmployeeListQuery();
-    const [deleteEmployee]=useDeleteEmployeeMutation();
+    
+    const [deleteClicked,setDelete]=useState(false);
+    const [clickedId,setclickedId]=useState(0);
     // const { setId } = props;
     
     const navigate = useNavigate();
     
 
-    const handleDelete = (clickedId) => {
-        deleteEmployee(clickedId);
+    const handleDelete = (clicked) => {//clickedId
+        // deleteEmployee(clickedId);
+        setclickedId(clicked);
+        setDelete(true);
     };
     const handleEdit = () => {
         navigate('/update-employee');
@@ -54,11 +58,15 @@ const ListComponent: FC = () => {
                          text-left md:w-28 lg:w-16 2xl:w-28`}>
                                         {!employee.isActive ? 'Active' : 'Inactive'}
                                     </div> </td>
-                                <td className='p-4 text-center' >   {employee.department_id}</td>
-                                <td className='p-4 text-center'><button onClick={()=>handleDelete(employee.Id)}>
+                                <td className='p-4 text-center' >   {employee.department_id}</td>   
+                                <td className='p-4 text-center'>
+                                    <button onClick={()=>handleDelete(employee.Id)}>
                                     <DeleteIcon />
                                 </button>
-                                    <DeleteModal />
+                                {deleteClicked &&(
+                                    <DeleteModal setDelete={setDelete} clickedId={clickedId}/>)
+                                }
+                                    
                                     <button className="pl-5" onClick={() => handleEdit()}>
                                         <EditIcon />
                                     </button></td>

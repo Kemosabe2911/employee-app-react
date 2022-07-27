@@ -8,7 +8,7 @@ import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import Label from './Label';
 import Button from './Button';
-import FileInput from './FileInput';
+// import FileInput from './FileInput';
 import { useGetEmployeeListQuery,useAddEmployeeMutation } from 'services/api';
 // import FileInput from './FileInput';
 
@@ -21,8 +21,8 @@ const schema = yup.object({
     city: yup.string().required('City is a required field'),
     state: yup.string().required('State is a required field '),
     email: yup.string().email('Not a valid e-mail id').required('E-mail is a required field'),
-    role_id: yup.number().required(),
-    department_id: yup.number().required(),
+    role_id: yup.string().required('Role is a required field'),
+    department_id: yup.string().required('Department is a required field '),
 
 
 });
@@ -79,8 +79,8 @@ const CreateEmployeeForm: FC = () => {
     return (
         <div className='mx-auto mt-6 flex flex-initial'>
             <div className=' m-4 mx-auto h-[1200px] w-[55%] rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%]'>
-                <form onSubmit={handleSubmit((data1) => {//data
-                    addEmployee(data1);
+                <form onSubmit={handleSubmit((data2) => {//data
+                    addEmployee(data2);
                     reset();
                 })}>
                     <div className='p-2  xl:flex'>
@@ -140,8 +140,7 @@ const CreateEmployeeForm: FC = () => {
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial  '>
                             <Label name='Role' />
                             <DropdownMenu registerFunction={register} registerName='role_id'
-                                dropdown={dropdown1}
-                                defaults='Admin' />
+                                dropdown={dropdown1} />
                             <p className='pl-6 font-sans text-xs normal-case 
                                 text-red-600'> {errors.role_id?.message}</p>
                         </div>
@@ -149,16 +148,16 @@ const CreateEmployeeForm: FC = () => {
                         <div className=' w-1/3 flex-initial' >
                             <Label name='Department' />
                             <DropdownMenu registerFunction={register}
-                                registerName='department_id' dropdown={dropdown2} defaults='' />
+                                registerName='department_id' dropdown={dropdown2} />
                             <p className='pl-6 font-sans text-xs normal-case 
                                 text-red-600'>{errors.department_id?.message}</p>
                         </div>
                     </div>
-                    <div className='p-2 xl:flex'>
+                    {/* <div className='p-2 xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
                             <FileInput />
                         </div>
-                    </div>
+                    </div> */}
                     <div className='flex p-2'>
                         <div className='ml-2 flex-initial'>
                             <Button type="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white'
