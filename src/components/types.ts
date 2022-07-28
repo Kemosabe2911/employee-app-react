@@ -33,7 +33,7 @@ export type DropdownMenuProps = {
   dropdown:Array<Dropdown>;
   registerFunction: UseFormRegister<FieldValues>;
   registerName: string;
-  defaults:string | number;
+  defaults?:string | number;
 };
 
 
