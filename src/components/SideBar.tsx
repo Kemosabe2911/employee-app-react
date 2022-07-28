@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { SIDE_BAR_CONSTANTS as sideBarItems } from 'constants/sideBarItems';
-import { LOGO, Profile } from 'assets/icons/images';
+import { LOGO } from 'assets/icons/images';
 
 
 const SideBar: FC = () => {
@@ -10,7 +10,7 @@ const SideBar: FC = () => {
     const location = useLocation();
     let currentPath = location.pathname;
     if (currentPath == '/') {
-        currentPath = '/create-employee';
+        currentPath = '/employee-list';
     }
     const [buttonId, setId] = useState<string>(currentPath);
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const SideBar: FC = () => {
     };
     return (
         <div className="fixed z-40 h-full">
-            <div className="flex h-[90%] w-[350px] flex-col border-2 bg-white shadow-lg">
+            <div className="flex h-[100%] w-[350px] flex-col border-2 bg-white shadow-lg">
                 <img className="h-[170px] w-[300px]" src={LOGO} alt="not found" />
                 <div className="flex flex-col pl-[16px]">
                     {sideBarItems.map(sideBarItem => {
@@ -40,13 +40,13 @@ const SideBar: FC = () => {
                     })}
                 </div>
             </div>
-            <div className=" flex h-[10%] w-[350px] flex-row border-x-2 bg-white">
+            {/* <div className=" flex h-[10%] w-[350px] flex-row border-x-2 bg-white">
                 <Profile className='mt-5 ml-10'></Profile>
                 <div className='mt-5 ml-5'>
                     <div className="text-base">Whitney Francis</div>
                     <button className=" text-sm text-gray-500">View Profile</button>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
