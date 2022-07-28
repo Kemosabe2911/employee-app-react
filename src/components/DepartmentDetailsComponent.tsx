@@ -6,7 +6,7 @@ import { useGetDepartmentListQuery } from 'services/api';
 
 const DepartmentDetailsComponent: FC = () => {
 
-    const {data} =useGetDepartmentListQuery();
+    const { data } = useGetDepartmentListQuery();
 
     return (
         <table className="mx-auto table-auto overflow-x-scroll">
@@ -21,14 +21,14 @@ const DepartmentDetailsComponent: FC = () => {
             <tbody>
                 {data?.map(department => {
                     return (
-                        <div key={department.Id}>
-                            <tr className=" mt-3 flex  w-[100%] gap-20  bg-white p-5  text-center shadow-xl h-14 ">
-                                <td className="w-48">{department.Id}</td>
-                                <td className="w-48">{department.name}</td>
-                                <td className="w-48">{department.Department.website}</td>
-                                <td className="w-48">{department.Department.department_room}</td>
-                            </tr>
-                        </div>
+                        <tr key={department.Id}
+                            className=" mt-3 flex  h-14 w-[100%]  gap-20 bg-white  p-5 text-center shadow-xl ">
+                            <td className="w-48">{department.Id}</td>
+                            <td className="w-48">{department.name}</td>
+                            <td className="w-48">{department.Department.website}</td>
+                            <td className="w-48">{department.Department.department_room}</td>
+                        </tr>
+
                     );
                 })}
             </tbody>

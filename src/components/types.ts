@@ -33,7 +33,7 @@ export type DropdownMenuProps = {
   dropdown: Array<Dropdown>;
   registerFunction: UseFormRegister<any>;
   registerName: string;
-  defaults: string | number;
+  defaults?:string | number;
 };
 
 
@@ -63,6 +63,23 @@ export type DepartmentDetailsApi = {
     department_code: string;
     website: string;
   }
+}
+
+  export type RoleDetailsApi={
+    Id:number;
+    role:string;
+  }
+
+export type CreateEmployeeApiRequest={
+    age:number;
+    city:string;
+    department_id:number;
+    email:string;
+    name:string;
+    role_id:number;
+    state:string;
+    street:string;
+    username:string;
 }
 
 export type EmployeeListApiResponse = {
