@@ -22,7 +22,7 @@ const DepartmentDetailsComponent: FC = () => {
                 {data?.map(department => {
                     return (
                         <div key={department.Id}>
-                            <tr className=" mt-3 flex  w-[100%] gap-20  bg-white p-5  text-center shadow-xl">
+                            <tr className=" mt-3 flex  w-[100%] gap-20  bg-white p-5  text-center shadow-xl h-14 ">
                                 <td className="w-48">{department.Id}</td>
                                 <td className="w-48">{department.name}</td>
                                 <td className="w-48">{department.Department.website}</td>

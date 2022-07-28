@@ -1,6 +1,6 @@
 import apiWithTag from 'services';
 
-import { DepartmentDetailsApi } from 'components/types';
+import { DepartmentDetailsApi, UpdateEmployeeReq } from 'components/types';
 import { EmployeeListApiResponse } from 'components/types';
 import { EmployeeDetailsApi } from 'components/types';
 
@@ -17,10 +17,11 @@ const employeeApi = apiWithTag.injectEndpoints({
         getEmployeeDetails: builder.query<EmployeeDetailsApi, string>({
             query: (id) => `/employee/${id}`,
         }),
-        updateEmployee: builder.mutation({
-            query: (id) => ({
-              url: `/employees/${id}`,
+        updateEmployee: builder.mutation<any, UpdateEmployeeReq>({
+            query: ({ body, id }) => ({
+              url: `/employee/${id}`,
               method: 'PUT',
+              body: body,
             }),
             invalidatesTags: ['Employee'],
           }),

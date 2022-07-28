@@ -9,31 +9,31 @@ export type MainBarInputField = {
   buttonIcon: string;
   buttonNavigateUrl: string;
 };
- export type SideBarInputField ={
-  setDescriptionId: (arg1:string)=> void;
- };
+export type SideBarInputField = {
+  setDescriptionId: (arg1: string) => void;
+};
 
 export type InputFieldProps = {
   placeholder: string;
   type: string;
-  registerFunction: UseFormRegister<FieldValues>;
+  registerFunction: UseFormRegister<any>;
   registerName: string;
-  value:string | number;
+  value: string | number;
 };
 
 export type LabelProps = {
   name: string;
 };
-export type Dropdown={
-  Id:number;
-  name:string;
+export type Dropdown = {
+  Id: number;
+  name: string;
 }
 
 export type DropdownMenuProps = {
-  dropdown:Array<Dropdown>;
-  registerFunction: UseFormRegister<FieldValues>;
+  dropdown: Array<Dropdown>;
+  registerFunction: UseFormRegister<any>;
   registerName: string;
-  defaults:string | number;
+  defaults: string | number;
 };
 
 
@@ -44,7 +44,7 @@ export type ButtonProps = {
   text: string;
   border: string;
   type: 'button' | 'submit' | 'reset';
-  onclick?:()=>void;
+  onclick?: () => void;
 }
 // export type UpdateEmployeeProps={
 //   employeeid:number;
@@ -53,84 +53,104 @@ export type ButtonProps = {
 //   setId:(clickedId:number)=>void;
 // }
 
-export type DepartmentDetailsApi={  
-  Id:number;
-  name:string;
-  department_details_id:number;
-  Department:{
-    Id:number;
-    department_room:string;
-    department_code:string;
-    website:string;}
+export type DepartmentDetailsApi = {
+  Id: number;
+  name: string;
+  department_details_id: number;
+  Department: {
+    Id: number;
+    department_room: string;
+    department_code: string;
+    website: string;
   }
+}
 
 export type EmployeeListApiResponse = {
-  Id:number;
+  Id: number;
   name: string;
   Username: string;
   Email: string;
-  age:number;
-  isActive:boolean;
-  department_id:number;
-  role_id:number;
-  address_id:number;
-  isAdmin:boolean;
+  age: number;
+  isActive: boolean;
+  department_id: number;
+  role_id: number;
+  address_id: number;
+  isAdmin: boolean;
   Department:
   {
-    Id:number;
-  name:string;
-  department_details_id:number;
-  Department:{
-    Id:number;
-    department_room:string;
-    department_code:string;
-    website:string;}
-  } 
-  Role:{
-    Id:number;
-    role:string;
+    Id: number;
+    name: string;
+    department_details_id: number;
+    Department: {
+      Id: number;
+      department_room: string;
+      department_code: string;
+      website: string;
+    }
   }
- Address:{
-  Id:number;
-  street:string;
-  city:string;
-  state:string;
- }
+  Role: {
+    Id: number;
+    role: string;
+  }
+  Address: {
+    Id: number;
+    street: string;
+    city: string;
+    state: string;
+  }
 };
 
-export type EmployeeDetailsApi = 
-{
+export type EmployeeDetailsApi =
+  {
     map(arg0: (employee: any) => void);
-  Id:number;
-  name: string;
-  Username: string;
-  Email: string;
-  age:number;
-  is_active:boolean;
-  department_id:number;
-  role_id:number;
-  address_id:number;
-  isAdmin:boolean;
-  Department:
-  {
-    Id:number;
-  name:string;
-  department_details_id:number;
-  Department:{
-    Id:number;
-    department_room:string;
-    department_code:string;
-    website:string;}
-  },
+    Id: number;
+    name: string;
+    Username: string;
+    Email: string;
+    age: number;
+    is_active: boolean;
+    department_id: number;
+    role_id: number;
+    address_id: number;
+    isAdmin: boolean;
+    Department:
+    {
+      Id: number;
+      name: string;
+      department_details_id: number;
+      Department: {
+        Id: number;
+        department_room: string;
+        department_code: string;
+        website: string;
+      }
+    },
 
-  Role:{
-    Id:number;
-    role:string;
-  }
- Address:{
-  Id:number;
-  street:string;
-  city:string;
-  state:string;
- }
+    Role: {
+      Id: number;
+      role: string;
+    }
+    Address: {
+      Id: number;
+      street: string;
+      city: string;
+      state: string;
+    }
+  };
+
+export type UpdateEmployeeForm = {
+  employeeName: string,
+  userName: string,
+  age: number,
+  street: string,
+  city: string,
+  state: string,
+  role_id: number,
+  department_id: number,
+  status: boolean,
 };
+
+export type UpdateEmployeeReq = {
+  id: number,
+  body: any
+}

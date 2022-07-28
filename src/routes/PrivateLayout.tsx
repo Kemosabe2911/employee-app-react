@@ -28,7 +28,7 @@ const PrivateLayout = () => {
                         
                         <Route
                             path={RoutesPath.ALL}
-                            element={<Navigate replace={true} to={RoutesPath.CREATE_EMPLOYEE} />}
+                            element={<Navigate replace={true} to={RoutesPath.EMPLOYEE_LIST} />}
                         />
                     </Routes>
                 </Suspense>
