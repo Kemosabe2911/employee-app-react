@@ -8,9 +8,8 @@ import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import Label from './Label';
 import Button from './Button';
-// import FileInput from './FileInput';
-import { useGetEmployeeListQuery,useAddEmployeeMutation } from 'services/api';
-// import FileInput from './FileInput';
+import FileInput from './FileInput';
+import {useAddEmployeeMutation, useGetDepartmentListQuery, useGetRoleListQuery } from 'services/api';
 
 const schema = yup.object({
     name: yup.string().required('Employee Name is a required field'),
@@ -21,15 +20,17 @@ const schema = yup.object({
     city: yup.string().required('City is a required field'),
     state: yup.string().required('State is a required field '),
     email: yup.string().email('Not a valid e-mail id').required('E-mail is a required field'),
-    role_id: yup.string().required('Role is a required field'),
-    department_id: yup.string().required('Department is a required field '),
+    role_id: yup.number().required().typeError('Role is a required field '),
+    department_id: yup.number()
+    .required().typeError('Department is a required field '),
 
 
 });
 
 const CreateEmployeeForm: FC = () => {
 
-    const { data } = useGetEmployeeListQuery();
+    const {data :DepartmentData} =useGetDepartmentListQuery();
+    const {data : RoleData} = useGetRoleListQuery();
 
     const [addEmployee] = useAddEmployeeMutation();
 
@@ -45,36 +46,20 @@ const CreateEmployeeForm: FC = () => {
     // };
 
     const dropdown1 = [];
-    data?.map(employee => {
-        if (dropdown1.length == 0)
-            dropdown1.push({
-                'Id': employee.Role.Id,
-                'name': employee.Role.role
-            });
-        dropdown1?.map(dropdown => {
-            if (employee.Role.Id != dropdown.Id)
-                dropdown1.push({
-                    'Id': employee.Role.Id,
-                    'name': employee.Role.role
-                });
+    RoleData?.map(department => {
+        dropdown1.push({
+            'Id': department.Id,
+            'name': department.role
         });
-    });
+});
   
     const dropdown2 = [];
-    data?.map(employee => {
-        if (dropdown2.length == 0)
-        dropdown2.push({
-            'Id': employee.Department.Id,
-            'name': employee.Department.name
-        });
-        dropdown2?.map(dropdown => {
-            if (employee.Department.Id != dropdown.Id)
+    DepartmentData?.map(department => {
                 dropdown2.push({
-                    'Id': employee.Department.Id,
-                    'name': employee.Department.name
+                    'Id': department.Id,
+                    'name': department.name
                 });
         });
-    });
 
     return (
         <div className='mx-auto mt-6 flex flex-initial'>
@@ -153,11 +138,11 @@ const CreateEmployeeForm: FC = () => {
                                 text-red-600'>{errors.department_id?.message}</p>
                         </div>
                     </div>
-                    {/* <div className='p-2 xl:flex'>
+                    <div className='p-2 xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
                             <FileInput />
                         </div>
-                    </div> */}
+                    </div>
                     <div className='flex p-2'>
                         <div className='ml-2 flex-initial'>
                             <Button type="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white'

@@ -12,7 +12,7 @@ const DeleteModal = (props) => {
         setDelete(false);
     };
     return (
-        <div className='fixed inset-0  h-full w-full overflow-y-auto bg-gray-600/60'>
+        <div className='fixed inset-0  h-full w-full overflow-y-auto  bg-gray-600/20'>
             <div className='relative top-60 mx-auto h-[209px] w-[400px] rounded-md border
             bg-white p-5 text-center opacity-100 shadow-lg'>
                 <p className='p-1 text-2xl font-normal'>Are You Sure?</p>

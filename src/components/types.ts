@@ -58,6 +58,23 @@ export type DepartmentDetailsApi={
     website:string;}
   }
 
+  export type RoleDetailsApi={
+    Id:number;
+    role:string;
+  }
+
+export type CreateEmployeeApiRequest={
+    age:number;
+    city:string;
+    department_id:number;
+    email:string;
+    name:string;
+    role_id:number;
+    state:string;
+    street:string;
+    username:string;
+}
+
 export type EmployeeListApiResponse = {
   Id:number;
   name: string;

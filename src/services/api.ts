@@ -1,12 +1,16 @@
 import apiWithTag from 'services';
 
-import { DepartmentDetailsApi } from 'components/types';
+import { DepartmentDetailsApi, RoleDetailsApi } from 'components/types';
 import { EmployeeListApiResponse } from 'components/types';
 
 const employeeApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
     getDepartmentList: builder.query<DepartmentDetailsApi[], void>({
       query: () => '/department',
+      providesTags: ['Employee']
+    }),
+    getRoleList: builder.query<RoleDetailsApi[],void>({
+      query: () => '/role',
       providesTags: ['Employee']
     }),
     getEmployeeList: builder.query<EmployeeListApiResponse[], void>({
@@ -34,6 +38,7 @@ const employeeApi = apiWithTag.injectEndpoints({
 
 export const {
   useGetDepartmentListQuery,
+  useGetRoleListQuery,
   useGetEmployeeListQuery,
   useAddEmployeeMutation,
   useDeleteEmployeeMutation
