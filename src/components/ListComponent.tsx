@@ -23,10 +23,14 @@ const ListComponent: FC = () => {
         setclickedId(clicked);
         setDelete(true);
     };
-    const handleEdit = () => {
-        navigate('/update-employee');
-        // setId(clickedId);
+    const handleEdit = (id) => {
+        navigate('/update-employee/'+id);
     };
+    const handleEmployeeDetailsClick =(id)=>{
+        navigate('/employee-details/'+id);
+
+    };
+
     return (
         <>
             <table className='mx-auto mt-10 w-[96%] table-auto align-middle md:table-fixed'>
@@ -47,8 +51,11 @@ const ListComponent: FC = () => {
                         // <div  className=''>
                         <tbody key={employee.Id} className='m-10'>
                             <tr className=" m-4 h-4 rounded-xl bg-white"></tr>
-                            <tr className=" m-4 h-14 rounded-xl bg-white shadow-md" >
-                                <td className='m-2 ml-4 p-4 text-center'>   {employee.name}</td>
+                            <tr
+                            className=" m-4 h-14 rounded-xl bg-white shadow-md" >
+                               
+                                <td onClick={()=>handleEmployeeDetailsClick(employee.Id)}
+                                className='m-2 ml-4 cursor-pointer p-4 text-center'>   {employee.name}</td>
                                 <td className='p-4 text-center'>   {employee.Username}</td>
                                 <td className='p-4 text-center'>   {employee.age}</td>
                                 <td className='p-4 text-center'>   {employee.role_id}</td>
@@ -66,8 +73,7 @@ const ListComponent: FC = () => {
                                 {deleteClicked &&(
                                     <DeleteModal setDelete={setDelete} clickedId={clickedId}/>)
                                 }
-                                    
-                                    <button className="pl-5" onClick={() => handleEdit()}>
+                                    <button className="pl-5" onClick={() => handleEdit(employee.Id)}>
                                         <EditIcon />
                                     </button></td>
                             </tr>

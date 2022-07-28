@@ -8,27 +8,24 @@ import CreateEmployeePage from 'pages/CreateEmployeePage';
 import EmployeeDetailsPage from 'pages/EmployeeDetailsPage';
 import DepartmentDetailsPage from 'pages/DepartmentDetailsPage';
 import EmployeeListPage from 'pages/EmployeeListPage';
-import MainBar from 'components/MainBar';
 import UpdateEmployeePage from 'pages/UpdateEmployeePage';
 // import UpdateEmployee from 'components/UpdateEmployee';
 
 const PrivateLayout = () => {
 
-    // const [clickedId, setclickedId] = useState<number>(0);
-
-
     return (
         <div className="flex">
             <SideBar/>
             <div className="relative left-[350px] flex h-[100vh] flex-col md:fixed">
-                <MainBar />
                 <Suspense fallback="Loading">
                     <Routes>
                         <Route path={RoutesPath.CREATE_EMPLOYEE} element={<CreateEmployeePage />} />
                         <Route path={RoutesPath.EMPLOYEE_DETAILS} element={<EmployeeDetailsPage />} />
                         <Route path={RoutesPath.DEPARTMENT_DETAILS} element={<DepartmentDetailsPage />} />
                         <Route path={RoutesPath.EMPLOYEE_LIST} element={<EmployeeListPage/>} />
-                        <Route path={RoutesPath.UPDATE_EMPLOYEE} element={<UpdateEmployeePage/>} />
+                        <Route path={`${RoutesPath.UPDATE_EMPLOYEE}/:id`} element={<UpdateEmployeePage/>} />
+                        <Route path={`${RoutesPath.EMPLOYEE_DETAILS}/:id`} element={<EmployeeDetailsPage/>} />
+                        
                         <Route
                             path={RoutesPath.ALL}
                             element={<Navigate replace={true} to={RoutesPath.CREATE_EMPLOYEE} />}
