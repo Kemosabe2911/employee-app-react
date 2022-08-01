@@ -1,15 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useNavigate } from 'react-router-dom';
 
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import Label from './Label';
 import Button from './Button';
 import FileInput from './FileInput';
-import {useAddEmployeeMutation, useGetDepartmentListQuery, useGetRoleListQuery } from 'services/api';
+import { useAddEmployeeMutation, useAddFileMutation, useGetDepartmentListQuery, useGetRoleListQuery }
+    from 'services/api';
 
 const schema = yup.object({
     name: yup.string().required('Employee Name is a required field'),
@@ -22,53 +23,56 @@ const schema = yup.object({
     email: yup.string().email('Not a valid e-mail id').required('E-mail is a required field'),
     role_id: yup.number().required().typeError('Role is a required field '),
     department_id: yup.number()
-    .required().typeError('Department is a required field '),
-
-
+        .required().typeError('Department is a required field '),
 });
 
 const CreateEmployeeForm: FC = () => {
 
-    const {data :DepartmentData} =useGetDepartmentListQuery();
-    const {data : RoleData} = useGetRoleListQuery();
-
+    const { data: DepartmentData } = useGetDepartmentListQuery();
+    const { data: RoleData } = useGetRoleListQuery();
     const [addEmployee] = useAddEmployeeMutation();
+    const [addFile] = useAddFileMutation();
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm(
+    const { register, reset, handleSubmit, formState: { errors } } = useForm(
         {
             resolver: yupResolver(schema),
         }
     );
-    const navigate = useNavigate();
 
-    // const handleUpload=()=>{
-    //     // console.log('HO');
-    // };
+    const navigate = useNavigate();
+    const [file, setfiles] = useState(null);
 
     const dropdown1 = [];
     RoleData?.map(department => {
         dropdown1.push({
-            'Id': department.Id,
+            'id': department.id,
             'name': department.role
         });
-});
-  
+    });
     const dropdown2 = [];
     DepartmentData?.map(department => {
-                dropdown2.push({
-                    'Id': department.Id,
-                    'name': department.name
-                });
+        dropdown2.push({
+            'id': department.id,
+            'name': department.name
         });
+    });
 
     return (
-        <div className='mx-auto mt-6 flex flex-initial'>
-            <div className=' m-4 mx-auto h-[1200px] w-[55%] rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%]'>
-                <form onSubmit={handleSubmit((data2) => {//data
-                    addEmployee(data2);
+        <div className='mx-auto mt-6 flex flex-initial '>
+            <div className=' m-4 mx-auto h-[1200px] w-[55%] overflow-auto rounded-xl bg-white shadow-xl 
+            md:h-[1000px] md:w-[90%] md:justify-center lg:h-[650px] lg:w-[90%]'>
+                <form onSubmit={handleSubmit(async (SubmittedData) => {
+                    if (SubmittedData) {
+                        const addEmployeeResponse: any = await addEmployee(SubmittedData);
+                        const formData = new FormData();
+                        formData.append('name', file?.name);
+                        formData.append('file', file);
+                        addFile({ body: formData, id: addEmployeeResponse?.data?.id });
+                    }
                     reset();
+                    navigate('/employee-list');
                 })}>
-                    <div className='p-2  xl:flex'>
+                    <div className=' p-2 md:justify-center  xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
                             <Label name='Employee Name' />
                             <InputField registerFunction={register} placeholder='Employee Name'
@@ -140,7 +144,7 @@ const CreateEmployeeForm: FC = () => {
                     </div>
                     <div className='p-2 xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
-                            <FileInput />
+                            <FileInput setFiles={setfiles}  files={file} />
                         </div>
                     </div>
                     <div className='flex p-2'>
@@ -152,7 +156,7 @@ const CreateEmployeeForm: FC = () => {
                             <Button type="reset" bgcolor='w-36 bg-white'
                                 textcolor='text-black'
                                 bghover='hover:bg-white' text='Cancel'
-                                border='border border-zinc-900 hover:border-brightCelurean'
+                                border='border border-zinc-900 '
                                 onclick={() => navigate('/employee-list')} />
                         </div>
                     </div>
@@ -161,4 +165,5 @@ const CreateEmployeeForm: FC = () => {
         </div>
     );
 };
+
 export default CreateEmployeeForm;

@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 import InputField from './InputField';
 import Button from './Button';
-import { MailIcon, PasswordIcon } from 'assets/icons/images';
+import { MailIcon, PasswordIcon } from 'assets/icons/index';
 import { useAddLoginMutation } from 'services/api';
-import {changeAuthentication} from 'store/reducers';
+import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
 
 
@@ -44,7 +44,7 @@ const Login: FC = () => {
                 if('error' in loginResponse)
                 {
                 dispatch(changeAuthentication('false'));
-                console.log('error');
+             
                 }
                 else{
                 dispatch(changeAuthentication('true'));
