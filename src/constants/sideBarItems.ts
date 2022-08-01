@@ -23,6 +23,12 @@ export const SIDE_BAR_CONSTANTS = [
         description: 'Department List',
         url: '/department-details'
     },
+    {
+        id: '/logout',
+        icon: 'fa fa-sign-out',
+        description: 'Log Out',
+        url: '/logout'
+    },
     
 ];
 

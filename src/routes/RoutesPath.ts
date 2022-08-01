@@ -6,5 +6,8 @@ const routesPath = {
     DEPARTMENT_DETAILS:'/department-details',
     EMPLOYEE_LIST:'/employee-list',
     UPDATE_EMPLOYEE:'/update-employee',
+    LOGIN:'/login',
+    SIGNUP:'/sign-up',
+    LOGOUT:'/logout',
 };
 export default routesPath;

@@ -9,6 +9,7 @@ import EmployeeDetailsPage from 'pages/EmployeeDetailsPage';
 import DepartmentDetailsPage from 'pages/DepartmentDetailsPage';
 import EmployeeListPage from 'pages/EmployeeListPage';
 import UpdateEmployeePage from 'pages/UpdateEmployeePage';
+import LogoutPage from 'pages/LogoutPage';
 // import UpdateEmployee from 'components/UpdateEmployee';
 
 const PrivateLayout = () => {
@@ -23,6 +24,7 @@ const PrivateLayout = () => {
                         <Route path={RoutesPath.EMPLOYEE_DETAILS} element={<EmployeeDetailsPage />} />
                         <Route path={RoutesPath.DEPARTMENT_DETAILS} element={<DepartmentDetailsPage />} />
                         <Route path={RoutesPath.EMPLOYEE_LIST} element={<EmployeeListPage/>} />
+                        <Route path={RoutesPath.LOGOUT} element={<LogoutPage/>} />
                         <Route path={`${RoutesPath.UPDATE_EMPLOYEE}/:id`} element={<UpdateEmployeePage/>} />
                         <Route path={`${RoutesPath.EMPLOYEE_DETAILS}/:id`} element={<EmployeeDetailsPage/>} />
                         

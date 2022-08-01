@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import React from 'react';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import { string } from 'yup';
 
@@ -170,4 +171,8 @@ export type UpdateEmployeeForm = {
 export type UpdateEmployeeReq = {
   id: number,
   body: any
-}
+};
+
+export type AuthenticationProps ={
+  setAuthentication:React.Dispatch<React.SetStateAction<string>>
+};
