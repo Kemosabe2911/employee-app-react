@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -9,10 +9,10 @@ import Label from './Label';
 import Button from './Button';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
-import { useUpdateEmployeeMutation, useGetEmployeeListQuery } from 'services/api';
+import { useUpdateEmployeeMutation, useGetDepartmentListQuery, useGetRoleListQuery,
+         useAddFileMutation } from 'services/api';
 import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import FileInput from './FileInput';
-// import { UpdateEmployeeForm } from './types';
 
 const schema = yup.object({
     name: yup.string().required('Employee Name is a required field'),
@@ -24,58 +24,38 @@ const schema = yup.object({
     state: yup.string().required('State is a required field '),
     role_id: yup.number().required(),
     department_id: yup.number().required(),
-    status: yup.boolean().required(),
-
+    email: yup.string().email('Not a valid e-mail id').required('E-mail is a required field'),
+    file: yup.mixed().required('File is a required field'),   
 });
-
 
 const UpdateEmployee: FC = () => {
 
-    const { data: employeeListData } = useGetEmployeeListQuery();
-
+    const { data: DepartmentData } = useGetDepartmentListQuery();
+    const { data: RoleData } = useGetRoleListQuery();
+    const [addFile] = useAddFileMutation();
+    const [updateData] = useUpdateEmployeeMutation();
+    
+    const [file, setfiles] = useState(null);
     const dropdown1 = [];
-    employeeListData?.map(employee => {
-        if (dropdown1.length == 0)
-            dropdown1.push({
-                'Id': employee.Role.Id,
-                'name': employee.Role.role
-            });
-        dropdown1?.map(dropdown => {
-            if (employee.Role.Id != dropdown.Id)
-                dropdown1.push({
-                    'Id': employee.Role.Id,
-                    'name': employee.Role.role
-                });
+    RoleData?.map(department => {
+        dropdown1.push({
+            'id': department.id,
+            'name': department.role
         });
     });
-
     const dropdown2 = [];
-    employeeListData?.map(employee => {
-        if (dropdown2.length == 0)
-            dropdown2.push({
-                'Id': employee.Department.Id,
-                'name': employee.Department.name
-            });
-        dropdown2?.map(dropdown => {
-            if (employee.Department.Id != dropdown.Id)
-                dropdown2.push({
-                    'Id': employee.Department.Id,
-                    'name': employee.Department.name
-                });
+    DepartmentData?.map(department => {
+        dropdown2.push({
+            'id': department.id,
+            'name': department.name
         });
     });
 
     const urlId = useParams();
-    const [getEmployeeDetails, { data: data }] =
-        useLazyGetEmployeeDetailsQuery();
-
-
+    const [getEmployeeDetails, { data: data }] = useLazyGetEmployeeDetailsQuery();
     useEffect(() => {
         getEmployeeDetails(urlId.id);
     }, [urlId]);
-
-    const [updateData] = useUpdateEmployeeMutation();
-
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
@@ -90,8 +70,8 @@ const UpdateEmployee: FC = () => {
                 state: '',
                 role_id: 0,
                 department_id:0,
-                status: false,
-
+                email:'',
+                file:null,
             }
         }
     );
@@ -100,35 +80,36 @@ const UpdateEmployee: FC = () => {
         let defaultValues = {
 
             name: data?.name,
-            username: data?.Username,
+            username: data?.username,
             age: data?.age,
             street: data?.Address.street,
             city: data?.Address.city,
             state: data?.Address.state,
-            role_id: data?.Role.Id,
+            role_id: data?.Role.id,
             department_id: data?.department_id ,
-            status: data?.is_active,
+            email: data?.email,
+            file:data?.id_proof,
         };
         reset(defaultValues);
     },[data,reset]);
     
-
-    // const dropdown1 = ['HR', 'Developer',  'Admin',  'Trainee', 'FE'];
-    // const dropdown2 = ['Product Engineering', 'Human Resource', 'Finance'];
     const navigate = useNavigate();
 
     return (
         <div className='mx-auto mt-6 flex flex-initial  '>
             <div className=' m-4 mx-auto h-[1200px]  rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%] '>
-                <form onSubmit={handleSubmit((data1) => {
-                    // console.log('Update:' , data1);
-                    const ID = parseInt(urlId.id);
-                    updateData({ body: data1, id: ID} );
+                <form onSubmit={handleSubmit((updatedData) => {
+                    const updateId = parseInt(urlId.id);
+                    updateData({ body: updatedData, id: updateId} );
+                    const formData = new FormData();
+                    formData.append('name', file?.name);
+                    formData.append('file', file);
+                    addFile({ body: formData, id: updateId });
                     reset();
                     navigate('/employee-list');
                 })}>
                     <div className='p-2  xl:flex'>
-                        <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
+                        <div className='flex-wrap xl:w-1/3 xl:flex-initial'>
                             <Label name='Employee Name' />
                             <InputField registerFunction={register} placeholder='Employee Name'
                                 registerName='name' type='string' value={data?.name} />
@@ -138,7 +119,7 @@ const UpdateEmployee: FC = () => {
                         <div className=' w-1/3 flex-initial '>
                             <Label name='User Name' />
                             <InputField registerFunction={register} placeholder='User Name'
-                                registerName='username' type='string' value={data?.Username} />
+                                registerName='username' type='string' value={data?.username} />
                             <p className='pl-6 font-sans text-xs normal-case
                          text-red-600'>{errors.username?.message}</p>
                         </div>
@@ -174,13 +155,13 @@ const UpdateEmployee: FC = () => {
                         </div>
                     </div>
                     <div className='p-2  xl:flex'>
-                        {/* <div className='w-1/3 flex-initial '>
+                        <div className='w-1/3 flex-initial '>
                             <Label name='E-mail' />
                             <InputField registerFunction={register} placeholder='E-Mail'
-                                registerName='email' type='string' value={data?.Email} />
+                                registerName='email' type='string' value={data?.email} />
                             <p className='pl-6 font-sans text-xs normal-case
                                  text-red-600'>{errors.email?.message}</p>
-                        </div> */}
+                        </div>
                         <div className='w-1/3 flex-initial  '>
                             <Label name='Role' />
                             <DropdownMenu registerFunction={register} registerName='role' dropdown={dropdown1}
@@ -199,7 +180,8 @@ const UpdateEmployee: FC = () => {
                     </div>
                     <div className='p-2 xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
-                            <FileInput />
+                            <FileInput registerFunction={register} registerName='file' setFiles={setfiles} files={file} 
+                            defaultFileText={data?.id_proof} />
                         </div>
                     </div>
                     <div className='flex p-2'>

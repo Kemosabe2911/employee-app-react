@@ -4,7 +4,8 @@ import {ReactComponent as EditIcon} from './edit.svg';
 
 
 export const LOGO = '/icons/logo.jpeg';
-export {Profile,
+export {
+Profile,
 DeleteIcon,
 EditIcon
 };

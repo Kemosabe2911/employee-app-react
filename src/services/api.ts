@@ -1,6 +1,6 @@
 import apiWithTag from 'services';
 
-import { DepartmentDetailsApi, UpdateEmployeeReq, RoleDetailsApi } from 'components/types';
+import { DepartmentDetailsApi, UpdateEmployeeReq, RoleDetailsApi} from 'components/types';
 import { EmployeeListApiResponse } from 'components/types';
 import { EmployeeDetailsApi } from 'components/types';
 
@@ -8,6 +8,10 @@ const employeeApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
     getDepartmentList: builder.query<DepartmentDetailsApi[], void>({
       query: () => '/department',
+      providesTags: ['Employee']
+    }),
+    getRoleList: builder.query<RoleDetailsApi[], void>({
+      query: () => '/role',
       providesTags: ['Employee']
     }),
     getEmployeeList: builder.query<EmployeeListApiResponse[], void>({
@@ -33,6 +37,13 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Employee'],
     }),
+    addFile:builder.mutation({
+      query:(payload) =>({
+        url: `/employee/id-proof/${payload.id}`,
+        method: 'PATCH',
+        body: payload.body,
+      }),
+    }),
     deleteEmployee: builder.mutation({
       query: (id) => ({
         url: `/employee/${id}`,
@@ -40,16 +51,8 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Employee'],
     }),
-
-
-    getRoleList: builder.query<RoleDetailsApi[], void>({
-      query: () => '/role',
-      providesTags: ['Employee']
-    }),
-
   }),
 });
-
 
 export const {
   useGetRoleListQuery,
@@ -58,5 +61,6 @@ export const {
   useLazyGetEmployeeDetailsQuery,
   useUpdateEmployeeMutation,
   useAddEmployeeMutation,
+  useAddFileMutation,
   useDeleteEmployeeMutation
 } = employeeApi;

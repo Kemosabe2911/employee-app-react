@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { UseFormRegister, FieldValues } from 'react-hook-form';
-import { string } from 'yup';
+import { UseFormRegister } from 'react-hook-form';
+import React from 'react';
 
 export type MainBarInputField = {
   description: string;
@@ -9,8 +8,21 @@ export type MainBarInputField = {
   buttonIcon: string;
   buttonNavigateUrl: string;
 };
-export type SideBarInputField = {
-  setDescriptionId: (arg1: string) => void;
+
+export type FileInputProps = {
+  setFiles:React.Dispatch<any>;
+  files:any;
+  defaultFileText?:string;
+  registerFunction?: UseFormRegister<any>;
+  registerName?:string;
+};
+
+export type FilesDragAndDropProps = {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setFiles: React.Dispatch<any>;
+  file: any;
+  registerFunction?: UseFormRegister<any>;
+  registerName?:string;
 };
 
 export type InputFieldProps = {
@@ -24,10 +36,11 @@ export type InputFieldProps = {
 export type LabelProps = {
   name: string;
 };
+
 export type Dropdown = {
-  Id: number;
+  id: number;
   name: string;
-}
+};
 
 export type DropdownMenuProps = {
   dropdown: Array<Dropdown>;
@@ -35,7 +48,6 @@ export type DropdownMenuProps = {
   registerName: string;
   defaults?:string | number;
 };
-
 
 export type ButtonProps = {
   bgcolor: string;
@@ -46,19 +58,27 @@ export type ButtonProps = {
   type: 'button' | 'submit' | 'reset';
   onclick?: () => void;
 }
+
+export type DeleteModalProps = {
+  setDelete:React.Dispatch<React.SetStateAction<boolean>>;
+  clickedId:number;
+}
+
 // export type UpdateEmployeeProps={
 //   employeeid:number;
 // }
-// export type ListComponentProps={
-//   setId:(clickedId:number)=>void;
-// }
+
+export type AddFileRequestType={
+  name:string;
+  file:any;
+};
 
 export type DepartmentDetailsApi = {
-  Id: number;
+  id: number;
   name: string;
   department_details_id: number;
   Department: {
-    Id: number;
+    id: number;
     department_room: string;
     department_code: string;
     website: string;
@@ -66,7 +86,7 @@ export type DepartmentDetailsApi = {
 }
 
   export type RoleDetailsApi={
-    Id:number;
+    id:number;
     role:string;
   }
 
@@ -83,34 +103,35 @@ export type CreateEmployeeApiRequest={
 }
 
 export type EmployeeListApiResponse = {
-  Id: number;
+  id: number;
   name: string;
-  Username: string;
-  Email: string;
+  username: string;
+  email: string;
   age: number;
   isActive: boolean;
   department_id: number;
   role_id: number;
   address_id: number;
   isAdmin: boolean;
+  id_proof:any;
   Department:
   {
-    Id: number;
+    id: number;
     name: string;
     department_details_id: number;
     Department: {
-      Id: number;
+      id: number;
       department_room: string;
       department_code: string;
       website: string;
     }
   }
   Role: {
-    Id: number;
+    id: number;
     role: string;
   }
   Address: {
-    Id: number;
+    id: number;
     street: string;
     city: string;
     state: string;
@@ -119,24 +140,24 @@ export type EmployeeListApiResponse = {
 
 export type EmployeeDetailsApi =
   {
-    map(arg0: (employee: any) => void);
-    Id: number;
+    id: number;
     name: string;
-    Username: string;
-    Email: string;
+    username: string;
+    email: string;
     age: number;
     is_active: boolean;
     department_id: number;
     role_id: number;
     address_id: number;
     isAdmin: boolean;
+    id_proof:any;
     Department:
     {
-      Id: number;
+      id: number;
       name: string;
       department_details_id: number;
       Department: {
-        Id: number;
+        id: number;
         department_room: string;
         department_code: string;
         website: string;
@@ -144,11 +165,11 @@ export type EmployeeDetailsApi =
     },
 
     Role: {
-      Id: number;
+      id: number;
       role: string;
     }
     Address: {
-      Id: number;
+      id: number;
       street: string;
       city: string;
       state: string;
