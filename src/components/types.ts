@@ -191,4 +191,8 @@ export type UpdateEmployeeForm = {
 export type UpdateEmployeeReq = {
   id: number,
   body: any
-}
+};
+
+export type AuthenticationProps ={
+  setAuthentication:React.Dispatch<React.SetStateAction<string>>
+};

@@ -7,7 +7,7 @@ import { LOGO } from 'assets/icons/index';
 const SideBar: FC = () => {
     const location = useLocation();
     let currentPath = location.pathname;
-    if (currentPath == '/') {
+    if ((currentPath == '/login')||(currentPath == '/sign-up')) {
         currentPath = '/employee-list';
     }
     const [buttonId, setId] = useState<string>(currentPath);

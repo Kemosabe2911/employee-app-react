@@ -51,6 +51,24 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Employee'],
     }),
+    addLogin: builder.mutation({
+      query: (body) => ({
+        url: '/login',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Employee'],
+    }),
+    addSignUp: builder.mutation({
+      query: (body) => ({
+        url: '/signup',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Employee'],
+    }),
+
+
   }),
 });
 
@@ -62,5 +80,7 @@ export const {
   useUpdateEmployeeMutation,
   useAddEmployeeMutation,
   useAddFileMutation,
-  useDeleteEmployeeMutation
+  useDeleteEmployeeMutation,
+  useAddLoginMutation,
+  useAddSignUpMutation
 } = employeeApi;
