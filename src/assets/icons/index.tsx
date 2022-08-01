@@ -7,6 +7,7 @@ import {ReactComponent as NameIcon} from './name.svg';
 import {ReactComponent as LastNameIcon} from './lastName.svg';
 import {ReactComponent as ConfirmPasswordIcon} from './confirmPassword.svg';
 import {ReactComponent as LogoutIcon} from './logout.svg';
+import {ReactComponent as ErrorIcon} from './error.svg';
 
 
 export const LOGO = '/icons/logo.jpeg';
@@ -19,5 +20,6 @@ PasswordIcon,
 NameIcon,
 LastNameIcon,
 ConfirmPasswordIcon,
-LogoutIcon
+LogoutIcon,
+ErrorIcon
 };

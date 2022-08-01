@@ -34,16 +34,14 @@ const [addSignUp] =useAddSignUpMutation();
     return (
         <div className=" flex h-full w-[28%] min-w-[400px] justify-center rounded-2xl bg-slate-50 p-10 shadow-2xl">
             <form onSubmit={handleSubmit(async (data) => {
-                addSignUp(data);
                 const signUpResponse = await addSignUp(data);
                 if('error' in signUpResponse)
                 {
                 dispatch(changeAuthentication('false'));
-                
+                console.log('error');
                 }
                 else{
                 dispatch(changeAuthentication('true'));
-                
                 }
                 reset();
             })}>

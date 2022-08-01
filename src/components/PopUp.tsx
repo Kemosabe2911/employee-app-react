@@ -1,10 +1,20 @@
 import React,{FC} from 'react';
 
+// import { ErrorIcon } from 'assets/icons';
+
 const PopUp: FC =()=>{
+
+const icon='fa fa-exclamation-circle'; 
 
     return(
         <div>
-            <div id="popup-modal absolute inset-0">POP UP</div>
+            <div className="fixed inset-0 mx-auto mt-20 h-16 w-[15%] min-w-[400px] 
+            rounded-xl border-2 border-rose-600 bg-red-50">
+
+            <div className=" py-4 text-center text-base">
+                <span className={`${icon} pr-3`}></span>Invalid Username or password</div>            
+        
+    </div>
         </div>
     );
 };
