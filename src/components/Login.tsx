@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC,useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,6 +10,7 @@ import { MailIcon, PasswordIcon } from 'assets/icons/index';
 import { useAddLoginMutation } from 'services/api';
 import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
+import PopUp from './PopUp';
 
 
 const schema = yup.object({
@@ -21,6 +22,7 @@ const Login: FC = () => {
 
     const dispatch =useDispatch();
 
+    const [errorMessage, setErrorMessage]=useState(false);
     
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
@@ -39,16 +41,15 @@ const Login: FC = () => {
     return (
         <div className=" flex h-96 w-[27%] min-w-[400px] justify-center rounded-2xl bg-slate-50 p-10 shadow-2xl">
             <form onSubmit={handleSubmit(async (data) => {
-                addLogin(data);
                 const loginResponse = await addLogin(data);
                 if('error' in loginResponse)
                 {
                 dispatch(changeAuthentication('false'));
-             
+                setErrorMessage(true);
                 }
                 else{
                 dispatch(changeAuthentication('true'));
-                console.log(loginResponse.data);
+                // console.log(loginResponse.data.Access);
                 }
                 reset();
             })}>
@@ -78,6 +79,9 @@ const Login: FC = () => {
                         <div className="">New User?</div>
                         <div onClick={handleSignUp} className="cursor-pointer pl-1 text-brightsCelurean">Sign Up</div>
                     </div>
+                    {errorMessage && (
+                        <PopUp></PopUp>
+                    )}
                 </div>
             </form>
         </div>
