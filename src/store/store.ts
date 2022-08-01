@@ -4,14 +4,13 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import employeeBaseApi from '../services';
 import authenticationReducer from './reducers';
 
-
 const store = configureStore({
   reducer: {
     authentication: authenticationReducer,
     [employeeBaseApi.reducerPath]: employeeBaseApi.reducer,
-    //employee
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(employeeBaseApi.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(employeeBaseApi.middleware)
 });
 setupListeners(store.dispatch);
 export default store;

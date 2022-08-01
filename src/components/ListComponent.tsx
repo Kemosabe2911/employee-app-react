@@ -1,34 +1,29 @@
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// import { EMPLOYEE_DETAIL_ITEM as employees } from 'constants/employeeDetailItem';
 import { columns } from 'constants/ListHeader';
 import DeleteModal from './DeleteModal';
-import { DeleteIcon, EditIcon } from 'assets/icons/images';
-// import { ListComponentProps } from './types';
-import { useGetEmployeeListQuery} from 'services/api';
+import { DeleteIcon, EditIcon } from 'assets/icons/index';
+import { useGetEmployeeListQuery } from 'services/api';
 
 const ListComponent: FC = () => {
     const { data } = useGetEmployeeListQuery();
-    
-    const [deleteClicked,setDelete]=useState(false);
-    const [clickedId,setclickedId]=useState(0);
-    // const { setId } = props;
-    
-    const navigate = useNavigate();
-    
 
-    const handleDelete = (clicked) => {//clickedId
-        // deleteEmployee(clickedId);
+    const [deleteClicked, setDelete] = useState<boolean>(false);
+    const [clickedId, setclickedId] = useState<number>(0);
+
+
+    const navigate = useNavigate();
+    const handleDelete = (clicked:number) => { 
         setclickedId(clicked);
         setDelete(true);
     };
-    const handleEdit = (id) => {
-        navigate('/update-employee/'+id);
-    };
-    const handleEmployeeDetailsClick =(id)=>{
-        navigate('/employee-details/'+id);
 
+    const handleEdit = (id:number) => {
+        navigate('/update-employee/' + id);
+    };
+    const handleEmployeeDetailsClick = (id:number) => {
+        navigate('/employee-details/' + id);
     };
 
     return (
@@ -44,128 +39,42 @@ const ListComponent: FC = () => {
                         })}
                     </tr>
                 </thead>
-
-
                 {data?.map(employee => {
                     return (
-                        // <div  className=''>
-                        <tbody key={employee.Id} className='m-10'>
+                        <tbody key={employee.id} className='m-10'>
                             <tr className=" m-4 h-4 rounded-xl bg-white"></tr>
                             <tr
-                            className=" m-4 h-14 rounded-xl bg-white shadow-md" >
-                               
-                                <td onClick={()=>handleEmployeeDetailsClick(employee.Id)}
-                                className='m-2 ml-4 cursor-pointer p-4 text-center'>   {employee.name}</td>
-                                <td className='p-4 text-center'>   {employee.Username}</td>
+                                className=" m-4 h-14 rounded-xl bg-white shadow-md" >
+
+                                <td onClick={() => handleEmployeeDetailsClick(employee.id)}
+                                    className='m-2 ml-4 cursor-pointer p-4 text-center'>   {employee.name}</td>
+                                <td className='p-4 text-center'>   {employee.username}</td>
                                 <td className='p-4 text-center'>   {employee.age}</td>
                                 <td className='p-4 text-center'>   {employee.role_id}</td>
                                 <td className=' px-10 text-right lg:px-4 lg:text-left xl:px-7 2xl:px-12'>
                                     <div className={` h-8 w-28  rounded-2xl p-1 text-center
-                        ${(!employee.isActive) ? 'bg-teaGreen' : 'bg-paleRose'}
-                         text-left md:w-28 lg:w-16 2xl:w-28`}>
-                                        {!employee.isActive ? 'Active' : 'Inactive'}
-                                    </div> </td>
-                                <td className='p-4 text-center' >   {employee.department_id}</td>   
+                                                     ${(!employee.isActive) ? 'bg-teaGreen' : 'bg-paleRose'}
+                                                     text-left md:w-28 lg:w-16 2xl:w-28`}>
+                                                   {!employee.isActive ? 'Active' : 'Inactive'}
+                                    </div> 
+                                </td>
+                                <td className='p-4 text-center' >{employee.department_id}</td>
                                 <td className='p-4 text-center'>
-                                    <button onClick={()=>handleDelete(employee.Id)}>
-                                    <DeleteIcon />
-                                </button>
-                                {deleteClicked &&(
-                                    <DeleteModal setDelete={setDelete} clickedId={clickedId}/>)
-                                }
-                                    <button className="pl-5" onClick={() => handleEdit(employee.Id)}>
+                                    <button onClick={() => handleDelete(employee.id)}>
+                                        <DeleteIcon />
+                                    </button>
+                                    {deleteClicked && (
+                                        <DeleteModal setDelete={setDelete} clickedId={clickedId} />)
+                                    }
+                                    <button className="pl-5" onClick={() => handleEdit(employee.id)}>
                                         <EditIcon />
                                     </button></td>
                             </tr>
                         </tbody>
-
-                        // </div>
-
-
-                    );
-                })}
-
+                    ); })}
             </table>
-            {/* <div >
-                   
-                </div>
-                <div className="w-2/12 flex-initial  pt-3 ">
-                   
-                </div>
-                <div className="w-1/12 flex-initial  pt-3">
-                   
-                </div>
-                <div className="w-2/12 flex-initial  pt-3">
-                    Role
-                </div>
-                <div className="w-2/12 flex-initial pt-3">
-                    Status
-                </div>
-                <div className="w-1/12  flex-initial pt-3">
-                    Department ID
-                </div>
-                <div className="w-2/12  flex-initial pl-10 pt-3">
-                    Action
-                </div> */}
-
-
-            {/* // <div className="w-2/12 flex-initial pl-5 pt-3  text-gray-600">
-                        //     {employee.name}
-                        // </div>
-                        // <div className="w-2/12 flex-initial pt-3 pl-4  text-gray-600">
-                        //     {employee.userName}
-                        // </div>
-                        // <div className="w-1/12 flex-initial pt-3 pl-2 text-gray-600">
-                        //     {employee.age}
-                        // </div>
-                        // <div className="w-2/12 flex-initial pt-3  text-gray-600">
-                        //     {employee.role}
-                        // </div>
-                        // <div className={`h-[40px] w-[111px] flex-initial rounded-xl p-2 pl-[12px]
-                        // ${(employee.status) === 'Active' ? 'bg-teaGreen' : 'bg-paleRose'}
-                         text-center text-gray-600`}>
-                        //     {employee.status}
-                        // </div>
-                        // <div className="w-1/12  flex-initial pt-3 pl-8 text-gray-600">
-                        //     {employee.departmentId}
-                        // </div> */}
-            {/* <div className="w-2/12  flex-initial pt-3 pl-8 text-gray-600" > */}
-            {/* <button onClick={handleDelete}>
-                                {/* <span className={`h-[15px] w-[15px] pr-[30px]  ${deleted}`} /> */}
-            {/* <DeleteIcon /> */}
-            {/* </button> */}
-            {/* <DeleteModal />
-                            <button className="pl-5" onClick={() => handleEdit(employee.id)}>
-                                {/* <span className={`h-[15px] w-[15px] pr-[30px] ${edit}`} /> */}
-            {/* <EditIcon /> */}
-            {/* </button> */}
-            {/* </div> */}
-            {/* <tr className="rounded-xl  ">
-                       
-                        <th>
-                            Employee Name
-                        </th>
-                        <th>
-                            User Name
-                        </th>
-                        <th>
-                            Age
-                        </th>
-                        <th>
-                            Role
-                        </th>
-                        <th>
-                            Status
-                        </th>
-                        <th>
-                            Department ID
-                        </th>
-                        <th>
-                            Actions
-                        </th> */}
         </>
-
     );
-
 };
+
 export default ListComponent;

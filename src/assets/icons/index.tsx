@@ -10,7 +10,8 @@ import {ReactComponent as LogoutIcon} from './logout.svg';
 
 
 export const LOGO = '/icons/logo.jpeg';
-export {Profile,
+export {
+Profile,
 DeleteIcon,
 EditIcon,
 MailIcon,

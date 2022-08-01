@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import InputField from './InputField';
 import Button from './Button';
-import { MailIcon, PasswordIcon, NameIcon, LastNameIcon, ConfirmPasswordIcon } from 'assets/icons/images';
+import { MailIcon, PasswordIcon, NameIcon, LastNameIcon, ConfirmPasswordIcon } from 'assets/icons/index';
 import { useAddSignUpMutation } from 'services/api';
 import {changeAuthentication} from 'store/reducers';
 import { useDispatch } from 'react-redux';
