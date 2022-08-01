@@ -48,6 +48,7 @@ const Login: FC = () => {
                 }
                 else{
                 dispatch(changeAuthentication('true'));
+                console.log(loginResponse.data);
                 }
                 reset();
             })}>
