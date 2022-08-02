@@ -1,11 +1,11 @@
-import React,{FC} from 'react';
+import React,{FC, useState} from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-
 import InputField from './InputField';
 import Button from './Button';
+import PopUp from './PopUp';
 import { MailIcon, PasswordIcon, NameIcon, LastNameIcon, ConfirmPasswordIcon } from 'assets/icons/index';
 import { useAddSignUpMutation } from 'services/api';
 import {changeAuthentication} from 'store/reducers';
@@ -20,7 +20,11 @@ const schema = yup.object({
     confirm_p: yup.string()
         .oneOf([yup.ref('password'), null], 'Password must match')
 });
+
+
 const SignUp:FC = () => {
+
+    const [errorMessage, setErrorMessage]=useState(false);
 
     const dispatch =useDispatch();
    
@@ -38,7 +42,7 @@ const [addSignUp] =useAddSignUpMutation();
                 if('error' in signUpResponse)
                 {
                 dispatch(changeAuthentication('false'));
-                console.log('error');
+                setErrorMessage(true);
                 }
                 else{
                 dispatch(changeAuthentication('true'));
@@ -92,6 +96,9 @@ const [addSignUp] =useAddSignUpMutation();
                         <Button type="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white'
                             bghover='hover:bg-sky-400' text='Sign Up' border='bg-brightsCelurean' />
                     </div>
+                    {errorMessage && (
+                        <PopUp description="An account with this e-mail id already exists"></PopUp>
+                    )}
                 </div>
             </form >
         </div >

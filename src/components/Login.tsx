@@ -22,7 +22,7 @@ const Login: FC = () => {
 
     const dispatch =useDispatch();
 
-    const [errorMessage, setErrorMessage]=useState(false);
+    const [signUpErrorMessage, setSignUpErrorMessage]=useState(false);
     
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
@@ -45,7 +45,7 @@ const Login: FC = () => {
                 if('error' in loginResponse)
                 {
                 dispatch(changeAuthentication('false'));
-                setErrorMessage(true);
+                setSignUpErrorMessage(true);
                 }
                 else{
                 dispatch(changeAuthentication('true'));
@@ -79,8 +79,8 @@ const Login: FC = () => {
                         <div className="">New User?</div>
                         <div onClick={handleSignUp} className="cursor-pointer pl-1 text-brightsCelurean">Sign Up</div>
                     </div>
-                    {errorMessage && (
-                        <PopUp></PopUp>
+                    {signUpErrorMessage && (
+                        <PopUp description='Invalid username or password '></PopUp>
                     )}
                 </div>
             </form>
