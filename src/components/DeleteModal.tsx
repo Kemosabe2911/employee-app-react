@@ -17,7 +17,7 @@ const DeleteModal: FC<DeleteModalProps> = (props) => {
 
     return (
         <div className='fixed inset-0  h-full w-full overflow-y-auto  bg-gray-200/10'>
-            <div className='relative top-60 mx-auto h-[209px] w-[400px] rounded-md border
+            <div className='relative inset-x-36 top-60 mx-auto h-[209px] w-[400px] rounded-md border
             bg-white p-5 text-center opacity-100 shadow-lg'>
                 <p className='p-1 text-2xl font-normal'>Are You Sure?</p>
                 <p className='p-1 text-lg font-normal'>Do you really want to delete employee?</p>
