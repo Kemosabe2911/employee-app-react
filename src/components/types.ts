@@ -17,6 +17,10 @@ export type FileInputProps = {
   registerName?:string;
 };
 
+export type LogoutProps ={
+  setLogoutModal:React.Dispatch<React.SetStateAction<boolean>>
+}
+
 export type FilesDragAndDropProps = {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setFiles: React.Dispatch<any>;
@@ -52,9 +56,9 @@ export type DropdownMenuProps = {
 export type ButtonProps = {
   bgcolor: string;
   textcolor: string;
-  bghover: string;
+  bghover?: string;
   text: string;
-  border: string;
+  border?: string;
   type: 'button' | 'submit' | 'reset';
   onclick?: () => void;
 }
@@ -108,7 +112,7 @@ export type EmployeeListApiResponse = {
   username: string;
   email: string;
   age: number;
-  isActive: boolean;
+  is_active: boolean;
   department_id: number;
   role_id: number;
   address_id: number;

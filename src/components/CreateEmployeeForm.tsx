@@ -56,6 +56,7 @@ const CreateEmployeeForm: FC = () => {
             'name': department.name
         });
     });
+   
 
     return (
         <div className='mx-auto mt-6 flex flex-initial '>

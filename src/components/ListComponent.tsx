@@ -53,9 +53,9 @@ const ListComponent: FC = () => {
                                 <td className='p-4 text-center'>   {employee.role_id}</td>
                                 <td className=' px-10 text-right lg:px-4 lg:text-left xl:px-7 2xl:px-12'>
                                     <div className={` h-8 w-28  rounded-2xl p-1 text-center
-                                                     ${(!employee.isActive) ? 'bg-teaGreen' : 'bg-paleRose'}
+                                                     ${(employee.is_active) ? 'bg-teaGreen' : 'bg-paleRose'}
                                                      text-left md:w-28 lg:w-16 2xl:w-28`}>
-                                                   {!employee.isActive ? 'Active' : 'Inactive'}
+                                                   {employee.is_active ? 'Active' : 'Inactive'}
                                     </div> 
                                 </td>
                                 <td className='p-4 text-center' >{employee.department_id}</td>
