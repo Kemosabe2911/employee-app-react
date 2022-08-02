@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
+import React,{FC, useState} from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
-
 import InputField from './InputField';
 import Button from './Button';
+import PopUp from './PopUp';
 import { MailIcon, PasswordIcon, NameIcon, LastNameIcon, ConfirmPasswordIcon } from 'assets/icons/index';
 import { useAddSignUpMutation } from 'services/api';
 import { changeAuthentication } from 'store/reducers';
@@ -21,10 +21,14 @@ const schema = yup.object({
     confirm_p: yup.string()
         .oneOf([yup.ref('password'), null], 'Password must match')
 });
-const SignUp: FC = () => {
 
-    const dispatch = useDispatch();
 
+const SignUp:FC = () => {
+
+    const [errorMessage, setErrorMessage]=useState(false);
+
+    const dispatch =useDispatch();
+   
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
             resolver: yupResolver(schema),
@@ -37,8 +41,10 @@ const SignUp: FC = () => {
         <div className=" flex h-full w-[28%] min-w-[400px] justify-center rounded-2xl bg-slate-50 p-10 shadow-2xl">
             <form onSubmit={handleSubmit(async (data) => {
                 const signUpResponse = await addSignUp(data);
-                if ('error' in signUpResponse) {
-                    dispatch(changeAuthentication('false'));
+                if('error' in signUpResponse)
+                {
+                dispatch(changeAuthentication('false'));
+                setErrorMessage(true);
                 }
                 else {
                     dispatch(changeAuthentication('true'));
@@ -93,6 +99,9 @@ const SignUp: FC = () => {
                         <Button type='button' bgcolor='w-[120px] bg-white' textcolor='text-black' text='Cancel'
                             border='border border-zinc-900 ' onclick={() => navigate('/login')} />
                     </div>
+                    {errorMessage && (
+                        <PopUp description="An account with this e-mail id already exists"></PopUp>
+                    )}
                 </div>
             </form >
         </div >
