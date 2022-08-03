@@ -3,13 +3,20 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { changeAuthentication } from 'store/reducers';
 import Button from './Button';
+import { useLazyGetLogoutQuery } from 'services/api';
 
 const Logout = (props) => {
+
+
     const {setLogoutModal}=props;
     const dispatch = useDispatch();
 
+    const [logout]= useLazyGetLogoutQuery();
+   
+
     const handleLogout = () => {
         dispatch(changeAuthentication('false'));
+        logout();
     };
 
     const handleCancel = () => {

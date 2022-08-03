@@ -1,11 +1,19 @@
 import React, { FC } from 'react';
 
 import { useGetDepartmentListQuery } from 'services/api';
+import PopUp from './PopUp';
 
 const DepartmentDetailsComponent: FC = () => {
 
-    const { data } = useGetDepartmentListQuery();
+    const { data ,error, isLoading} = useGetDepartmentListQuery();
 
+    if (isLoading){
+        return<div>Loading</div>;
+    }
+
+    if (error){
+        return<PopUp description={'Cannot load Department List'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+    }
     return (
         <table className="mx-auto table-auto overflow-x-scroll">
             <thead>

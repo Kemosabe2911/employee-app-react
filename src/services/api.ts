@@ -4,6 +4,7 @@ import { DepartmentDetailsApi, UpdateEmployeeReq, RoleDetailsApi} from 'componen
 import { EmployeeListApiResponse } from 'components/types';
 import { EmployeeDetailsApi } from 'components/types';
 
+
 const employeeApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
     getDepartmentList: builder.query<DepartmentDetailsApi[], void>({
@@ -73,6 +74,10 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Employee'],
     }),
+    getLogout: builder.query<string,void>({
+      query: () => '/logout',
+      providesTags: ['Employee']
+    }),
 
 
   }),
@@ -88,5 +93,6 @@ export const {
   useAddFileMutation,
   useDeleteEmployeeMutation,
   useAddLoginMutation,
-  useAddSignUpMutation
+  useAddSignUpMutation,
+  useLazyGetLogoutQuery,
 } = employeeApi;

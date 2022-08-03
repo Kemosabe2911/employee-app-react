@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { columns } from 'constants/ListHeader';
 import DeleteModal from './DeleteModal';
 import { DeleteIcon, EditIcon } from 'assets/icons/index';
+import PopUp from './PopUp';
 import { useGetDepartmentListQuery, useGetEmployeeListQuery, useGetRoleListQuery } from 'services/api';
 
 const ListComponent: FC = () => {
-    const { data } = useGetEmployeeListQuery();
+    const { data, error, isLoading  } = useGetEmployeeListQuery();
 
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
@@ -28,6 +29,14 @@ const ListComponent: FC = () => {
     const handleEmployeeDetailsClick = (id:number) => {
         navigate('/employee-details/' + id);
     };
+
+    if (isLoading){
+        return<div>Loading</div>;
+    }
+
+    if (error){
+        return<PopUp description={'Cannot load Employee List'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+    }
 
     return (
         <>

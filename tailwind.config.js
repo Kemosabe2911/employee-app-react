@@ -12,6 +12,7 @@ module.exports = {
         regentGrey:'#8B8D9D',
         lapisBlue:'#183072',
     },
+  
   },
   variants: {
     extend: {},
