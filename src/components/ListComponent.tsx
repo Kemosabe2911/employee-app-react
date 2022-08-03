@@ -5,9 +5,10 @@ import { columns } from 'constants/ListHeader';
 import DeleteModal from './DeleteModal';
 import { DeleteIcon, EditIcon } from 'assets/icons/index';
 import { useGetEmployeeListQuery } from 'services/api';
+import PopUp from './PopUp';
 
 const ListComponent: FC = () => {
-    const { data } = useGetEmployeeListQuery();
+    const { data, error, isLoading  } = useGetEmployeeListQuery();
 
     const [deleteClicked, setDelete] = useState<boolean>(false);
     const [clickedId, setclickedId] = useState<number>(0);
@@ -26,9 +27,17 @@ const ListComponent: FC = () => {
         navigate('/employee-details/' + id);
     };
 
+    if (isLoading){
+        return<div>Loading</div>;
+    }
+
+    if (error){
+        return<PopUp description={'Cannot load Employee List'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+    }
+
     return (
         <>
-            <table className='mx-auto mt-10 w-[96%] table-auto align-middle md:table-fixed'>
+            <table className='mx-auto mt-10 w-[96%] table-fixed align-middle md:table-auto'>
                 <thead>
                     <tr className=" h-[60px] rounded-xl bg-aliceBlue shadow-xl" >
                         {columns.map(column => {

@@ -2,16 +2,21 @@ import React, { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useLazyGetEmployeeDetailsQuery } from 'services/api';
+import PopUp from './PopUp';
 
 const EmployeeDetailsComponent: FC = () => {
 
-    const [getEmployeeDetails, { isFetching: isFetchingEmployeeDetails, data: data }] =
+    const [getEmployeeDetails, { isFetching: isFetchingEmployeeDetails, data: data ,error: error}] =
         useLazyGetEmployeeDetailsQuery();
 
     const urlId = useParams();
     useEffect(() => {
         getEmployeeDetails(urlId.id);
     }, [urlId]);
+
+    if (error){
+        return<PopUp description={'Cannot load Employee Details'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+    }
 
     return (
         <div>

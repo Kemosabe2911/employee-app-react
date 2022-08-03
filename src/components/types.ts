@@ -199,7 +199,6 @@ export type UpdateEmployeeReq = {
 
 export type PopUpProps ={
   description: string
+  margin: string
 }
-// export type AuthenticationProps ={
-//   setAuthentication:React.Dispatch<React.SetStateAction<string>>
-// };
+

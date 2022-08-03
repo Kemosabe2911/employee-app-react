@@ -100,7 +100,8 @@ const SignUp:FC = () => {
                             border='border border-zinc-900 ' onclick={() => navigate('/login')} />
                     </div>
                     {errorMessage && (
-                        <PopUp description="An account with this e-mail id already exists"></PopUp>
+                        <PopUp description="An account with this e-mail id already exists" 
+                        margin='mt-20 fixed inset-0'></PopUp>
                     )}
                 </div>
             </form >

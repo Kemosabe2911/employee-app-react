@@ -13,6 +13,7 @@ import { useUpdateEmployeeMutation, useGetDepartmentListQuery, useGetRoleListQue
          useAddFileMutation } from 'services/api';
 import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import FileInput from './FileInput';
+import PopUp from './PopUp';
 
 const schema = yup.object({
     name: yup.string().required('Employee Name is a required field'),
@@ -32,6 +33,7 @@ const UpdateEmployee: FC = () => {
 
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
+
     const [addFile] = useAddFileMutation();
     const [updateData] = useUpdateEmployeeMutation();
     
@@ -52,7 +54,7 @@ const UpdateEmployee: FC = () => {
     });
 
     const urlId = useParams();
-    const [getEmployeeDetails, { data: data }] = useLazyGetEmployeeDetailsQuery();
+    const [getEmployeeDetails, { data: data , isLoading, error}] = useLazyGetEmployeeDetailsQuery();
     useEffect(() => {
         getEmployeeDetails(urlId.id);
     }, [urlId]);
@@ -95,9 +97,18 @@ const UpdateEmployee: FC = () => {
     
     const navigate = useNavigate();
 
+    if (isLoading){
+        return<div>Loading</div>;
+    }
+
+    if (error){
+        return<PopUp description={'Cannot load Update Employee Page'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+    }
+
     return (
         <div className='mx-auto mt-6 flex flex-initial  '>
-            <div className=' m-4 mx-auto h-[1200px]  rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%] '>
+            <div className=' m-4 mx-auto h-[1200px]  overflow-auto
+             rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%] '>
                 <form onSubmit={handleSubmit((updatedData) => {
                     const updateId = parseInt(urlId.id);
                     updateData({ body: updatedData, id: updateId} );
