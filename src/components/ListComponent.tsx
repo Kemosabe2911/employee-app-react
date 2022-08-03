@@ -8,7 +8,7 @@ import PopUp from './PopUp';
 import { useGetDepartmentListQuery, useGetEmployeeListQuery, useGetRoleListQuery } from 'services/api';
 
 const ListComponent: FC = () => {
-    const { data, error, isLoading  } = useGetEmployeeListQuery();
+    const { data, error, isLoading } = useGetEmployeeListQuery();
 
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
@@ -18,24 +18,25 @@ const ListComponent: FC = () => {
 
 
     const navigate = useNavigate();
-    const handleDelete = (clicked:number) => { 
+    const handleDelete = (clicked: number) => {
         setclickedId(clicked);
         setDelete(true);
     };
 
-    const handleEdit = (id:number) => {
+    const handleEdit = (id: number) => {
         navigate('/update-employee/' + id);
     };
-    const handleEmployeeDetailsClick = (id:number) => {
+    const handleEmployeeDetailsClick = (id: number) => {
         navigate('/employee-details/' + id);
     };
 
-    if (isLoading){
-        return<div>Loading</div>;
+    if (isLoading) {
+        return <div>Loading</div>;
     }
 
-    if (error){
-        return<PopUp description={'Cannot load Employee List'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+    if (error) {
+        return <PopUp description={'Cannot load Employee List'}
+            margin={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}></PopUp>;
     }
 
     return (
@@ -62,39 +63,41 @@ const ListComponent: FC = () => {
                                     className='m-2 ml-4 cursor-pointer p-4 text-center'>   {employee.name}</td>
                                 <td className='p-4 text-center'>   {employee.username}</td>
                                 <td className='p-4 text-center'>   {employee.age}</td>
-                                <td className='p-4 text-center'>  
-                                 {RoleData?.map(role =>{
-                                    if(employee.role_id===role.id)
-                                      return role.role;
-                                 })
+                                <td className='p-4 text-center'>
+                                    {RoleData?.map(role => {
+                                        if (employee.role_id === role.id)
+                                            return role.role;
+                                    })
 
-                                 }</td>
+                                    }</td>
                                 <td className=' px-10 text-right lg:px-4 lg:text-left xl:px-7 2xl:px-12'>
                                     <div className={` h-8 w-28  rounded-2xl p-1 text-center
                                                      ${(employee.is_active) ? 'bg-teaGreen' : 'bg-paleRose'}
                                                      text-left md:w-28 lg:w-16 2xl:w-28`}>
-                                                   {employee.is_active ? 'Active' : 'Inactive'}
-                                    </div> 
+                                        {employee.is_active ? 'Active' : 'Inactive'}
+                                    </div>
                                 </td>
-                                <td className='p-4 text-center' > {DepartmentData?.map(department =>{
-                                    if(employee.department_id===department.id)
-                                      return department.name;
-                                 })
+                                <td className='p-4 text-center' > {DepartmentData?.map(department => {
+                                    if (employee.department_id === department.id)
+                                        return department.name;
+                                })
 
-                                 }</td>
+                                }</td>
                                 <td className='p-4 text-center'>
                                     <button onClick={() => handleDelete(employee.id)}>
-                                        <DeleteIcon />
+                                        <DeleteIcon className="hover:animate-wiggle" />
                                     </button>
                                     {deleteClicked && (
                                         <DeleteModal setDelete={setDelete} clickedId={clickedId} />)
                                     }
-                                    <button className="pl-5" onClick={() => handleEdit(employee.id)}>
+                                    <button className="pl-5 hover:animate-wiggle"
+                                        onClick={() => handleEdit(employee.id)}>
                                         <EditIcon />
                                     </button></td>
                             </tr>
                         </tbody>
-                    ); })}
+                    );
+                })}
             </table>
         </>
     );

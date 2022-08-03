@@ -15,7 +15,8 @@ const EmployeeDetailsComponent: FC = () => {
     }, [urlId]);
 
     if (error){
-        return<PopUp description={'Cannot load Employee Details'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+        return<PopUp description={'Cannot load Employee Details'} 
+        margin={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}></PopUp>;
     }
 
     return (

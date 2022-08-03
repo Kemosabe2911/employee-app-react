@@ -11,6 +11,7 @@ import Button from './Button';
 import FileInput from './FileInput';
 import { useAddEmployeeMutation, useAddFileMutation, useGetDepartmentListQuery, useGetRoleListQuery }
     from 'services/api';
+import PopUp from './PopUp';
 
 const schema = yup.object({
     name: yup.string().required('Employee Name is a required field'),
@@ -27,6 +28,8 @@ const schema = yup.object({
 });
 
 const CreateEmployeeForm: FC = () => {
+
+    const [errorMessage, setErrorMessage]=useState(false);
 
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
@@ -56,24 +59,28 @@ const CreateEmployeeForm: FC = () => {
             'name': department.name
         });
     });
-   
+
 
     return (
         <div className='mx-auto mt-6 flex flex-initial '>
             <div className=' m-4 mx-auto h-[1200px] w-[55%] overflow-auto rounded-xl bg-white shadow-xl 
             md:h-[1000px] md:w-[90%] md:justify-center lg:h-[650px] lg:w-[90%]'>
                 <form onSubmit={handleSubmit(async (SubmittedData) => {
-                    if (SubmittedData) {
-                        const addEmployeeResponse: any = await addEmployee(SubmittedData);
-                        if(file){
+                        const addEmployeeResponse = await addEmployee(SubmittedData);
+                        if ('error' in addEmployeeResponse) {
+                            setErrorMessage(true);
+                        }
+                        else
+                        {
+                        if(file){    
                         const formData = new FormData();
                         formData.append('name', file?.name);
                         formData.append('file', file);
-                        addFile({ body: formData, id: addEmployeeResponse?.data?.id });
-                        }
-                    }
+                        addFile({ body: formData, id: addEmployeeResponse?.data?.id });}
+
                     reset();
-                    navigate('/employee-list');
+                    navigate('/employee-list');}
+
                 })}>
                     <div className=' p-2 md:justify-center  xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
@@ -147,7 +154,7 @@ const CreateEmployeeForm: FC = () => {
                     </div>
                     <div className='p-2 xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
-                            <FileInput setFiles={setfiles}  files={file} />
+                            <FileInput setFiles={setfiles} files={file} />
                         </div>
                     </div>
                     <div className='flex p-2'>
@@ -162,6 +169,11 @@ const CreateEmployeeForm: FC = () => {
                                 border='border border-zinc-900 '
                                 onclick={() => navigate('/employee-list')} />
                         </div>
+                        {errorMessage && (
+                        <PopUp description='An employee with this e-mail id or user name already exists.' 
+                        margin='absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
+                         border-rose-600 bg-red-50'></PopUp>
+                    )}
                     </div>
                 </form>
             </div>

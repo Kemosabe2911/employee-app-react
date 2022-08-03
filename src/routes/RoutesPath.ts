@@ -9,5 +9,6 @@ const routesPath = {
     LOGIN:'/login',
     SIGNUP:'/sign-up',
     LOGOUT:'/logout',
+    CREATE_DEPARTMENT:'/create-department',
 };
 export default routesPath;

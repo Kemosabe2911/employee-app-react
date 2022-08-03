@@ -31,6 +31,8 @@ const schema = yup.object({
 
 const UpdateEmployee: FC = () => {
 
+    const [errorMessage, setErrorMessage]=useState(false);
+
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
 
@@ -104,22 +106,28 @@ const UpdateEmployee: FC = () => {
     }
 
     if (error){
-        return<PopUp description={'Cannot load Update Employee Page'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+        return<PopUp description={'Cannot load Update Employee Page'} 
+        margin={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}></PopUp>;
     }
 
     return (
         <div className='mx-auto mt-6 flex flex-initial  '>
             <div className=' m-4 mx-auto h-[1200px]  overflow-auto
              rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%] '>
-                <form onSubmit={handleSubmit((updatedData) => {
+                <form onSubmit={handleSubmit(async(updatedData) => {
                     const updateId = parseInt(urlId.id);
-                    updateData({ body: updatedData, id: updateId} );
+                    const updateEmployeeResponse = await updateData({ body: updatedData, id: updateId} );
+                    if ('error' in updateEmployeeResponse) {
+                        setErrorMessage(true);
+                    }
+                    else{
                     const formData = new FormData();
                     formData.append('name', file?.name);
                     formData.append('file', file);
                     addFile({ body: formData, id: updateId });
+
                     reset();
-                    navigate('/employee-list');
+                    navigate('/employee-list');}
                 })}>
                     <div className='p-2  xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial'>
@@ -210,6 +218,11 @@ const UpdateEmployee: FC = () => {
                                 border='border border-zinc-900 hover:border-indigo-300'
                                 onclick={() => navigate('/employee-list')} />
                         </div>
+                        {errorMessage && (
+                        <PopUp description='An employee with this e-mail id or user name already exists.' 
+                        margin='absolute inset-x-0 bottom-6 h-16 w-[15%] 
+                        min-w-[500px] border-rose-600 bg-red-50'></PopUp>
+                    )}
                     </div>
                 </form>
             </div>

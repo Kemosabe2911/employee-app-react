@@ -12,6 +12,20 @@ module.exports = {
         regentGrey:'#8B8D9D',
         lapisBlue:'#183072',
     },
+    keyframes: {
+      wiggle: {
+          '0%, 100%': {
+              transform: 'rotate(-9deg)'
+          },
+          '50%': {
+              transform: 'rotate(7deg)'
+          },
+      }
+  },
+  animation: {
+      wiggle: 'wiggle 0.4s ease-in-out infinite',
+  }
+
   
   },
   variants: {
