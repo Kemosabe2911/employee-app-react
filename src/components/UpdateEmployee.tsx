@@ -72,6 +72,7 @@ const UpdateEmployee: FC = () => {
                 department_id:0,
                 email:'',
                 file:null,
+                is_active:true,
             }
         }
     );
@@ -89,6 +90,7 @@ const UpdateEmployee: FC = () => {
             department_id: data?.department_id ,
             email: data?.email,
             file:data?.id_proof,
+            is_active:data?.is_active,
         };
         reset(defaultValues);
     },[data,reset]);
