@@ -65,10 +65,12 @@ const CreateEmployeeForm: FC = () => {
                 <form onSubmit={handleSubmit(async (SubmittedData) => {
                     if (SubmittedData) {
                         const addEmployeeResponse: any = await addEmployee(SubmittedData);
+                        if(file){
                         const formData = new FormData();
                         formData.append('name', file?.name);
                         formData.append('file', file);
                         addFile({ body: formData, id: addEmployeeResponse?.data?.id });
+                        }
                     }
                     reset();
                     navigate('/employee-list');

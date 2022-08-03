@@ -3,6 +3,6 @@ export const columns=[
     'User Name','Age',  
     'Role',
     'Status',  
-   'Department Id',  
+   'Department',  
 'Actions',  
 ];

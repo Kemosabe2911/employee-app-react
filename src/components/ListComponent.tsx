@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { columns } from 'constants/ListHeader';
 import DeleteModal from './DeleteModal';
 import { DeleteIcon, EditIcon } from 'assets/icons/index';
-import { useGetEmployeeListQuery } from 'services/api';
 import PopUp from './PopUp';
+import { useGetDepartmentListQuery, useGetEmployeeListQuery, useGetRoleListQuery } from 'services/api';
 
 const ListComponent: FC = () => {
     const { data, error, isLoading  } = useGetEmployeeListQuery();
+
+    const { data: DepartmentData } = useGetDepartmentListQuery();
+    const { data: RoleData } = useGetRoleListQuery();
 
     const [deleteClicked, setDelete] = useState<boolean>(false);
     const [clickedId, setclickedId] = useState<number>(0);
@@ -59,7 +62,13 @@ const ListComponent: FC = () => {
                                     className='m-2 ml-4 cursor-pointer p-4 text-center'>   {employee.name}</td>
                                 <td className='p-4 text-center'>   {employee.username}</td>
                                 <td className='p-4 text-center'>   {employee.age}</td>
-                                <td className='p-4 text-center'>   {employee.role_id}</td>
+                                <td className='p-4 text-center'>  
+                                 {RoleData?.map(role =>{
+                                    if(employee.role_id===role.id)
+                                      return role.role;
+                                 })
+
+                                 }</td>
                                 <td className=' px-10 text-right lg:px-4 lg:text-left xl:px-7 2xl:px-12'>
                                     <div className={` h-8 w-28  rounded-2xl p-1 text-center
                                                      ${(employee.is_active) ? 'bg-teaGreen' : 'bg-paleRose'}
@@ -67,7 +76,12 @@ const ListComponent: FC = () => {
                                                    {employee.is_active ? 'Active' : 'Inactive'}
                                     </div> 
                                 </td>
-                                <td className='p-4 text-center' >{employee.department_id}</td>
+                                <td className='p-4 text-center' > {DepartmentData?.map(department =>{
+                                    if(employee.department_id===department.id)
+                                      return department.name;
+                                 })
+
+                                 }</td>
                                 <td className='p-4 text-center'>
                                     <button onClick={() => handleDelete(employee.id)}>
                                         <DeleteIcon />

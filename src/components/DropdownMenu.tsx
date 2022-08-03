@@ -9,7 +9,8 @@ const DropdownMenu: FC<DropdownMenuProps> = (props) => {
     return (
         <div className="m-2 flex-initial pl-2 xl:flex-initial ">
             <select {...registerFunction(registerName)} className="mt-1 h-10 w-56 rounded-md border
-             border-gray-300 bg-white p-2 text-sm leading-5 text-gray-400 focus:outline-none" >
+             border-gray-300 bg-white p-2 text-sm leading-5 text-gray-400 focus:outline-none" defaultValue=''>
+                <option value='' disabled hidden >Pick a choice!</option>
                 {dropdown.map(element => {
                     return (
                         <option key={element.id} value={element.id}>{element.name}</option>  
