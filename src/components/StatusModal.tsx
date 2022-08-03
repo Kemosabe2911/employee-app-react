@@ -1,0 +1,43 @@
+import React from 'react';
+import { useGetEmployeeListQuery, useUpdateStatusMutation } from 'services/api';
+import Button from './Button';
+
+const StatusModal = (props) => {
+
+    const { data } = useGetEmployeeListQuery();
+    const [updateStatus] = useUpdateStatusMutation();
+   
+    const {statusclicked ,setStatusModal} =props;
+    const changedEmployee=data?.filter(employee=>employee.id===statusclicked)[0];
+
+    const handleChange = ()=> {
+        let changeTo={
+            is_active:!(changedEmployee.is_active),
+        };
+        updateStatus({ body:changeTo, id: statusclicked} );
+        setStatusModal(false);
+    };
+
+    return(
+        <div className='fixed inset-0  h-full w-full overflow-y-auto  bg-gray-600/60'>
+        <div className='relative inset-x-36 top-80 mx-auto h-[175px] w-[400px] rounded-md border
+        bg-white p-5 text-center opacity-100 shadow-lg'>
+        <p className="py-4 text-center text-lg">
+            Change the status of {changedEmployee.name} to {(changedEmployee.is_active)?'Inactive':'Active'} ?</p> 
+            <div className='flex'>
+            <div className='w-1/2 flex-initial text-right'>
+                    <Button type="button" bgcolor='w-36 bg-brightCelurean' textcolor='text-white'
+                        bghover='hover:bg-sky-400' text='Yes' border='bg-brightsCelurean' onclick={handleChange}
+                         />
+                </div>
+                <div className='w-1/2 flex-initial text-left'>
+                    <Button type='button' bgcolor='w-36 bg-white' textcolor='text-black' text='Cancel'
+                        border='border border-zinc-900 ' onclick={()=>setStatusModal(false)} />
+                </div>
+            </div>
+        </div>
+        </div>
+    );
+};
+
+export default StatusModal;

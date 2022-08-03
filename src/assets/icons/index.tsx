@@ -8,6 +8,7 @@ import {ReactComponent as LastNameIcon} from './lastName.svg';
 import {ReactComponent as ConfirmPasswordIcon} from './confirmPassword.svg';
 import {ReactComponent as LogoutIcon} from './logout.svg';
 import {ReactComponent as ErrorIcon} from './error.svg';
+import {ReactComponent as SearchIcon} from './search.svg';
 
 
 export const LOGO = '/icons/logo.jpeg';
@@ -18,6 +19,7 @@ EditIcon,
 MailIcon,
 PasswordIcon,
 NameIcon,
+SearchIcon,
 LastNameIcon,
 ConfirmPasswordIcon,
 LogoutIcon,

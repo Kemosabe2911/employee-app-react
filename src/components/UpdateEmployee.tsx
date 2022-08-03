@@ -114,10 +114,12 @@ const UpdateEmployee: FC = () => {
                 <form onSubmit={handleSubmit((updatedData) => {
                     const updateId = parseInt(urlId.id);
                     updateData({ body: updatedData, id: updateId} );
+                    if(file){
                     const formData = new FormData();
                     formData.append('name', file?.name);
                     formData.append('file', file);
                     addFile({ body: formData, id: updateId });
+                    }
                     reset();
                     navigate('/employee-list');
                 })}>
