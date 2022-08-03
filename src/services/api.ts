@@ -25,6 +25,16 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       providesTags: ['Employee']
     }),
+    getSearchedEmployeeList: builder.query({
+      query: () => ({
+        url: '/employee',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json' 
+        }
+      }),
+      providesTags: ['Employee']
+    }),
     getEmployeeDetails: builder.query<EmployeeDetailsApi, string>({
       query: (id) => `/employee/${id}`,
     }),
@@ -35,6 +45,15 @@ const employeeApi = apiWithTag.injectEndpoints({
         body: body,
       }),
       invalidatesTags: ['Employee'],
+    }),
+    updateStatus:builder.mutation({
+      query: ({ body, id }) => ({
+        url: `/employee/${id}`,
+        method: 'PATCH',
+        body: body,
+      }),
+      invalidatesTags: ['Employee'],
+
     }),
     addEmployee: builder.mutation({
       query: (body) => ({
@@ -89,6 +108,7 @@ export const {
   useGetEmployeeListQuery,
   useLazyGetEmployeeDetailsQuery,
   useUpdateEmployeeMutation,
+  useUpdateStatusMutation,
   useAddEmployeeMutation,
   useAddFileMutation,
   useDeleteEmployeeMutation,

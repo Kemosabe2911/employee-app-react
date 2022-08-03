@@ -1,12 +1,16 @@
 import { UseFormRegister } from 'react-hook-form';
 import React from 'react';
 
+
 export type MainBarInputField = {
   description: string;
   buttonRequired: boolean;
   buttonDescription: string;
   buttonIcon: string;
   buttonNavigateUrl: string;
+  setStatus?:React.Dispatch<React.SetStateAction<string>>;
+  setText?:React.Dispatch<React.SetStateAction<string>>;
+  text?:string;
 };
 
 export type FileInputProps = {
@@ -46,11 +50,16 @@ export type Dropdown = {
   name: string;
 };
 
+export type ListComponentProps ={
+  status: string;
+};
+
 export type DropdownMenuProps = {
   dropdown: Array<Dropdown>;
   registerFunction: UseFormRegister<any>;
   registerName: string;
   defaults?:string | number;
+  
 };
 
 export type ButtonProps = {
@@ -66,7 +75,11 @@ export type ButtonProps = {
 export type DeleteModalProps = {
   setDelete:React.Dispatch<React.SetStateAction<boolean>>;
   clickedId:number;
-}
+};
+
+export type StatusModalProps ={
+  statusclicked:number;
+};
 
 // export type UpdateEmployeeProps={
 //   employeeid:number;

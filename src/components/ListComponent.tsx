@@ -6,8 +6,11 @@ import DeleteModal from './DeleteModal';
 import { DeleteIcon, EditIcon } from 'assets/icons/index';
 import PopUp from './PopUp';
 import { useGetDepartmentListQuery, useGetEmployeeListQuery, useGetRoleListQuery } from 'services/api';
+import { ListComponentProps } from './types';
+import StatusModal from './StatusModal';
 
-const ListComponent: FC = () => {
+const ListComponent: FC<ListComponentProps> = ({ status }) => {
+
     const { data, error, isLoading } = useGetEmployeeListQuery();
 
     const { data: DepartmentData } = useGetDepartmentListQuery();
@@ -15,7 +18,7 @@ const ListComponent: FC = () => {
 
     const [deleteClicked, setDelete] = useState<boolean>(false);
     const [clickedId, setclickedId] = useState<number>(0);
-
+    const [statusClicked, setStatusClicked] = useState<number>(0);
 
     const navigate = useNavigate();
     const handleDelete = (clicked: number) => {
@@ -23,20 +26,39 @@ const ListComponent: FC = () => {
         setDelete(true);
     };
 
+    const [openStatusModal, setStatusModal] = useState<boolean>(false);
+
     const handleEdit = (id: number) => {
         navigate('/update-employee/' + id);
     };
     const handleEmployeeDetailsClick = (id: number) => {
         navigate('/employee-details/' + id);
     };
+    const handleStatusChange = (statusClickedId) => {
+        setStatusModal(true);
+        setStatusClicked(statusClickedId);
+    };
+
+    const filterItem = (list) => {
+        let booleanStatus;
+        if (status == '1')
+            booleanStatus = true;
+        else if (status == '0')
+            booleanStatus = false;
+
+        if (booleanStatus == list.is_active || status == null)
+            return list;
+    };
 
     if (isLoading) {
-        return <div>Loading</div>;
+        return (
+            <div className="top-40 flex items-center justify-center ">
+                <div className="h-10 w-10 animate-spin rounded-full border-y-4 border-brightCelurean" />
+            </div>);
     }
 
     if (error) {
-        return <PopUp description={'Cannot load Employee List'}
-            margin={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}></PopUp>;
+        return <PopUp description={'Cannot load Employee List'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
     }
 
     return (
@@ -52,7 +74,7 @@ const ListComponent: FC = () => {
                         })}
                     </tr>
                 </thead>
-                {data?.map(employee => {
+                {data?.filter(list => filterItem(list)).map(employee => {
                     return (
                         <tbody key={employee.id} className='m-10'>
                             <tr className=" m-4 h-4 rounded-xl bg-white"></tr>
@@ -60,7 +82,8 @@ const ListComponent: FC = () => {
                                 className=" m-4 h-14 rounded-xl bg-white shadow-md" >
 
                                 <td onClick={() => handleEmployeeDetailsClick(employee.id)}
-                                    className='m-2 ml-4 cursor-pointer p-4 text-center'>   {employee.name}</td>
+                                    className='m-2 ml-4 cursor-pointer p-4 text-center
+                                     duration-300 hover:scale-110'>   {employee.name}</td>
                                 <td className='p-4 text-center'>   {employee.username}</td>
                                 <td className='p-4 text-center'>   {employee.age}</td>
                                 <td className='p-4 text-center'>
@@ -70,10 +93,12 @@ const ListComponent: FC = () => {
                                     })
 
                                     }</td>
-                                <td className=' px-10 text-right lg:px-4 lg:text-left xl:px-7 2xl:px-12'>
-                                    <div className={` h-8 w-28  rounded-2xl p-1 text-center
+                                <td
+                                    className=' px-10 text-right lg:px-4 lg:text-left xl:px-7 2xl:px-12'>
+                                    <div onClick={() => handleStatusChange(employee.id)}
+                                        className={` h-8 w-28  cursor-pointer rounded-2xl p-1 text-center
                                                      ${(employee.is_active) ? 'bg-teaGreen' : 'bg-paleRose'}
-                                                     text-left md:w-28 lg:w-16 2xl:w-28`}>
+                                                     text-left duration-300 hover:scale-110 md:w-28 lg:w-16 2xl:w-28`}>
                                         {employee.is_active ? 'Active' : 'Inactive'}
                                     </div>
                                 </td>
@@ -99,6 +124,9 @@ const ListComponent: FC = () => {
                     );
                 })}
             </table>
+            {openStatusModal &&
+                <StatusModal statusclicked={statusClicked} setStatusModal={setStatusModal} />
+            }
         </>
     );
 };

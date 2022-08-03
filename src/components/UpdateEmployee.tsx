@@ -121,11 +121,14 @@ const UpdateEmployee: FC = () => {
                         setErrorMessage(true);
                     }
                     else{
+                    // updateData({ body: updatedData, id: updateId} );
+                    if(file){
                     const formData = new FormData();
                     formData.append('name', file?.name);
                     formData.append('file', file);
                     addFile({ body: formData, id: updateId });
 
+                    }
                     reset();
                     navigate('/employee-list');}
                 })}>
