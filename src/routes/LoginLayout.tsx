@@ -9,8 +9,6 @@ import SignUpPage from 'pages/SignUp';
 
 const LoginLayout:FC = () => {
 
-    // const {setAuthentication}= props;
-
     return (
         <div>
             <Suspense fallback="Loading">

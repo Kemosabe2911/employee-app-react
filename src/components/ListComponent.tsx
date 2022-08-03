@@ -110,12 +110,13 @@ const ListComponent: FC<ListComponentProps> = ({ status }) => {
                                 }</td>
                                 <td className='p-4 text-center'>
                                     <button onClick={() => handleDelete(employee.id)}>
-                                        <DeleteIcon />
+                                        <DeleteIcon className="hover:animate-wiggle" />
                                     </button>
                                     {deleteClicked && (
                                         <DeleteModal setDelete={setDelete} clickedId={clickedId} />)
                                     }
-                                    <button className="pl-5" onClick={() => handleEdit(employee.id)}>
+                                    <button className="pl-5 hover:animate-wiggle"
+                                        onClick={() => handleEdit(employee.id)}>
                                         <EditIcon />
                                     </button></td>
                             </tr>

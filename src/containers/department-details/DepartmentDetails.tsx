@@ -6,9 +6,11 @@ import MainBar from 'components/MainBar';
 const DepartmentDetails:FC =()=>{
     return(
         <div>
-            <MainBar description='Department List' buttonRequired = {false}
-                buttonDescription="nil" buttonIcon="nil" buttonNavigateUrl="nil"></MainBar>
-        <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
+            <MainBar description='Department Details' buttonRequired = {false}
+                buttonDescription="nil" buttonIcon="nil" 
+                buttonNavigateUrl="nil">                    
+                </MainBar>
+        <div className="w-[calc(100vw-350px)] p-5">
         <DepartmentDetailsComponent/>
         </div>
         </div>
