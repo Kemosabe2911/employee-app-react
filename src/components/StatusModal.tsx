@@ -4,7 +4,7 @@ import Button from './Button';
 
 const StatusModal = (props) => {
 
-    const { data } = useGetEmployeeListQuery();
+    const { data } = useGetEmployeeListQuery('');
     const [updateStatus] = useUpdateStatusMutation();
    
     const {statusclicked ,setStatusModal} =props;

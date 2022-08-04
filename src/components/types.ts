@@ -52,6 +52,8 @@ export type Dropdown = {
 
 export type ListComponentProps ={
   status: string;
+  text?:string;
+  EmployeeList?:any;
 };
 
 export type DropdownMenuProps = {

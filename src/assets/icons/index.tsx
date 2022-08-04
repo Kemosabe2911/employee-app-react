@@ -10,8 +10,6 @@ import {ReactComponent as LogoutIcon} from './logout.svg';
 import {ReactComponent as ErrorIcon} from './error.svg';
 import {ReactComponent as SearchIcon} from './search.svg';
 
-
-export const LOGO = '/icons/logo.jpeg';
 export {
 Profile,
 DeleteIcon,
