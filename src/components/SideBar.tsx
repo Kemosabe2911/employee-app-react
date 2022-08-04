@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { SIDE_BAR_CONSTANTS as sideBarItems } from 'constants/sideBarItems';
-import { LOGO } from 'assets/icons/index';
+import { LOGO } from 'constants/logo';
 import Logout from './Logout';
 
 const SideBar: FC = () => {

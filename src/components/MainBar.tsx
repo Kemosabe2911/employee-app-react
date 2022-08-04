@@ -5,7 +5,7 @@ import SearchElement from './SearchElement';
 import { MainBarInputField } from './types';
 
 const MainBar: FC<MainBarInputField> = (props) => {
-    const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus,
+    const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus,setText,text
         } = props;
 
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ const MainBar: FC<MainBarInputField> = (props) => {
                     <div className='flex w-[600px]'>
                         <div className='relative top-12 mr-8 flex h-[48px] w-[150px] flex-initial
                          rounded-full bg-aliceBlue'>
-                          <SearchElement/>
+                          <SearchElement setText={setText} text={text} />
                         </div>
                             <div className='relative top-12 mr-8 flex  h-[48px] w-[150px] rounded-full bg-aliceBlue'>
                                 <span className={`h-[48px] w-[48px] rounded-full bg-brightCelurean p-[16px]

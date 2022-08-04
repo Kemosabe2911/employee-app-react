@@ -15,19 +15,9 @@ const employeeApi = apiWithTag.injectEndpoints({
       query: () => '/role',
       providesTags: ['Employee']
     }),
-    getEmployeeList: builder.query<EmployeeListApiResponse[], void>({
-      query: () => ({
-        url: '/employee',
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json' 
-        }
-      }),
-      providesTags: ['Employee']
-    }),
-    getSearchedEmployeeList: builder.query({
-      query: () => ({
-        url: '/employee',
+    getEmployeeList: builder.query<EmployeeListApiResponse[], string>({
+      query: (searchedElement:string) => ({
+        url:`/employee?search=${searchedElement}`,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json' 

@@ -4,14 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { columns } from 'constants/ListHeader';
 import DeleteModal from './DeleteModal';
 import { DeleteIcon, EditIcon } from 'assets/icons/index';
-import PopUp from './PopUp';
-import { useGetDepartmentListQuery, useGetEmployeeListQuery, useGetRoleListQuery } from 'services/api';
+import { useGetDepartmentListQuery, useGetRoleListQuery } from 'services/api';
 import { ListComponentProps } from './types';
 import StatusModal from './StatusModal';
 
-const ListComponent: FC<ListComponentProps> = ({ status }) => {
-
-    const { data, error, isLoading } = useGetEmployeeListQuery();
+const ListComponent: FC<ListComponentProps> = ({ status , EmployeeList}) => {
 
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
@@ -50,17 +47,6 @@ const ListComponent: FC<ListComponentProps> = ({ status }) => {
             return list;
     };
 
-    if (isLoading) {
-        return (
-            <div className="top-40 flex items-center justify-center ">
-                <div className="h-10 w-10 animate-spin rounded-full border-y-4 border-brightCelurean" />
-            </div>);
-    }
-
-    if (error) {
-        return <PopUp description={'Cannot load Employee List'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
-    }
-
     return (
         <>
             <table className='mx-auto mt-10 w-[96%] table-fixed align-middle md:table-auto'>
@@ -74,7 +60,8 @@ const ListComponent: FC<ListComponentProps> = ({ status }) => {
                         })}
                     </tr>
                 </thead>
-                {data?.filter(list => filterItem(list)).map(employee => {
+                { 
+                EmployeeList?.filter(list => filterItem(list)).map(employee => {
                     return (
                         <tbody key={employee.id} className='m-10'>
                             <tr className=" m-4 h-4 rounded-xl bg-white"></tr>
