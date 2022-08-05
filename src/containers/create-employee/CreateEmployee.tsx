@@ -14,7 +14,7 @@ const CreateEmployee: FC = () => {
 
     const getRoleDropdownData = () => {
         let roleDropdownData = [];
-        roleData.map(department => {
+        roleData?.map(department => {
             roleDropdownData.push({
                 'id': department.id,
                 'name': department.role
@@ -25,7 +25,7 @@ const CreateEmployee: FC = () => {
 
     const getDeptDropdownData = () => {
         let deptDropdownData = [];
-        departmentData.map(department => {
+        departmentData?.map(department => {
             deptDropdownData.push({
                 'id': department.id,
                 'name': department.name
@@ -40,7 +40,8 @@ const CreateEmployee: FC = () => {
                       buttonRequired={false}
                       buttonDescription="nil" 
                       buttonIcon="nil" 
-                      buttonNavigateUrl="nil" />
+                      buttonNavigateUrl="nil"
+                      popUpRequired={false} />
             <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
                 <CreateEmployeeForm 
                     addEmployee={addEmployee}

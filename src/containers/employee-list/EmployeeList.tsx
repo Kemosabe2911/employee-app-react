@@ -33,7 +33,8 @@ const EmployeeList: FC = () => {
         <div>
             {
                 error ? (<PopUp description={'Cannot load Department List'}
-                    margin={'mt-20 fixed inset-10 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'} />) :
+                    popUpStyle={'mt-20 fixed inset-10 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50 rounded-xl'}
+                     />) :
                     (<div> {isLoading ? (<div>Loading</div>) : (
                         <div>
                             <MainBar description='Employee List'
@@ -43,7 +44,8 @@ const EmployeeList: FC = () => {
                                 buttonNavigateUrl="/create-employee"
                                 setStatus={setStatus}
                                 text={text}
-                                setText={setText}>
+                                setText={setText}
+                                popUpRequired={false}>
                             </MainBar>
                             <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
                                 <ListComponent

@@ -9,7 +9,8 @@ const LogoutAdmin: FC = () => {
     return (
         <><MainBar description='Log Out' buttonRequired={false}
             buttonDescription="nil" buttonIcon="nil"
-            buttonNavigateUrl="nil"></MainBar>
+            buttonNavigateUrl="nil"
+            popUpRequired={false}></MainBar>
             <div className="w-[calc(100vw-350px)]  p-5">
                 <Logout></Logout>
             </div></>

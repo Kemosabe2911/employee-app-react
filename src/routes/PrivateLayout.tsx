@@ -23,7 +23,7 @@ const PrivateLayout = () => {
                         <Route path={RoutesPath.CREATE_EMPLOYEE} element={<CreateEmployeePage />} />
                         <Route path={RoutesPath.CREATE_DEPARTMENT} element={<CreateDepartmentPage />} />
                         <Route path={RoutesPath.EMPLOYEE_DETAILS} element={<EmployeeDetailsPage />} />
-                        <Route path={RoutesPath.DEPARTMENT_DETAILS} element={<DepartmentListPage />} />
+                        <Route path={RoutesPath.DEPARTMENT_LIST} element={<DepartmentListPage />} />
                         <Route path={RoutesPath.EMPLOYEE_LIST} element={<EmployeeListPage/>} />
                         <Route path={RoutesPath.LOGOUT} element={<LogoutPage/>} />
                         <Route path={`${RoutesPath.UPDATE_EMPLOYEE}/:id`} element={<UpdateEmployeePage/>} />

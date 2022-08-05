@@ -81,7 +81,8 @@ const Login: FC = () => {
                         <div onClick={handleSignUp} className="cursor-pointer pl-1 text-brightsCelurean">Sign Up</div>
                     </div>
                     {signUpErrorMessage && (
-                        <PopUp description='Invalid username or password ' margin='mt-20 fixed inset-0 h-16 
+                        <PopUp description='Invalid username or password ' popUpStyle=' mx-auto
+                        rounded-xl border-2 mt-20 fixed inset-0 h-16 
                         w-[15%] min-w-[450px] border-rose-600 bg-red-50'></PopUp>
                     )}
                 </div>

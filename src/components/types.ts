@@ -14,6 +14,7 @@ export type MainBarInputField = {
   setStatus?: React.Dispatch<React.SetStateAction<string>>;
   setText?: React.Dispatch<React.SetStateAction<string>>;
   text?: string;
+  popUpRequired:boolean;
 };
 
 export type FileInputProps = {
@@ -238,7 +239,7 @@ export type UpdateEmployeeReq = {
 
 export type PopUpProps = {
   description: string
-  margin: string
+  popUpStyle: string
 }
 
 export type EmployeeDetailsProps = {
@@ -281,5 +282,4 @@ export type EmployeeDetailsProps = {
 
 export type DepartmentListProps={
   department:DepartmentDetailsApi,
-  key:number
 };

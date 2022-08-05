@@ -1,16 +1,24 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { MainBarInputField } from './types';
 import SearchElement from './SearchElement';
+import PopUp from './PopUp';
 
 
 const MainBar: FC<MainBarInputField> = (props) => {
-    const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus,setText,text
+    const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus,setText,
+        text,popUpRequired
         } = props;
+
+    const [popUpCreate, setPopUpCreate]=useState(false);
 
     const navigate = useNavigate();
     const handleCreateClick = (selectedPath) => {
+        if(popUpRequired==true){
+            setPopUpCreate(true);
+            // console.log(popUpCreate);
+        }
         navigate(selectedPath);
     };
     const FilterIcon = 'fa fa-filter';
@@ -52,6 +60,9 @@ const MainBar: FC<MainBarInputField> = (props) => {
                     </div>
                     :
                     <div></div>}</div>
+
+        {popUpCreate?(<div><PopUp description="CREATE DEPARTMENT" popUpStyle="mt-20 fixed inset-0 h-16 
+                        w-[15%] min-w-[450px] border-rose-600 bg-red-50"></PopUp></div>):<></>}
 
 
         </div>
