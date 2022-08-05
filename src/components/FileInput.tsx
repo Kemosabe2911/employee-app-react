@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
-import FilesDragAndDrop from './FilesDragAndDrop';
 import { FileInputProps } from './types';
+import FilesDragAndDrop from './FilesDragAndDrop';
 
 const FileInput: FC<FileInputProps> = (props) => {
 

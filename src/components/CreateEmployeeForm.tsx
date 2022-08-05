@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { useAddEmployeeMutation, useAddFileMutation, useGetDepartmentListQuery, useGetRoleListQuery }
+    from 'services/api';
+
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import Label from './Label';
 import Button from './Button';
 import FileInput from './FileInput';
-import { useAddEmployeeMutation, useAddFileMutation, useGetDepartmentListQuery, useGetRoleListQuery }
-    from 'services/api';
 import PopUp from './PopUp';
 
 const schema = yup.object({
@@ -29,10 +30,10 @@ const schema = yup.object({
 
 const CreateEmployeeForm: FC = () => {
 
-    const [errorMessage, setErrorMessage]=useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
 
-    const { data: DepartmentData } = useGetDepartmentListQuery();
-    const { data: RoleData } = useGetRoleListQuery();
+    const { data: departmentData } = useGetDepartmentListQuery();
+    const { data: roleData } = useGetRoleListQuery();
     const [addEmployee] = useAddEmployeeMutation();
     const [addFile] = useAddFileMutation();
 
@@ -46,19 +47,23 @@ const CreateEmployeeForm: FC = () => {
     const [file, setfiles] = useState(null);
 
     const dropdown1 = [];
-    RoleData?.map(department => {
+    roleData?.map(department => {
         dropdown1.push({
             'id': department.id,
             'name': department.role
         });
     });
-    const dropdown2 = [];
-    DepartmentData?.map(department => {
-        dropdown2.push({
-            'id': department.id,
-            'name': department.name
+
+    const getDeptDropdownData = () => {
+        let deptDropdownData = [];
+        departmentData.map(department => {
+            deptDropdownData.push({
+                'id': department.id,
+                'name': department.name
+            });
         });
-    });
+        return deptDropdownData;
+    };
 
 
     return (
@@ -66,20 +71,21 @@ const CreateEmployeeForm: FC = () => {
             <div className=' m-4 mx-auto h-[1200px] w-[55%] overflow-auto rounded-xl bg-white shadow-xl 
             md:h-[1000px] md:w-[90%] md:justify-center lg:h-[650px] lg:w-[90%]'>
                 <form onSubmit={handleSubmit(async (SubmittedData) => {
-                        const addEmployeeResponse = await addEmployee(SubmittedData);
-                        if ('error' in addEmployeeResponse) {
-                            setErrorMessage(true);
+                    const addEmployeeResponse = await addEmployee(SubmittedData);
+                    if ('error' in addEmployeeResponse) {
+                        setErrorMessage(true);
+                    }
+                    else {
+                        if (file) {
+                            const formData = new FormData();
+                            formData.append('name', file?.name);
+                            formData.append('file', file);
+                            addFile({ body: formData, id: addEmployeeResponse?.data?.id });
                         }
-                        else
-                        {
-                        if(file){    
-                        const formData = new FormData();
-                        formData.append('name', file?.name);
-                        formData.append('file', file);
-                        addFile({ body: formData, id: addEmployeeResponse?.data?.id });}
 
-                    reset();
-                    navigate('/employee-list');}
+                        reset();
+                        navigate('/employee-list');
+                    }
 
                 })}>
                     <div className=' p-2 md:justify-center  xl:flex'>
@@ -143,11 +149,10 @@ const CreateEmployeeForm: FC = () => {
                             <p className='pl-6 font-sans text-xs normal-case 
                                 text-red-600'> {errors.role_id?.message}</p>
                         </div>
-
                         <div className=' w-1/3 flex-initial' >
                             <Label name='Department' />
                             <DropdownMenu registerFunction={register}
-                                registerName='department_id' dropdown={dropdown2} />
+                                registerName='department_id' dropdown={getDeptDropdownData()} />
                             <p className='pl-6 font-sans text-xs normal-case 
                                 text-red-600'>{errors.department_id?.message}</p>
                         </div>
@@ -170,10 +175,10 @@ const CreateEmployeeForm: FC = () => {
                                 onclick={() => navigate('/employee-list')} />
                         </div>
                         {errorMessage && (
-                        <PopUp description='An employee with this e-mail id or user name already exists.' 
-                        margin='absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
+                            <PopUp description='An employee with this e-mail id or user name already exists.'
+                                margin='absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
                          border-rose-600 bg-red-50'></PopUp>
-                    )}
+                        )}
                     </div>
                 </form>
             </div>

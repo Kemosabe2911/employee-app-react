@@ -13,13 +13,13 @@ const ListComponent: FC<ListComponentProps> = ({ status , EmployeeList}) => {
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
 
-    const [deleteClicked, setDelete] = useState<boolean>(false);
-    const [clickedId, setclickedId] = useState<number>(0);
-    const [statusClicked, setStatusClicked] = useState<number>(0);
+    const [deleteSelected, setDelete] = useState<boolean>(false);
+    const [selectedId, setSelectedId] = useState<number>(0);
+    const [idStatus, setIdStatus] = useState<number>(0);
 
     const navigate = useNavigate();
     const handleDelete = (clicked: number) => {
-        setclickedId(clicked);
+        setSelectedId(clicked);
         setDelete(true);
     };
 
@@ -33,7 +33,7 @@ const ListComponent: FC<ListComponentProps> = ({ status , EmployeeList}) => {
     };
     const handleStatusChange = (statusClickedId) => {
         setStatusModal(true);
-        setStatusClicked(statusClickedId);
+        setIdStatus(statusClickedId);
     };
 
     const filterItem = (list) => {
@@ -99,8 +99,8 @@ const ListComponent: FC<ListComponentProps> = ({ status , EmployeeList}) => {
                                     <button onClick={() => handleDelete(employee.id)}>
                                         <DeleteIcon className="hover:animate-wiggle" />
                                     </button>
-                                    {deleteClicked && (
-                                        <DeleteModal setDelete={setDelete} clickedId={clickedId} />)
+                                    {deleteSelected && (
+                                        <DeleteModal setDelete={setDelete} selectedId={selectedId} />)
                                     }
                                     <button className="pl-5 hover:animate-wiggle"
                                         onClick={() => handleEdit(employee.id)}>
@@ -112,7 +112,7 @@ const ListComponent: FC<ListComponentProps> = ({ status , EmployeeList}) => {
                 })}
             </table>
             {openStatusModal &&
-                <StatusModal statusclicked={statusClicked} setStatusModal={setStatusModal} />
+                <StatusModal idStatus={idStatus} setStatusModal={setStatusModal} />
             }
         </>
     );

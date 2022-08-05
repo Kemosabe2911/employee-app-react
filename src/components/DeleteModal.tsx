@@ -6,7 +6,7 @@ import { DeleteModalProps } from './types';
 import { useDeleteEmployeeMutation } from 'services/api';
 
 const DeleteModal: FC<DeleteModalProps> = (props) => {
-    const { setDelete, clickedId } = props;
+    const { setDelete, selectedId } = props;
 
     const [deleteEmployee] = useDeleteEmployeeMutation();
 
@@ -25,7 +25,7 @@ const DeleteModal: FC<DeleteModalProps> = (props) => {
                     <div className='w-1/2 flex-initial text-right'>
                         <Button type="button" bgcolor='w-[117px] bg-brightCelurean' textcolor='text-white'
                             bghover='hover:bg-brightsCelurean' text='Confirm' border='border border-blue-500'
-                            onclick={() => handleDeleteEmployee(clickedId)} />
+                            onclick={() => handleDeleteEmployee(selectedId)} />
                     </div>
                     <div className='w-1/2 flex-initial text-left'>
                         <Button type="button" bgcolor='w-[117px] bg-white'

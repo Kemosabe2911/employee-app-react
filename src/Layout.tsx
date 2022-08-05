@@ -5,15 +5,18 @@ import LoginLayout from 'routes/LoginLayout';
 import { useSelector } from 'react-redux';
 import type { RootState } from 'store/store';
 
-const Layout =()=>{
+const Layout = () => {
 
-const login = useSelector((state: RootState) => state.authentication.value);
-localStorage.setItem('authentication',login);
+    const login = useSelector((state: RootState) => state.authentication.value);
+    localStorage.setItem('authentication', login);
 
-if(localStorage.getItem('authentication')=='true')
-    return(<PrivateLayout/>);
-return(<LoginLayout/>);
-
+    return (
+        <>
+            {localStorage.getItem('authentication') === 'true' ? (
+                < PrivateLayout />
+            ) : (
+                < LoginLayout />)}
+        </>);
 };
 
 export default Layout;
