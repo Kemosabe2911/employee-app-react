@@ -1,17 +1,19 @@
 import React, { FC, useState } from 'react';
+import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import {
+    useUpdateEmployeeMutation, useGetDepartmentListQuery, useGetRoleListQuery,
+    useAddFileMutation
+} from 'services/api';
+import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import Label from './Label';
 import Button from './Button';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
-import { useUpdateEmployeeMutation, useGetDepartmentListQuery, useGetRoleListQuery,
-         useAddFileMutation } from 'services/api';
-import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import FileInput from './FileInput';
 import PopUp from './PopUp';
 
@@ -26,19 +28,19 @@ const schema = yup.object({
     role_id: yup.number().required(),
     department_id: yup.number().required(),
     email: yup.string().email('Not a valid e-mail id').required('E-mail is a required field'),
-    file: yup.mixed().required('File is a required field'),   
+    file: yup.mixed().required('File is a required field'),
 });
 
 const UpdateEmployee: FC = () => {
 
-    const [errorMessage, setErrorMessage]=useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
 
     const [addFile] = useAddFileMutation();
     const [updateData] = useUpdateEmployeeMutation();
-    
+
     const [file, setfiles] = useState(null);
     const dropdown1 = [];
     RoleData?.map(department => {
@@ -56,7 +58,7 @@ const UpdateEmployee: FC = () => {
     });
 
     const urlId = useParams();
-    const [getEmployeeDetails, { data: data , isLoading, error}] = useLazyGetEmployeeDetailsQuery();
+    const [getEmployeeDetails, { data: data, isLoading, error }] = useLazyGetEmployeeDetailsQuery();
     useEffect(() => {
         getEmployeeDetails(urlId.id);
     }, [urlId]);
@@ -73,10 +75,10 @@ const UpdateEmployee: FC = () => {
                 city: '',
                 state: '',
                 role_id: 0,
-                department_id:0,
-                email:'',
-                file:null,
-                is_active:true,
+                department_id: 0,
+                email: '',
+                file: null,
+                is_active: true,
             }
         }
     );
@@ -91,46 +93,47 @@ const UpdateEmployee: FC = () => {
             city: data?.Address.city,
             state: data?.Address.state,
             role_id: data?.Role.id,
-            department_id: data?.department_id ,
+            department_id: data?.department_id,
             email: data?.email,
-            file:data?.id_proof,
-            is_active:data?.is_active,
+            file: data?.id_proof,
+            is_active: data?.is_active,
         };
         reset(defaultValues);
-    },[data,reset]);
-    
+    }, [data, reset]);
+
     const navigate = useNavigate();
 
-    if (isLoading){
-        return<div>Loading</div>;
+    if (isLoading) {
+        return <div>Loading</div>;
     }
 
-    if (error){
-        return<PopUp description={'Cannot load Update Employee Page'} 
-        margin={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}></PopUp>;
+    if (error) {
+        return <PopUp description={'Cannot load Update Employee Page'}
+            margin={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}></PopUp>;
     }
 
     return (
         <div className='mx-auto mt-6 flex flex-initial  '>
             <div className=' m-4 mx-auto h-[1200px]  overflow-auto
              rounded-xl bg-white shadow-xl lg:h-[650px] lg:w-[90%] '>
-                <form onSubmit={handleSubmit(async(updatedData) => {
+                <form onSubmit={handleSubmit(async (updatedData) => {
                     const updateId = parseInt(urlId.id);
-                    const updateEmployeeResponse = await updateData({ body: updatedData, id: updateId} );
+                    const updateEmployeeResponse = await updateData({ body: updatedData, id: updateId });
                     if ('error' in updateEmployeeResponse) {
                         setErrorMessage(true);
                     }
-                    else{
-                    // updateData({ body: updatedData, id: updateId} );
-                    if(file){
-                    const formData = new FormData();
-                    formData.append('name', file?.name);
-                    formData.append('file', file);
-                    addFile({ body: formData, id: updateId });
+                    else {
+                        // updateData({ body: updatedData, id: updateId} );
+                        if (file) {
+                            const formData = new FormData();
+                            formData.append('name', file?.name);
+                            formData.append('file', file);
+                            addFile({ body: formData, id: updateId });
 
+                        }
+                        reset();
+                        navigate('/employee-list');
                     }
-                    reset();
-                    navigate('/employee-list');}
                 })}>
                     <div className='p-2  xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial'>
@@ -188,7 +191,7 @@ const UpdateEmployee: FC = () => {
                         </div>
                         <div className='w-1/3 flex-initial  '>
                             <Label name='Role' />
-                            <DropdownMenu registerFunction={register} registerName='role' dropdown={dropdown1}
+                            <DropdownMenu registerFunction={register} registerName='role' dropdownData={dropdown1}
                                 defaults={data?.Role.role} />
                             <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'> {errors.role_id?.message}</p>
@@ -197,35 +200,37 @@ const UpdateEmployee: FC = () => {
                         <div className=' w-1/3 flex-initial' >
                             <Label name='Department' />
                             <DropdownMenu registerFunction={register}
-                                registerName='department' dropdown={dropdown2} defaults={data?.Department.name} />
+                                registerName='department' dropdownData={dropdown2} defaults={data?.Department.name} />
                             <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'>{errors.department_id?.message}</p>
                         </div>
                     </div>
                     <div className='p-2 xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
-                            <FileInput registerFunction={register} registerName='file' setFiles={setfiles} files={file} 
-                            defaultFileText={data?.id_proof} />
+                            <FileInput registerFunction={register} registerName='file' setFiles={setfiles} files={file}
+                                defaultFileText={data?.id_proof} />
                         </div>
                     </div>
                     <div className='flex p-2'>
                         <div className='ml-2 flex-initial'>
-                            <Button type="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white'
-                                bghover='hover:bg-brightsCelurean' text='Update' border='border border-blue-500'
+                            <Button type="submit"
+                                buttonClass='w-36 bg-brightCelurean text-white hover:bg-brightsCelurean 
+                                    border border-blue-500'
+                                text='Update'
                             />
                         </div>
                         <div className='flex-initial'>
-                            <Button type="reset" bgcolor='w-36 bg-white'
-                                textcolor='text-black'
-                                bghover='hover:bg-white' text='Cancel'
-                                border='border border-zinc-900 hover:border-indigo-300'
-                                onclick={() => navigate('/employee-list')} />
+                            <Button type="reset" 
+                                buttonClass='w-36 bg-white text-black hover:bg-white border 
+                                border-zinc-900 hover:border-indigo-300'
+                                text='Cancel'
+                                handleClick={() => navigate('/employee-list')} />
                         </div>
                         {errorMessage && (
-                        <PopUp description='An employee with this e-mail id or user name already exists.' 
-                        margin='absolute inset-x-0 bottom-6 h-16 w-[15%] 
+                            <PopUp description='An employee with this e-mail id or user name already exists.'
+                                margin='absolute inset-x-0 bottom-6 h-16 w-[15%] 
                         min-w-[500px] border-rose-600 bg-red-50'></PopUp>
-                    )}
+                        )}
                     </div>
                 </form>
             </div>

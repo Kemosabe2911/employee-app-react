@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { LabelProps } from './types';
 
 const Label: FC <LabelProps > = (props) => {

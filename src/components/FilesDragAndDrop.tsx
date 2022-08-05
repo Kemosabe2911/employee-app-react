@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 
-import Button from './Button';
 import { FilesDragAndDropProps } from './types';
+import Button from './Button';
 
 const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
 
@@ -87,16 +87,17 @@ const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
         </div>
         <div className='m-4 mx-auto flex w-[100%]'>
           <div className='w-1/2 text-right'>
-            <Button type="button" bgcolor='w-[149px] bg-brightCelurean' textcolor='text-white'
-              bghover='hover:bg-brightsCelurean' text='Upload' border='border border-blue-500'
-              onclick={() => handleUpload(file)} />
+            <Button type="button" 
+              buttonClass='w-[149px] bg-brightCelurean text-white hover:bg-brightsCelurean border border-blue-500'
+              text='Upload' 
+              handleClick={() => handleUpload(file)} />
           </div>
           <div className='w-1/2 text-left'>
-            <Button type="button" bgcolor='w-[149px] bg-white'
-              textcolor='text-black'
-              bghover='hover:bg-white' text='Close'
-              border='border border-zinc-900 hover:border-brightCelurean'
-              onclick={handleCancel} />
+            <Button type="button" 
+                    buttonClass='w-[149px] bg-white text-black hover:bg-white border border-zinc-900 
+                    hover:border-brightCelurean' 
+                    text='Close'
+                    handleClick={handleCancel} />
           </div>
         </div>
       </div>

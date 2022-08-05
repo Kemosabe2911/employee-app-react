@@ -2,85 +2,47 @@ import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 
+import { CreateEmployeeProps } from './types';
+import { POPUP_MESSAGES } from 'constants/popupMessages';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import Label from './Label';
 import Button from './Button';
 import FileInput from './FileInput';
-import { useAddEmployeeMutation, useAddFileMutation, useGetDepartmentListQuery, useGetRoleListQuery }
-    from 'services/api';
 import PopUp from './PopUp';
+import schema from '../containers/create-employee/validation';
 
-const schema = yup.object({
-    name: yup.string().required('Employee Name is a required field'),
-    username: yup.string().required('User Name is a required field'),
-    age: yup.number().max(99, 'Enter a valid age').min(18, 'Enter a valid age')
-        .required().typeError('Age is a required field'),
-    street: yup.string().required('Street is a required field'),
-    city: yup.string().required('City is a required field'),
-    state: yup.string().required('State is a required field '),
-    email: yup.string().email('Not a valid e-mail id').required('E-mail is a required field'),
-    role_id: yup.number().required().typeError('Role is a required field '),
-    department_id: yup.number()
-        .required().typeError('Department is a required field '),
-});
-
-const CreateEmployeeForm: FC = () => {
-
-    const [errorMessage, setErrorMessage]=useState(false);
-
-    const { data: DepartmentData } = useGetDepartmentListQuery();
-    const { data: RoleData } = useGetRoleListQuery();
-    const [addEmployee] = useAddEmployeeMutation();
-    const [addFile] = useAddFileMutation();
-
+const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
+    const { addEmployee, addFile, roleList, departmentList } = props;
     const { register, reset, handleSubmit, formState: { errors } } = useForm(
         {
             resolver: yupResolver(schema),
         }
     );
-
     const navigate = useNavigate();
     const [file, setfiles] = useState(null);
-
-    const dropdown1 = [];
-    RoleData?.map(department => {
-        dropdown1.push({
-            'id': department.id,
-            'name': department.role
-        });
-    });
-    const dropdown2 = [];
-    DepartmentData?.map(department => {
-        dropdown2.push({
-            'id': department.id,
-            'name': department.name
-        });
-    });
-
+    const [errorMessage, setErrorMessage] = useState(false);
 
     return (
         <div className='mx-auto mt-6 flex flex-initial '>
             <div className=' m-4 mx-auto h-[1200px] w-[55%] overflow-auto rounded-xl bg-white shadow-xl 
             md:h-[1000px] md:w-[90%] md:justify-center lg:h-[650px] lg:w-[90%]'>
                 <form onSubmit={handleSubmit(async (SubmittedData) => {
-                        const addEmployeeResponse = await addEmployee(SubmittedData);
-                        if ('error' in addEmployeeResponse) {
-                            setErrorMessage(true);
+                    const addEmployeeResponse = await addEmployee(SubmittedData);
+                    if ('error' in addEmployeeResponse) {
+                        setErrorMessage(true);
+                    }
+                    else {
+                        if (file) {
+                            const formData = new FormData();
+                            formData.append('name', file?.name);
+                            formData.append('file', file);
+                            addFile({ body: formData, id: addEmployeeResponse?.data?.id });
                         }
-                        else
-                        {
-                        if(file){    
-                        const formData = new FormData();
-                        formData.append('name', file?.name);
-                        formData.append('file', file);
-                        addFile({ body: formData, id: addEmployeeResponse?.data?.id });}
-
-                    reset();
-                    navigate('/employee-list');}
-
+                        reset();
+                        navigate('/employee-list');
+                    }
                 })}>
                     <div className=' p-2 md:justify-center  xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
@@ -139,7 +101,7 @@ const CreateEmployeeForm: FC = () => {
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial  '>
                             <Label name='Role' />
                             <DropdownMenu registerFunction={register} registerName='role_id'
-                                dropdown={dropdown1} />
+                                dropdownData={roleList} />
                             <p className='pl-6 font-sans text-xs normal-case 
                                 text-red-600'> {errors.role_id?.message}</p>
                         </div>
@@ -147,7 +109,7 @@ const CreateEmployeeForm: FC = () => {
                         <div className=' w-1/3 flex-initial' >
                             <Label name='Department' />
                             <DropdownMenu registerFunction={register}
-                                registerName='department_id' dropdown={dropdown2} />
+                                registerName='department_id' dropdownData={departmentList} />
                             <p className='pl-6 font-sans text-xs normal-case 
                                 text-red-600'>{errors.department_id?.message}</p>
                         </div>
@@ -159,21 +121,23 @@ const CreateEmployeeForm: FC = () => {
                     </div>
                     <div className='flex p-2'>
                         <div className='ml-2 flex-initial'>
-                            <Button type="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white'
-                                bghover='hover:bg-brightsCelurean' text='Create' border='border border-blue-500' />
+                            <Button type="submit"
+                                buttonClass='w-36 bg-brightCelurean text-white hover:bg-brightsCelurean
+                                                 border border-blue-500'
+                                text='Create' />
                         </div>
                         <div className='flex-initial'>
-                            <Button type="reset" bgcolor='w-36 bg-white'
-                                textcolor='text-black'
-                                bghover='hover:bg-white' text='Cancel'
-                                border='border border-zinc-900 '
-                                onclick={() => navigate('/employee-list')} />
+                            <Button type="reset"
+                                buttonClass='w-36 bg-white text-black hover:bg-white 
+                                                              border border-zinc-900'
+                                text='Cancel'
+                                handleClick={() => navigate('/employee-list')} />
                         </div>
                         {errorMessage && (
-                        <PopUp description='An employee with this e-mail id or user name already exists.' 
-                        margin='absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
-                         border-rose-600 bg-red-50'></PopUp>
-                    )}
+                            <PopUp description={POPUP_MESSAGES.duplicateUser}
+                                margin='absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
+                         border-rose-600 bg-red-50'/>
+                        )}
                     </div>
                 </form>
             </div>

@@ -4,12 +4,12 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
-import InputField from './InputField';
-import Button from './Button';
 import { MailIcon, PasswordIcon } from 'assets/icons/index';
 import { useAddLoginMutation } from 'services/api';
 import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
+import InputField from './InputField';
+import Button from './Button';
 import PopUp from './PopUp';
 
 
@@ -72,8 +72,9 @@ const Login: FC = () => {
                                 text-red-600'>{errors.password?.message}</p>
 
                     <div className="flex justify-center pt-2">
-                        <Button type="submit" bgcolor='w-36 bg-brightCelurean' textcolor='text-white'
-                            bghover='hover:bg-sky-400' text='Login' border='bg-brightsCelurean' />
+                        <Button type="submit" 
+                                buttonClass='w-36 bg-brightCelurean text-white hover:bg-sky-400  bg-brightsCelurean' 
+                                text='Login' />
                     </div>
                     <div className="flex justify-center pt-2 text-xs">
                         <div className="">New User?</div>
