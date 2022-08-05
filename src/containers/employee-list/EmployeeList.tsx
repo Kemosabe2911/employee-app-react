@@ -8,6 +8,7 @@ import { columns } from 'constants/ListHeader';
 import PopUp from 'components/PopUp';
 import ListComponent from 'components/ListComponent';
 import MainBar from 'components/MainBar';
+import Loader from 'components/Loader';
 
 const EmployeeList: FC = () => {
     const [status, setStatus] = useState<string>(null);
@@ -37,9 +38,8 @@ const EmployeeList: FC = () => {
 
     if (isLoading) {
         return (
-            <div className="top-40 flex items-center justify-center ">
-                <div className="h-10 w-10 animate-spin rounded-full border-y-4 border-brightCelurean" />
-            </div>);
+            <Loader/>
+           );
     }
 
     if (error) {
