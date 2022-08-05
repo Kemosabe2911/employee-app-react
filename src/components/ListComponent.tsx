@@ -10,15 +10,15 @@ import StatusModal from './StatusModal';
 
 
 const ListComponent: FC<ListComponentProps> = (props) => {
-    const { status, EmployeeList, RoleData, DepartmentData, deleteEmployee, setDelete, setclickedId,
-        deleteClicked, clickedId, handleDeleteEmployee } = props;
+    const { status, EmployeeList, RoleData, DepartmentData, deleteEmployee, setDelete, setSelectedId,
+        deleteClicked, selectedId, handleDeleteEmployee } = props;
     
     const [openStatusModal, setStatusModal] = useState<boolean>(false);
-    const [statusClicked, setStatusClicked] = useState<number>(0);
+    const [statusClicked, setIdStatus] = useState<number>(0);
     const navigate = useNavigate();
 
     const handleDelete = (clicked: number) => {
-        setclickedId(clicked);
+        setSelectedId(clicked);
         setDelete(true);
     };
     const handleEdit = (id: number) => {
@@ -29,7 +29,7 @@ const ListComponent: FC<ListComponentProps> = (props) => {
     };
     const handleStatusChange = (statusClickedId) => {
         setStatusModal(true);
-        setStatusClicked(statusClickedId);
+        setIdStatus(statusClickedId);
     };
 
     const filterItem = (list) => {
@@ -97,7 +97,7 @@ const ListComponent: FC<ListComponentProps> = (props) => {
                                         </button>
                                         {deleteClicked && (
                                             <DeleteModal setDelete={setDelete}
-                                                clickedId={clickedId}
+                                                selectedId={selectedId}
                                                 handleDeleteEmployee={handleDeleteEmployee} 
                                                 primaryText={POPUP_MESSAGES.deleteEmployeeHeadingText}
                                                 secondaryText={POPUP_MESSAGES.deleteEmployeeContentText}/>)

@@ -4,8 +4,8 @@ import { DeleteModalProps } from './types';
 import Button from './Button';
 
 const DeleteModal: FC<DeleteModalProps> = (props) => {
-    const { setDelete, clickedId, handleDeleteEmployee, primaryText, secondaryText } = props;
-    
+    const { setDelete, selectedId, handleDeleteEmployee, primaryText, secondaryText } = props;
+
     return (
         <div className='fixed inset-0  h-full w-full overflow-y-auto  bg-gray-200/10'>
             <div className='relative inset-x-36 top-60 mx-auto h-[209px] w-[400px] rounded-md border
@@ -18,7 +18,7 @@ const DeleteModal: FC<DeleteModalProps> = (props) => {
                             buttonClass='w-[117px] bg-brightCelurean text-white hover:bg-brightsCelurean
                                  border border-blue-500'
                             text='Confirm'
-                            handleClick={() => handleDeleteEmployee(clickedId)} />
+                            handleClick={() => handleDeleteEmployee(selectedId)} />
                     </div>
                     <div className='w-1/2 flex-initial text-left'>
                         <Button type="button"

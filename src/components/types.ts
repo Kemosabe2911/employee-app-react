@@ -11,21 +11,21 @@ export type MainBarInputField = {
   buttonDescription: string;
   buttonIcon: string;
   buttonNavigateUrl: string;
-  setStatus?:React.Dispatch<React.SetStateAction<string>>;
-  setText?:React.Dispatch<React.SetStateAction<string>>;
-  text?:string;
+  setStatus?: React.Dispatch<React.SetStateAction<string>>;
+  setText?: React.Dispatch<React.SetStateAction<string>>;
+  text?: string;
 };
 
 export type FileInputProps = {
-  setFiles:React.Dispatch<any>;
-  files:any;
-  defaultFileText?:string;
+  setFiles: React.Dispatch<any>;
+  files: any;
+  defaultFileText?: string;
   registerFunction?: UseFormRegister<any>;
-  registerName?:string;
+  registerName?: string;
 };
 
-export type LogoutProps ={
-  setLogoutModal:React.Dispatch<React.SetStateAction<boolean>>
+export type LogoutProps = {
+  setLogoutModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type FilesDragAndDropProps = {
@@ -33,7 +33,7 @@ export type FilesDragAndDropProps = {
   setFiles: React.Dispatch<any>;
   file: any;
   registerFunction?: UseFormRegister<any>;
-  registerName?:string;
+  registerName?: string;
 };
 
 export type InputFieldProps = {
@@ -57,7 +57,7 @@ export type Role={
   role:string;
 }
 
-export type ListComponentProps ={
+export type ListComponentProps = {
   status: string;
   text?:string;
   EmployeeList?:any;
@@ -69,16 +69,16 @@ export type ListComponentProps ={
   deleteClicked:boolean;
   // eslint-disable-next-line no-unused-vars
   handleDeleteEmployee:(clickedEmployeeId:number)=>void;
-  setclickedId:React.Dispatch<React.SetStateAction<number>>;
-  clickedId:number;
+  setSelectedId:React.Dispatch<React.SetStateAction<number>>;
+  selectedId:number;
 };
 
 export type DropdownMenuProps = {
   dropdownData: Array<Dropdown>;
   registerFunction: UseFormRegister<any>;
   registerName: string;
-  defaults?:string | number;
-  
+  defaults?: string | number;
+
 };
 
 
@@ -99,25 +99,21 @@ export type ButtonProps = {
 }
 
 export type DeleteModalProps = {
+  selectedId: number;
   setDelete:React.Dispatch<React.SetStateAction<boolean>>;
-  clickedId:number;
   // eslint-disable-next-line no-unused-vars
   handleDeleteEmployee?:(clickedEmployeeId:number)=>void;
   primaryText:string;
   secondaryText:string;
 };
 
-export type StatusModalProps ={
-  statusclicked:number;
+export type StatusModalProps = {
+  statusclicked: number;
 };
 
-// export type UpdateEmployeeProps={
-//   employeeid:number;
-// }
-
-export type AddFileRequestType={
-  name:string;
-  file:any;
+export type AddFileRequestType = {
+  name: string;
+  file: any;
 };
 
 export type DepartmentDetailsApi = {
@@ -132,21 +128,21 @@ export type DepartmentDetailsApi = {
   }
 }
 
-  export type RoleDetailsApi={
-    id:number;
-    role:string;
-  }
+export type RoleDetailsApi = {
+  id: number;
+  role: string;
+}
 
-export type CreateEmployeeApiRequest={
-    age:number;
-    city:string;
-    department_id:number;
-    email:string;
-    name:string;
-    role_id:number;
-    state:string;
-    street:string;
-    username:string;
+export type CreateEmployeeApiRequest = {
+  age: number;
+  city: string;
+  department_id: number;
+  email: string;
+  name: string;
+  role_id: number;
+  state: string;
+  street: string;
+  username: string;
 }
 
 export type EmployeeListApiResponse = {
@@ -160,7 +156,7 @@ export type EmployeeListApiResponse = {
   role_id: number;
   address_id: number;
   isAdmin: boolean;
-  id_proof:any;
+  id_proof: any;
   Department:
   {
     id: number;
@@ -197,7 +193,7 @@ export type EmployeeDetailsApi =
     role_id: number;
     address_id: number;
     isAdmin: boolean;
-    id_proof:any;
+    id_proof: any;
     Department:
     {
       id: number;
@@ -240,8 +236,50 @@ export type UpdateEmployeeReq = {
   body: any
 };
 
-export type PopUpProps ={
+export type PopUpProps = {
   description: string
   margin: string
 }
 
+export type EmployeeDetailsProps = {
+  data: {
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    age: number;
+    is_active: boolean;
+    department_id: number;
+    role_id: number;
+    address_id: number;
+    isAdmin: boolean;
+    id_proof: any;
+    Department:
+    {
+      id: number;
+      name: string;
+      department_details_id: number;
+      Department: {
+        id: number;
+        department_room: string;
+        department_code: string;
+        website: string;
+      }
+    }
+    Role: {
+      id: number;
+      role: string;
+    }
+    Address: {
+      id: number;
+      street: string;
+      city: string;
+      state: string;
+    }
+  };
+}
+
+export type DepartmentListProps={
+  department:DepartmentDetailsApi,
+  key:number
+};

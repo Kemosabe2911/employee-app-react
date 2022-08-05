@@ -105,7 +105,6 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                             <p className='pl-6 font-sans text-xs normal-case 
                                 text-red-600'> {errors.role_id?.message}</p>
                         </div>
-
                         <div className=' w-1/3 flex-initial' >
                             <Label name='Department' />
                             <DropdownMenu registerFunction={register}
