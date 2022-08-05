@@ -111,7 +111,6 @@ const SignUp: FC = () => {
                 </div>
             </form >
         </div >
-
     );
 };
 

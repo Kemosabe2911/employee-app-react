@@ -5,15 +5,10 @@ import { changeAuthentication } from 'store/reducers';
 import { useLazyGetLogoutQuery } from 'services/api';
 import Button from './Button';
 
-
 const Logout = (props) => {
-
-
     const { setLogoutModal } = props;
     const dispatch = useDispatch();
-
     const [logout] = useLazyGetLogoutQuery();
-
 
     const handleLogout = () => {
         dispatch(changeAuthentication('false'));
@@ -23,6 +18,7 @@ const Logout = (props) => {
     const handleCancel = () => {
         setLogoutModal(false);
     };
+    
     return (
         <div className=" mx-auto mt-[15%] h-44 w-[25%] min-w-[400px] rounded-3xl bg-white shadow-xl">
             <div className="pt-10 text-center text-lg">Are you sure you want to log out?</div>

@@ -1,6 +1,5 @@
 import React, { FC,useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,28 +7,19 @@ import { MailIcon, PasswordIcon } from 'assets/icons/index';
 import { useAddLoginMutation } from 'services/api';
 import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
+import loginSchema from 'containers/login/validation';
 import InputField from './InputField';
 import Button from './Button';
 import PopUp from './PopUp';
 
-
-const schema = yup.object({
-    email: yup.string().email('Not a valid e-mail id').required('Enter your e-mail'),
-    password: yup.string()
-        .required('Enter your password')
-});
 const Login: FC = () => {
-
     const dispatch =useDispatch();
-
     const [signUpErrorMessage, setSignUpErrorMessage]=useState(false);
-    
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
-            resolver: yupResolver(schema),
+            resolver: yupResolver(loginSchema),
         }
     );
-
     const navigate = useNavigate();
 
     const handleSignUp = () => {
@@ -49,7 +39,6 @@ const Login: FC = () => {
                 }
                 else{
                 dispatch(changeAuthentication('true'));
-                // console.log(loginResponse.data.Access);
                 }
                 reset();
             })}>

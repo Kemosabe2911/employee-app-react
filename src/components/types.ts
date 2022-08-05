@@ -61,7 +61,7 @@ export type Role={
 export type ListComponentProps = {
   status: string;
   text?:string;
-  EmployeeList?:any;
+  employee?:any;
   RoleData:Array<Role>;
   DepartmentData: Array<Dropdown>;
   deleteEmployee:MutationTrigger<MutationDefinition<any, BaseQueryFn<string |
@@ -72,6 +72,9 @@ export type ListComponentProps = {
   handleDeleteEmployee:(clickedEmployeeId:number)=>void;
   setSelectedId:React.Dispatch<React.SetStateAction<number>>;
   selectedId:number;
+  updateStatus:MutationTrigger<MutationDefinition<any, BaseQueryFn<string |
+   FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
+  EmployeeListData: EmployeeListApiResponse[];
 };
 
 export type DropdownMenuProps = {
@@ -81,7 +84,6 @@ export type DropdownMenuProps = {
   defaults?: string | number;
 
 };
-
 
 export type CreateEmployeeProps = {
   addEmployee :MutationTrigger<MutationDefinition<any, BaseQueryFn<string 

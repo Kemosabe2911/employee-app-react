@@ -1,15 +1,11 @@
 import React from 'react';
 
-import { useGetEmployeeListQuery, useUpdateStatusMutation } from 'services/api';
 import Button from './Button';
 
 const StatusModal = (props) => {
 
-    const { data } = useGetEmployeeListQuery('');
-    const [updateStatus] = useUpdateStatusMutation();
-
-    const { statusclicked, setStatusModal } = props;
-    const changedEmployee = data?.filter(employee => employee.id === statusclicked)[0];
+    const { statusclicked, setStatusModal,updateStatus,EmployeeListData} = props;
+    const changedEmployee = EmployeeListData?.filter(employee => employee.id === statusclicked)[0];
 
     const handleChange = () => {
         let changeTo = {

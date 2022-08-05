@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,6 +8,7 @@ import {
     useUpdateEmployeeMutation, useGetDepartmentListQuery, useGetRoleListQuery,
     useAddFileMutation
 } from 'services/api';
+import updateEmployeeSchema from 'containers/update-employee/validation';
 import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import Label from './Label';
 import Button from './Button';
@@ -17,24 +17,9 @@ import InputField from './InputField';
 import FileInput from './FileInput';
 import PopUp from './PopUp';
 
-const schema = yup.object({
-    name: yup.string().required('Employee Name is a required field'),
-    username: yup.string().required('User Name is a required field'),
-    age: yup.number().max(99, 'Enter a valid age').min(18, 'Enter a valid age')
-        .required().typeError('Age is a required field'),
-    street: yup.string().required('Street is a required field'),
-    city: yup.string().required('City is a required field'),
-    state: yup.string().required('State is a required field '),
-    role_id: yup.number().required(),
-    department_id: yup.number().required(),
-    email: yup.string().email('Not a valid e-mail id').required('E-mail is a required field'),
-    file: yup.mixed().required('File is a required field'),
-});
-
 const UpdateEmployee: FC = () => {
 
     const [errorMessage, setErrorMessage] = useState(false);
-
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
 
@@ -65,7 +50,7 @@ const UpdateEmployee: FC = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
-            resolver: yupResolver(schema),
+            resolver: yupResolver(updateEmployeeSchema),
             defaultValues:
             {
                 name: '',
@@ -124,13 +109,11 @@ const UpdateEmployee: FC = () => {
                         setErrorMessage(true);
                     }
                     else {
-                        // updateData({ body: updatedData, id: updateId} );
                         if (file) {
                             const formData = new FormData();
                             formData.append('name', file?.name);
                             formData.append('file', file);
                             addFile({ body: formData, id: updateId });
-
                         }
                         reset();
                         navigate('/employee-list');
@@ -240,4 +223,5 @@ const UpdateEmployee: FC = () => {
         </div>
     );
 };
+
 export default UpdateEmployee;
