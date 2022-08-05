@@ -1,21 +1,20 @@
 import React, { FC } from 'react';
 
+import { DeleteIcon, EditIcon } from 'assets/icons';
 import { useGetDepartmentListQuery } from 'services/api';
 import PopUp from './PopUp';
-import { DeleteIcon, EditIcon } from 'assets/icons';
 
 const DepartmentListComponent: FC = () => {
 
     const { data ,error, isLoading} = useGetDepartmentListQuery();
-
     if (isLoading){
         return<div>Loading</div>;
     }
-
     if (error){
         return<PopUp description={'Cannot load Department List'} 
         margin={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}></PopUp>;
     }
+
     return (
         <table className="mx-auto w-full min-w-[450px] table-auto">
             <thead>
@@ -53,4 +52,5 @@ const DepartmentListComponent: FC = () => {
         </table>
     );
 };
+
 export default DepartmentListComponent;

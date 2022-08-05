@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchElement from './SearchElement';
 
 import { MainBarInputField } from './types';
+import SearchElement from './SearchElement';
+
 
 const MainBar: FC<MainBarInputField> = (props) => {
     const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus,setText,text
