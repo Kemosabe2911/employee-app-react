@@ -71,6 +71,9 @@ export type ListComponentProps = {
   handleDeleteEmployee:(clickedEmployeeId:number)=>void;
   setSelectedId:React.Dispatch<React.SetStateAction<number>>;
   selectedId:number;
+  updateStatus:MutationTrigger<MutationDefinition<any, BaseQueryFn<string |
+   FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
+  EmployeeListData: EmployeeListApiResponse[];
 };
 
 export type DropdownMenuProps = {
@@ -80,7 +83,6 @@ export type DropdownMenuProps = {
   defaults?: string | number;
 
 };
-
 
 export type CreateEmployeeProps = {
   addEmployee :MutationTrigger<MutationDefinition<any, BaseQueryFn<string 

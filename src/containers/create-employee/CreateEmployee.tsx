@@ -14,7 +14,7 @@ const CreateEmployee: FC = () => {
 
     const getRoleDropdownData = () => {
         let roleDropdownData = [];
-        roleData.map(department => {
+        roleData?.map(department => {
             roleDropdownData.push({
                 'id': department.id,
                 'name': department.role
@@ -25,7 +25,7 @@ const CreateEmployee: FC = () => {
 
     const getDeptDropdownData = () => {
         let deptDropdownData = [];
-        departmentData.map(department => {
+        departmentData?.map(department => {
             deptDropdownData.push({
                 'id': department.id,
                 'name': department.name
