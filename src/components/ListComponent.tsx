@@ -31,24 +31,22 @@ const ListComponent: FC<ListComponentProps> = (props) => {
         setStatusClicked(statusClickedId);
     };
 
-
     return (
         <>
-            <tr className="m-4 h-4 w-full rounded-xl bg-white"></tr>
+            <tr className="m-4 h-4 w-full rounded-xl bg-white" />
             <tr className=" m-4 h-14 w-full rounded-xl bg-white shadow-md" >
                 <td onClick={() => handleEmployeeDetailsClick(employee.id)}
                     className='m-2 ml-4 cursor-pointer p-4 text-center
-                                     duration-300 hover:scale-110'>   {employee.name}</td>
-                <td className='p-4 text-center'>   {employee.username}</td>
-                <td className='p-4 text-center'>   {employee.age}</td>
+                                     duration-300 hover:scale-110'> {employee.name}</td>
+                <td className='p-4 text-center'>  {employee.username}</td>
+                <td className='p-4 text-center'>  {employee.age}</td>
                 <td className='p-4 text-center'>
                     {RoleData?.map(role => {
                         if (employee.role_id === role.id)
                             return role.role;
                     })
                     }</td>
-                <td
-                    className=' px-10 text-right lg:px-4 lg:text-left xl:px-7 2xl:px-12'>
+                <td className=' px-10 text-right lg:px-4 lg:text-left xl:px-7 2xl:px-12'>
                     <div onClick={() => handleStatusChange(employee.id)}
                         className={` h-8 w-28  cursor-pointer rounded-2xl p-1 text-center
                                                      ${(employee.is_active) ? 'bg-teaGreen' : 'bg-paleRose'}
@@ -77,7 +75,6 @@ const ListComponent: FC<ListComponentProps> = (props) => {
                         <EditIcon />
                     </button></td>
             </tr>
-
 
             {openStatusModal &&
                 <StatusModal statusclicked={statusClicked}

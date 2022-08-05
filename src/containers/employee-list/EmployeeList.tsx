@@ -63,12 +63,11 @@ const EmployeeList: FC = () => {
                             );
                         })}
                     </tr>
-                </thead>
-                    <tbody className="p-5">
+                </thead> 
                         {EmployeeListData?.filter(list => filterItem(list)).map(employee => {
                             return (
-                                <div key={employee.id} className='m-10'>
-                                    <ListComponent status={status}
+                                <tbody key={employee.id}>
+                                     <ListComponent status={status}
                                         text={text}
                                         employee={employee}
                                         RoleData={RoleData}
@@ -79,10 +78,11 @@ const EmployeeList: FC = () => {
                                         handleDeleteEmployee={handleDeleteEmployee}
                                         setSelectedId={setSelectedId}
                                         selectedId={selectedId} />
-                                </div>
+                                </tbody>
+                                   
                             );
                         })}
-                    </tbody>
+                 
             </table>
         </div>
     );
