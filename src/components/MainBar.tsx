@@ -8,7 +8,6 @@ import SearchElement from './SearchElement';
 const MainBar: FC<MainBarInputField> = (props) => {
     const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus,setText,text
         } = props;
-
     const navigate = useNavigate();
     const handleCreateClick = (selectedPath) => {
         navigate(selectedPath);

@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { SIDE_BAR_CONSTANTS as sideBarItems } from 'constants/sideBarItems';
+import { ICONS } from 'constants/icons';
 import { LOGO } from 'constants/logo';
 import Logout from './Logout';
 
@@ -19,7 +20,7 @@ const SideBar: FC = () => {
         setId(selectedButtonUrl);
         navigate(selectedButtonUrl);
     };
-    const logoutIcon = 'fa fa-sign-out';
+   
     return (
         <div className="fixed z-40 h-full">
             <div className="flex h-[100%] w-[350px] flex-col border-2 bg-white shadow-lg">
@@ -43,7 +44,7 @@ const SideBar: FC = () => {
                     <button onClick={()=>setLogoutModal(true)} 
                     className=' h-[50px] w-[200px] pl-24 pt-7 text-left text-brightCelurean 
                     duration-300 hover:translate-x-2'>
-                    <span className={`h-[15px] w-[15px] pr-[30px] ${logoutIcon} `} />
+                    <span className={`h-[15px] w-[15px] pr-[30px] ${ICONS.logout} `} />
                         Log Out</button>
                 </div>
                 {logoutModal&&(

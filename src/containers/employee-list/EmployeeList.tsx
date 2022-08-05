@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
 import {
     useDeleteEmployeeMutation, useGetDepartmentListQuery, useGetEmployeeListQuery,
-    useGetRoleListQuery
+    useGetRoleListQuery,
+    useUpdateStatusMutation
 } from 'services/api';
 import { columns } from 'constants/ListHeader';
 import PopUp from 'components/PopUp';
@@ -15,6 +16,7 @@ const EmployeeList: FC = () => {
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
     const [deleteEmployee] = useDeleteEmployeeMutation();
+    const [updateStatus] = useUpdateStatusMutation();
     const [deleteClicked, setDelete] = useState<boolean>(false);
     const [selectedId, setSelectedId] = useState<number>(0);
     const handleDeleteEmployee = (clickedEmployeeId) => {
@@ -63,26 +65,27 @@ const EmployeeList: FC = () => {
                             );
                         })}
                     </tr>
-                </thead> 
-                        {EmployeeListData?.filter(list => filterItem(list)).map(employee => {
-                            return (
-                                <tbody key={employee.id}>
-                                     <ListComponent status={status}
-                                        text={text}
-                                        employee={employee}
-                                        RoleData={RoleData}
-                                        DepartmentData={DepartmentData}
-                                        deleteEmployee={deleteEmployee}
-                                        deleteClicked={deleteClicked}
-                                        setDelete={setDelete}
-                                        handleDeleteEmployee={handleDeleteEmployee}
-                                        setSelectedId={setSelectedId}
-                                        selectedId={selectedId} />
-                                </tbody>
-                                   
-                            );
-                        })}
-                 
+                </thead>
+                {EmployeeListData?.filter(list => filterItem(list)).map(employee => {
+                    return (
+                        <tbody key={employee.id}>
+                            <ListComponent status={status}
+                                text={text}
+                                employee={employee}
+                                RoleData={RoleData}
+                                DepartmentData={DepartmentData}
+                                deleteEmployee={deleteEmployee}
+                                deleteClicked={deleteClicked}
+                                setDelete={setDelete}
+                                handleDeleteEmployee={handleDeleteEmployee}
+                                setSelectedId={setSelectedId}
+                                selectedId={selectedId}
+                                EmployeeListData={EmployeeListData}
+                                updateStatus={updateStatus}
+                            />
+                        </tbody>
+                    );
+                })}
             </table>
         </div>
     );

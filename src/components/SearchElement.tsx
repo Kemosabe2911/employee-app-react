@@ -1,16 +1,18 @@
 import React from 'react';
 
+import { ICONS } from 'constants/icons';
+
 const SearchElement = (props) => {
     const inputRef: React.MutableRefObject<any> = React.useRef(null);
     const { setText, text } = props;
     const handleText = () => {
         setText(inputRef.current.value);
     };
-    const search = 'fa fa-search';
+   
     return (
         <>
             <span className={`h-[48px] w-[48px] flex-initial rounded-full bg-brightCelurean p-[16px]
-                         text-white duration-300 hover:scale-110 ${search}`} />
+                         text-white duration-300 hover:scale-110 ${ICONS.search}`} />
             <input
                 onChange={() => handleText()}
                 ref={inputRef}
@@ -21,7 +23,7 @@ const SearchElement = (props) => {
                focus:outline-none"
             />
         </>
-
     );
 };
+
 export default SearchElement;
