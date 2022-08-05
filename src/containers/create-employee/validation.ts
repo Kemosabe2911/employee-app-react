@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const schema = yup.object({
+const createEmployeeSchema = yup.object({
     name: yup.string().required('Employee Name is a required field'),
     username: yup.string().required('User Name is a required field'),
     age: yup.number().max(99, 'Enter a valid age').min(18, 'Enter a valid age')
@@ -14,4 +14,4 @@ const schema = yup.object({
         .required().typeError('Department is a required field '),
 });
 
-export default schema;
+export default createEmployeeSchema;

@@ -7,7 +7,7 @@ const Label: FC <LabelProps > = (props) => {
   
   return (
     <div className='mt-4  md:justify-center'>
-      <label className="m-2 ml-4 font-sans text-lg" htmlFor="">{name}</label>
+      <label className="m-2 ml-4 font-sans text-lg">{name}</label>
     </div>
   );
 };

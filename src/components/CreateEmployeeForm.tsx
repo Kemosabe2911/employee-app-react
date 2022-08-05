@@ -11,13 +11,13 @@ import Label from './Label';
 import Button from './Button';
 import FileInput from './FileInput';
 import PopUp from './PopUp';
-import schema from '../containers/create-employee/validation';
+import createEmployeeSchema from 'containers/create-employee/validation';
 
 const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
     const { addEmployee, addFile, roleList, departmentList } = props;
     const { register, reset, handleSubmit, formState: { errors } } = useForm(
         {
-            resolver: yupResolver(schema),
+            resolver: yupResolver(createEmployeeSchema),
         }
     );
     const navigate = useNavigate();
