@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
 import { PopUpProps } from './types';
-// import { ErrorIcon } from 'assets/icons';
 
 const PopUp: FC<PopUpProps> = ({ description, margin }) => {
 

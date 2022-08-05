@@ -1,5 +1,8 @@
 import { UseFormRegister } from 'react-hook-form';
 import React from 'react';
+import { MutationDefinition, BaseQueryFn, FetchArgs, FetchBaseQueryError, FetchBaseQueryMeta } 
+from '@reduxjs/toolkit/dist/query';
+import { MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 
 
 export type MainBarInputField = {
@@ -49,34 +52,59 @@ export type Dropdown = {
   id: number;
   name: string;
 };
+export type Role={
+  id:number;
+  role:string;
+}
 
 export type ListComponentProps = {
   status: string;
-  text?: string;
-  EmployeeList?: any;
+  text?:string;
+  EmployeeList?:any;
+  RoleData:Array<Role>;
+  DepartmentData: Array<Dropdown>;
+  deleteEmployee:MutationTrigger<MutationDefinition<any, BaseQueryFn<string |
+   FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>;
+  setDelete:React.Dispatch<React.SetStateAction<boolean>>;
+  deleteClicked:boolean;
+  // eslint-disable-next-line no-unused-vars
+  handleDeleteEmployee:(clickedEmployeeId:number)=>void;
+  setSelectedId:React.Dispatch<React.SetStateAction<number>>;
+  selectedId:number;
 };
 
 export type DropdownMenuProps = {
-  dropdown: Array<Dropdown>;
+  dropdownData: Array<Dropdown>;
   registerFunction: UseFormRegister<any>;
   registerName: string;
   defaults?: string | number;
 
 };
 
+
+export type CreateEmployeeProps = {
+  addEmployee :MutationTrigger<MutationDefinition<any, BaseQueryFn<string 
+  | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
+  addFile : MutationTrigger<MutationDefinition<any, BaseQueryFn<string | 
+  FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
+  roleList:Array<Dropdown>;
+  departmentList:Array<Dropdown>;
+}
+
 export type ButtonProps = {
-  bgcolor: string;
-  textcolor: string;
-  bghover?: string;
+  buttonClass:string;
   text: string;
-  border?: string;
   type: 'button' | 'submit' | 'reset';
-  onclick?: () => void;
+  handleClick?: () => void;
 }
 
 export type DeleteModalProps = {
-  setDelete: React.Dispatch<React.SetStateAction<boolean>>;
   selectedId: number;
+  setDelete:React.Dispatch<React.SetStateAction<boolean>>;
+  // eslint-disable-next-line no-unused-vars
+  handleDeleteEmployee?:(clickedEmployeeId:number)=>void;
+  primaryText:string;
+  secondaryText:string;
 };
 
 export type StatusModalProps = {
