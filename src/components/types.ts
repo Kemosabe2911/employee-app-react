@@ -60,7 +60,7 @@ export type Role={
 export type ListComponentProps = {
   status: string;
   text?:string;
-  EmployeeList?:any;
+  employee?:any;
   RoleData:Array<Role>;
   DepartmentData: Array<Dropdown>;
   deleteEmployee:MutationTrigger<MutationDefinition<any, BaseQueryFn<string |
