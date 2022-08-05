@@ -9,7 +9,7 @@ export const SIDE_BAR_CONSTANTS = [
         id: '/department-details',
         icon: 'fa fa-users',
         description: 'Department List',
-        url: '/department-details'
+        url: '/department-list'
     },
     // {
     //     id: '/logout',

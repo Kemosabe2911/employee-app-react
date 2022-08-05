@@ -104,7 +104,9 @@ const SignUp: FC = () => {
                     </div>
                     {errorMessage && (
                         <PopUp description="An account with this e-mail id already exists"
-                            margin='mt-20 fixed inset-0 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'></PopUp>
+                            popUpStyle=' mx-auto
+                            rounded-xl border-2 mt-20 fixed inset-0 h-16 
+                            w-[15%] min-w-[450px] border-rose-600 bg-red-50'></PopUp>
                     )}
                 </div>
             </form >

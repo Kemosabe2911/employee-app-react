@@ -43,7 +43,10 @@ const EmployeeList: FC = () => {
     }
 
     if (error) {
-        return <PopUp description={'Cannot load Employee List'} margin={'absolute inset-x-0 bottom-16 '}></PopUp>;
+        return <PopUp description={'Cannot load Employee List'} 
+        popUpStyle={
+        'mx-auto rounded-xl border-2 absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px] border-rose-600 bg-red-50  '
+    }></PopUp>;
     }
     return (
         <div>
@@ -54,7 +57,8 @@ const EmployeeList: FC = () => {
                 buttonNavigateUrl="/create-employee"
                 setStatus={setStatus}
                 text={text}
-                setText={setText} />
+                setText={setText}
+                popUpRequired={false} />
             <table className='mx-auto mt-10 w-[96%] table-fixed align-middle '>
                 <thead>
                     <tr className=" h-[60px] rounded-xl bg-aliceBlue shadow-xl" >

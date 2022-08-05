@@ -2,11 +2,12 @@ import React, { FC } from 'react';
 
 import { PopUpProps } from './types';
 
-const PopUp: FC<PopUpProps> = ({ description, margin }) => {
+const PopUp: FC<PopUpProps> = ({ description, popUpStyle }) => {
 
     const icon = 'fa fa-exclamation-circle';
     return (
-        <div className={`${margin}  mx-auto
+
+        <div className={`${popUpStyle}  mx-auto
             rounded-xl border-2 border-rose-600 bg-red-50`}>
             <div className=" py-4 text-center text-base">
                 <span className={`${icon} pr-3`}></span>{description}</div>

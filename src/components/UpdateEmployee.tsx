@@ -94,7 +94,8 @@ const UpdateEmployee: FC = () => {
 
     if (error) {
         return <PopUp description={'Cannot load Update Employee Page'}
-            margin={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}></PopUp>;
+            popUpStyle={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50  mx-auto'}>
+        </PopUp>;
     }
 
     return (
@@ -203,7 +204,7 @@ const UpdateEmployee: FC = () => {
                             />
                         </div>
                         <div className='flex-initial'>
-                            <Button type="reset" 
+                            <Button type="reset"
                                 buttonClass='w-36 bg-white text-black hover:bg-white border 
                                 border-zinc-900 hover:border-indigo-300'
                                 text='Cancel'
@@ -211,7 +212,8 @@ const UpdateEmployee: FC = () => {
                         </div>
                         {errorMessage && (
                             <PopUp description='An employee with this e-mail id or user name already exists.'
-                                margin='absolute inset-x-0 bottom-6 h-16 w-[15%] 
+                                popUpStyle='mx-auto
+                                rounded-xl border-2 absolute inset-x-0 bottom-6 h-16 w-[15%] 
                         min-w-[500px] border-rose-600 bg-red-50'></PopUp>
                         )}
                     </div>

@@ -134,8 +134,9 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                         </div>
                         {errorMessage && (
                             <PopUp description={POPUP_MESSAGES.duplicateUser}
-                                margin='absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
-                         border-rose-600 bg-red-50'/>
+                                popUpStyle='mx-auto rounded-xl border-2 
+                                absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
+                         border-rose-600 bg-red-50 '/>
                         )}
                     </div>
                 </form>
