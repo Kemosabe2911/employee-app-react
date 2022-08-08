@@ -9,7 +9,8 @@ import StatusModal from './StatusModal';
 
 
 const ListComponent: FC<ListComponentProps> = (props) => {
-    const { employee, RoleData, DepartmentData, deleteEmployee, setDelete, setSelectedId,
+
+    const { employee, RoleData, DepartmentData, setDelete, setSelectedId,
         deleteClicked, selectedId, handleDeleteEmployee,EmployeeListData,updateStatus } = props;
 
     const [openStatusModal, setStatusModal] = useState<boolean>(false);
@@ -79,7 +80,6 @@ const ListComponent: FC<ListComponentProps> = (props) => {
             {openStatusModal &&
                 <StatusModal statusclicked={statusClicked}
                     setStatusModal={setStatusModal}
-                    deleteEmployee={deleteEmployee}
                     EmployeeListData={EmployeeListData}
                     updateStatus={updateStatus} />
             }

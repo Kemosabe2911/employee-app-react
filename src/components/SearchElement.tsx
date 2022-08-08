@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { ICONS } from 'constants/icons';
+import { SearchElementProps } from './types';
 
-const SearchElement = (props) => {
+const SearchElement: FC<SearchElementProps> = (props) => {
     const inputRef: React.MutableRefObject<any> = React.useRef(null);
     const { setText, text } = props;
     const handleText = () => {

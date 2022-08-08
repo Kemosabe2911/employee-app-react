@@ -4,46 +4,24 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import {
-    useUpdateEmployeeMutation, useGetDepartmentListQuery, useGetRoleListQuery,
-    useAddFileMutation
-} from 'services/api';
+import { UpdateEmployeeProps } from './types';
+import { POPUP_MESSAGES } from 'constants/popupMessages';
 import updateEmployeeSchema from 'containers/update-employee/validation';
-import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import Label from './Label';
 import Button from './Button';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import FileInput from './FileInput';
 import PopUp from './PopUp';
+import Loader from './Loader';
 
-const UpdateEmployee: FC = () => {
+const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
+
+    const {roleList, departmentList, addFile, updateData, getEmployeeDetails, data, isLoading, error } = props;
 
     const [errorMessage, setErrorMessage] = useState(false);
-    const { data: DepartmentData } = useGetDepartmentListQuery();
-    const { data: RoleData } = useGetRoleListQuery();
-
-    const [addFile] = useAddFileMutation();
-    const [updateData] = useUpdateEmployeeMutation();
-
     const [file, setfiles] = useState(null);
-    const dropdown1 = [];
-    RoleData?.map(department => {
-        dropdown1.push({
-            'id': department.id,
-            'name': department.role
-        });
-    });
-    const dropdown2 = [];
-    DepartmentData?.map(department => {
-        dropdown2.push({
-            'id': department.id,
-            'name': department.name
-        });
-    });
-
     const urlId = useParams();
-    const [getEmployeeDetails, { data: data, isLoading, error }] = useLazyGetEmployeeDetailsQuery();
     useEffect(() => {
         getEmployeeDetails(urlId.id);
     }, [urlId]);
@@ -67,7 +45,6 @@ const UpdateEmployee: FC = () => {
             }
         }
     );
-
     useEffect(() => {
         let defaultValues = {
 
@@ -85,15 +62,14 @@ const UpdateEmployee: FC = () => {
         };
         reset(defaultValues);
     }, [data, reset]);
-
     const navigate = useNavigate();
 
     if (isLoading) {
-        return <div>Loading</div>;
+        return <Loader/>;
     }
 
     if (error) {
-        return <PopUp description={'Cannot load Update Employee Page'}
+        return <PopUp description={POPUP_MESSAGES.updateEmployeeLoadingError}
             popUpStyle={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50  mx-auto'}>
         </PopUp>;
     }
@@ -175,7 +151,7 @@ const UpdateEmployee: FC = () => {
                         </div>
                         <div className='w-1/3 flex-initial  '>
                             <Label name='Role' />
-                            <DropdownMenu registerFunction={register} registerName='role' dropdownData={dropdown1}
+                            <DropdownMenu registerFunction={register} registerName='role' dropdownData={roleList}
                                 defaults={data?.Role.role} />
                             <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'> {errors.role_id?.message}</p>
@@ -184,7 +160,8 @@ const UpdateEmployee: FC = () => {
                         <div className=' w-1/3 flex-initial' >
                             <Label name='Department' />
                             <DropdownMenu registerFunction={register}
-                                registerName='department' dropdownData={dropdown2} defaults={data?.Department.name} />
+                                registerName='department' dropdownData={departmentList} 
+                                defaults={data?.Department.name} />
                             <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'>{errors.department_id?.message}</p>
                         </div>
@@ -219,9 +196,10 @@ const UpdateEmployee: FC = () => {
                     </div>
                 </form>
             </div>
-
         </div>
     );
 };
 
 export default UpdateEmployee;
+
+

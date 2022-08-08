@@ -23,8 +23,8 @@ const EmployeeDetails: FC = () => {
         return <PopUp description={'Cannot load Employee Details'}
             popUpStyle={
                 'absolute mx-auto inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50 border-2'
-            }>
-            </PopUp>;
+            }/>
+           ;
     }
     if (isFetchingEmployeeDetails) {
         return (<div>
@@ -40,7 +40,8 @@ const EmployeeDetails: FC = () => {
                 buttonDescription="Update Employee" 
                 buttonIcon="fa fa-pencil" 
                 buttonNavigateUrl={url}
-                popUpRequired={false} />
+                popUpRequired={false} 
+                mainbarElementsRequired={false}/>
             <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
                 <EmployeeDetailsComponent data={data} />
             </div>

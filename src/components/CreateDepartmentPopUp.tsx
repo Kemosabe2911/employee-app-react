@@ -8,7 +8,6 @@ import Label from './Label';
 import InputField from './InputField';
 
 const schema = yup.object({
-
     name: yup.string().required('Name is a required field '),
     department_room: yup.string().required('Department Room is a required field'),
     department_code: yup.string().required('Department Code is arequired field'),
@@ -28,6 +27,8 @@ const CreateDepartmentComponent: FC = () => {
             <div className="my-12 mx-56  h-[600px] w-[100%] overflow-auto rounded-xl
              bg-white px-16 py-12 shadow-xl">
                 <form onSubmit={handleSubmit(data => {
+                    // eslint-disable-next-line no-console
+                    console.log(data);
                     reset();
                 })}>
                     <div className="flex flex-wrap gap-14">

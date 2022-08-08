@@ -53,7 +53,6 @@ const SideBar: FC = () => {
                     </div>
                     )
                 }
-
             </div>
         </div>
     );
