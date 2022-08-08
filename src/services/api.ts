@@ -9,15 +9,15 @@ const employeeApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
     getDepartmentList: builder.query<DepartmentDetailsApi[], void>({
       query: () => '/department',
-      providesTags: ['Employee']
+      // providesTags: ['Employee']
     }),
     getRoleList: builder.query<RoleDetailsApi[], void>({
       query: () => '/role',
-      providesTags: ['Employee']
+      // providesTags: ['Employee']
     }),
     getEmployeeList: builder.query<EmployeeListApiResponse[], string>({
       query: (searchedElement:string) => ({
-        url:`/employee?search=${searchedElement}`,
+        url:`/employee?search=${searchedElement}&sort_by=username&order=desc`,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json' 
@@ -27,6 +27,9 @@ const employeeApi = apiWithTag.injectEndpoints({
     }),
     getEmployeeDetails: builder.query<EmployeeDetailsApi, string>({
       query: (id) => `/employee/${id}`,
+    }),
+    getDepartmentDetails: builder.query({
+      query: (id) => `/department/${id}`,
     }),
     updateEmployee: builder.mutation<any, UpdateEmployeeReq>({
       query: ({ body, id }) => ({
@@ -96,6 +99,7 @@ export const {
   useGetRoleListQuery,
   useGetDepartmentListQuery,
   useGetEmployeeListQuery,
+  useLazyGetDepartmentDetailsQuery,
   useLazyGetEmployeeDetailsQuery,
   useUpdateEmployeeMutation,
   useUpdateStatusMutation,

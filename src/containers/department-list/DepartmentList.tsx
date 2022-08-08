@@ -1,13 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
-import { useGetDepartmentListQuery } from 'services/api';
+import { useLazyGetDepartmentDetailsQuery, useGetDepartmentListQuery } from 'services/api';
 import DepartmentListComponent from 'components/DepartmentListComponent';
 import MainBar from 'components/MainBar';
 import PopUp from 'components/PopUp';
+import DepartmentDetailsModal from 'components/DepartmentDetailsModal';
 
 const DepartmentList: FC = () => {
 
-    const { data, error, isLoading } = useGetDepartmentListQuery();
+    const { data: departmentListData, error, isLoading } = useGetDepartmentListQuery();
+    const [getDepartmentDetails, { data: departmentDetailsData, }] = useLazyGetDepartmentDetailsQuery();
+    const [clickedDepartmentId, setClickedDepartmentId] = useState(1);
+    const [openDeptDetailsModal,setOpenDeptDetailsModal] = useState(false);
+
+    useEffect(() => {
+        getDepartmentDetails(clickedDepartmentId);
+    }, [clickedDepartmentId]);
 
     return (
         <div>
@@ -20,7 +28,8 @@ const DepartmentList: FC = () => {
                             buttonDescription="Create Department"
                             buttonIcon="fa fa-plus"
                             buttonNavigateUrl="/department-list"
-                            popUpRequired={true} />
+                            popUpRequired={true}
+                            mainbarElementsRequired={false} />
 
                         <div className="w-[calc(100vw-350px)]  overflow-x-auto p-5">
                             <table className="mx-auto w-full min-w-[550px] table-auto">
@@ -34,12 +43,18 @@ const DepartmentList: FC = () => {
                                         <th className="w-1/5 font-normal">Actions</th>
                                     </tr>
                                 </thead>
-                                {data?.map((dept) => (
+                                {departmentListData?.map((dept) => (
                                     <tbody key={dept.id}>
-                                        <DepartmentListComponent department={dept} />
+                                        <DepartmentListComponent 
+                                            department={dept}
+                                            setClickedDepartmentId={setClickedDepartmentId} 
+                                            setOpenDeptDetailsModal={setOpenDeptDetailsModal}/>
                                     </tbody>))}
                             </table>
                         </div>
+                        {openDeptDetailsModal &&
+                            <DepartmentDetailsModal departmentDetailsData={departmentDetailsData}
+                                setOpenDeptDetailsModal={setOpenDeptDetailsModal} />}
                     </div>
                 )}
                 </div>)}

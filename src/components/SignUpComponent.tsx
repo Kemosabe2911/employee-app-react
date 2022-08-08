@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
 import { MailIcon, PasswordIcon, NameIcon, LastNameIcon, ConfirmPasswordIcon } from 'assets/icons/index';
+import signupSchema from 'containers/sign-up/validation';
+import { POPUP_MESSAGES } from 'constants/popupMessages';
 import { useAddSignUpMutation } from 'services/api';
 import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
@@ -12,27 +13,14 @@ import InputField from './InputField';
 import Button from './Button';
 import PopUp from './PopUp';
 
-
-const schema = yup.object({
-    email: yup.string().email('Not a valid e-mail id').required('E-mail is required'),
-    first_name: yup.string().required('Name is required'),
-    last_name: yup.string().required('Last Name is required'),
-    password: yup.string().max(15, 'Atmost 15 characters').min(8, 'Atleast 8 characters')
-        .required('Enter your password'),
-    confirm_p: yup.string()
-        .oneOf([yup.ref('password'), null], 'Password must match')
-});
-
-
 const SignUp: FC = () => {
 
     const [errorMessage, setErrorMessage] = useState(false);
-
     const dispatch = useDispatch();
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
-            resolver: yupResolver(schema),
+            resolver: yupResolver(signupSchema),
         }
     );
     const navigate = useNavigate();
@@ -103,7 +91,7 @@ const SignUp: FC = () => {
                             handleClick={() => navigate('/login')} />
                     </div>
                     {errorMessage && (
-                        <PopUp description="An account with this e-mail id already exists"
+                        <PopUp description={POPUP_MESSAGES.signUpError}
                             popUpStyle=' mx-auto
                             rounded-xl border-2 mt-20 fixed inset-0 h-16 
                             w-[15%] min-w-[450px] border-rose-600 bg-red-50'></PopUp>

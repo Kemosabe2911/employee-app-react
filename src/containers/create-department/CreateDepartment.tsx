@@ -7,7 +7,8 @@ const CreateDepartment: FC = () => {
     return (
         <div>
             <MainBar description="Create Department" buttonRequired = {false}
-                buttonDescription="nil" buttonIcon="nil" buttonNavigateUrl="nil" popUpRequired={false}/>
+                buttonDescription="nil" buttonIcon="nil" buttonNavigateUrl="nil" popUpRequired={false}
+                mainbarElementsRequired={false}/>
             <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
 
             <CreateDepartmentComponent></CreateDepartmentComponent>

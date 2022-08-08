@@ -14,7 +14,6 @@ const Logout = (props) => {
         dispatch(changeAuthentication('false'));
         logout();
     };
-
     const handleCancel = () => {
         setLogoutModal(false);
     };
