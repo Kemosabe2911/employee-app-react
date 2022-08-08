@@ -16,6 +16,8 @@ import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import FileInput from './FileInput';
 import PopUp from './PopUp';
+import Loader from './Loader';
+import { ICONS } from 'constants/icons';
 
 const UpdateEmployee: FC = () => {
 
@@ -89,12 +91,13 @@ const UpdateEmployee: FC = () => {
     const navigate = useNavigate();
 
     if (isLoading) {
-        return <div>Loading</div>;
+        return <Loader/>;
     }
 
     if (error) {
         return <PopUp description={'Cannot load Update Employee Page'}
-            popUpStyle={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50  mx-auto'}>
+            popUpStyle={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50  mx-auto'}
+            icon={ICONS.error}>
         </PopUp>;
     }
 
@@ -214,7 +217,7 @@ const UpdateEmployee: FC = () => {
                             <PopUp description='An employee with this e-mail id or user name already exists.'
                                 popUpStyle='mx-auto
                                 rounded-xl border-2 absolute inset-x-0 bottom-6 h-16 w-[15%] 
-                        min-w-[500px] border-rose-600 bg-red-50'></PopUp>
+                        min-w-[500px] border-rose-600 bg-red-50' icon={ICONS.error}></PopUp>
                         )}
                     </div>
                 </form>

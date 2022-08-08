@@ -1,30 +1,19 @@
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
 import { MailIcon, PasswordIcon, NameIcon, LastNameIcon, ConfirmPasswordIcon } from 'assets/icons/index';
-import { useAddSignUpMutation } from 'services/api';
+import { SignUpProps } from './types';
 import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
+import signupSchema from 'containers/sign-up/validation';
 import InputField from './InputField';
 import Button from './Button';
 import PopUp from './PopUp';
+import { ICONS } from 'constants/icons';
 
-
-const schema = yup.object({
-    email: yup.string().email('Not a valid e-mail id').required('E-mail is required'),
-    first_name: yup.string().required('Name is required'),
-    last_name: yup.string().required('Last Name is required'),
-    password: yup.string().max(15, 'Atmost 15 characters').min(8, 'Atleast 8 characters')
-        .required('Enter your password'),
-    confirm_p: yup.string()
-        .oneOf([yup.ref('password'), null], 'Password must match')
-});
-
-
-const SignUp: FC = () => {
+const SignUp: FC<SignUpProps>= ({addSignUp}) => {
 
     const [errorMessage, setErrorMessage] = useState(false);
 
@@ -32,12 +21,11 @@ const SignUp: FC = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
-            resolver: yupResolver(schema),
+            resolver: yupResolver(signupSchema),
         }
     );
     const navigate = useNavigate();
-    const [addSignUp] = useAddSignUpMutation();
-
+    
     return (
         <div className=" flex h-full w-[28%] min-w-[400px] justify-center rounded-2xl bg-slate-50 p-10 shadow-2xl">
             <form onSubmit={handleSubmit(async (data) => {
@@ -106,7 +94,7 @@ const SignUp: FC = () => {
                         <PopUp description="An account with this e-mail id already exists"
                             popUpStyle=' mx-auto
                             rounded-xl border-2 mt-20 fixed inset-0 h-16 
-                            w-[15%] min-w-[450px] border-rose-600 bg-red-50'></PopUp>
+                            w-[15%] min-w-[450px] border-rose-600 bg-red-50' icon={ICONS.error}></PopUp>
                     )}
                 </div>
             </form >

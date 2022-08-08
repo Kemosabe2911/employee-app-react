@@ -3,21 +3,19 @@ import { useNavigate } from 'react-router-dom';
 
 import { MainBarInputField } from './types';
 import SearchElement from './SearchElement';
-import PopUp from './PopUp';
-
+import CreateDepartment from 'containers/create-department/CreateDepartment';
 
 const MainBar: FC<MainBarInputField> = (props) => {
-    const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus,setText,
-        text,popUpRequired
-        } = props;
+    const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus, setText,
+        text, popUpRequired
+    } = props;
 
-    const [popUpCreate, setPopUpCreate]=useState(false);
+    const [popUpCreate, setPopUpCreate] = useState(false);
 
     const navigate = useNavigate();
     const handleCreateClick = (selectedPath) => {
-        if(popUpRequired==true){
+        if (popUpRequired == true) {
             setPopUpCreate(true);
-            // console.log(popUpCreate);
         }
         navigate(selectedPath);
     };
@@ -31,18 +29,18 @@ const MainBar: FC<MainBarInputField> = (props) => {
                     <div className='flex w-[600px]'>
                         <div className='relative top-12 mr-8 flex h-[48px] w-[150px] flex-initial
                          rounded-full bg-aliceBlue'>
-                          <SearchElement setText={setText} text={text} />
+                            <SearchElement setText={setText} text={text} />
                         </div>
-                            <div className='relative top-12 mr-8 flex  h-[48px] w-[150px] rounded-full bg-aliceBlue'>
-                                <span className={`h-[48px] w-[48px] rounded-full bg-brightCelurean p-[16px]
+                        <div className='relative top-12 mr-8 flex  h-[48px] w-[150px] rounded-full bg-aliceBlue'>
+                            <span className={`h-[48px] w-[48px] rounded-full bg-brightCelurean p-[16px]
                          text-white duration-300 hover:scale-110 ${FilterIcon}`} />
-                                <select className="mt-1 h-10 
+                            <select className="mt-1 h-10 
                                     cursor-pointer bg-aliceBlue p-2  text-sm leading-5  text-gray-800
                                    focus:outline-none" defaultValue='' onChange={(e) => setStatus(e.target.value)}>
-                                    <option value='' disabled hidden >Status</option>
-                                    <option value='1'>Active</option>
-                                    <option value='0'>Inactive</option>
-                                </select>
+                                <option value='' disabled hidden >Status</option>
+                                <option value='1'>Active</option>
+                                <option value='0'>Inactive</option>
+                            </select>
                         </div>
                         <div className='flex-initial'>
                             <button onClick={() => handleCreateClick(buttonNavigateUrl)}
@@ -60,11 +58,7 @@ const MainBar: FC<MainBarInputField> = (props) => {
                     </div>
                     :
                     <div></div>}</div>
-
-        {popUpCreate?(<div><PopUp description="CREATE DEPARTMENT" popUpStyle="mt-20 fixed inset-0 h-16 
-                        w-[15%] min-w-[450px] border-rose-600 bg-red-50"></PopUp></div>):<></>}
-
-
+            {popUpCreate ? (<CreateDepartment setPopUpCreate={setPopUpCreate} />) : <></>}
         </div>
     );
 };

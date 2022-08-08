@@ -9,18 +9,24 @@ import Logout from './Logout';
 const SideBar: FC = () => {
     const location = useLocation();
     let currentPath = location.pathname;
-    if ((currentPath == '/login') || (currentPath == '/sign-up')) {
+    if ((currentPath == '/login') || (currentPath == '/sign-up') || (currentPath == '/')) {
+        currentPath = '/employee-list';
+    }
+    if (currentPath == '/create-employee') {
+        currentPath = '/employee-list';
+    }
+    if ((currentPath.startsWith('/update-employee')) || (currentPath.startsWith('/employee-details'))) {
         currentPath = '/employee-list';
     }
     const [buttonId, setId] = useState<string>(currentPath);
     const navigate = useNavigate();
-    const [logoutModal,setLogoutModal]=useState(false);
+    const [logoutModal, setLogoutModal] = useState(false);
 
     const handleButtonColorChange = (selectedButtonUrl) => {
         setId(selectedButtonUrl);
         navigate(selectedButtonUrl);
     };
-   
+
     return (
         <div className="fixed z-40 h-full">
             <div className="flex h-[100%] w-[350px] flex-col border-2 bg-white shadow-lg">
@@ -41,17 +47,17 @@ const SideBar: FC = () => {
                     })}
                 </div>
                 <div className=' mx-auto mt-auto h-20 w-[100%] rounded-2xl bg-gray-100 '>
-                    <button onClick={()=>setLogoutModal(true)} 
-                    className=' h-[50px] w-[200px] pl-24 pt-7 text-left text-brightCelurean 
+                    <button onClick={() => setLogoutModal(true)}
+                        className=' h-[50px] w-[200px] pl-24 pt-7 text-left text-brightCelurean 
                     duration-300 hover:translate-x-2'>
-                    <span className={`h-[15px] w-[15px] pr-[30px] ${ICONS.logout} `} />
+                        <span className={`h-[15px] w-[15px] pr-[30px] ${ICONS.logout} `} />
                         Log Out</button>
                 </div>
-                {logoutModal&&(
+                {logoutModal && (
                     <div className='fixed inset-0 h-full w-full overflow-y-auto bg-gray-600/60 pl-20'>
-                    <Logout setLogoutModal={setLogoutModal}/>
+                        <Logout setLogoutModal={setLogoutModal} />
                     </div>
-                    )
+                )
                 }
 
             </div>

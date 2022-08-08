@@ -6,6 +6,8 @@ import { useLazyGetEmployeeDetailsQuery } from 'services/api';
 import EmployeeDetailsComponent from 'components/EmployeeDetailsComponent';
 import MainBar from 'components/MainBar';
 import PopUp from 'components/PopUp';
+import Loader from 'components/Loader';
+import { ICONS } from 'constants/icons';
 
 const EmployeeDetails: FC = () => {
 
@@ -20,7 +22,7 @@ const EmployeeDetails: FC = () => {
     }, [urlId]);
 
     if (error) {
-        return <PopUp description={'Cannot load Employee Details'}
+        return <PopUp description={'Cannot load Employee Details'} icon={ICONS.error}
             popUpStyle={
                 'absolute mx-auto inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50 border-2'
             }>
@@ -28,7 +30,7 @@ const EmployeeDetails: FC = () => {
     }
     if (isFetchingEmployeeDetails) {
         return (<div>
-            Loading...
+            <Loader/>
         </div>);
     }
 

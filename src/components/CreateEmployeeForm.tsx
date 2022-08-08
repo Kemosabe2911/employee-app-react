@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { CreateEmployeeProps } from './types';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
+import { ICONS } from 'constants/icons';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import Label from './Label';
@@ -136,7 +137,7 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                             <PopUp description={POPUP_MESSAGES.duplicateUser}
                                 popUpStyle='mx-auto rounded-xl border-2 
                                 absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
-                         border-rose-600 bg-red-50 '/>
+                         border-rose-600 bg-red-50 ' icon={ICONS.error}/>
                         )}
                     </div>
                 </form>
