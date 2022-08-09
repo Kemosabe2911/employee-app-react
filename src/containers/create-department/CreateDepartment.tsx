@@ -1,20 +1,17 @@
 import React, { FC } from 'react';
 
-import MainBar from 'components/MainBar';
-import CreateDepartmentComponent from 'components/CreateDepartment';
+import { CreateDepartmentProps } from 'components/types';
+import { useAddDepartmentMutation } from 'services/api';
+import CreateDepartmentModal from 'components/CreateDepartmentModal';
 
-const CreateDepartment: FC = () => {
+const CreateDepartment: FC<CreateDepartmentProps> = ({ setPopUpCreate }) => {
+
+    const [addDepartment] = useAddDepartmentMutation();
+
     return (
         <div>
-            <MainBar description="Create Department" buttonRequired = {false}
-                buttonDescription="nil" buttonIcon="nil" buttonNavigateUrl="nil" popUpRequired={false}
-                mainbarElementsRequired={false}/>
-            <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
-
-            <CreateDepartmentComponent/>
-
+            <CreateDepartmentModal setPopUpCreate={setPopUpCreate} addDepartment={addDepartment} />
         </div>
-        </div >
 
     );
 };

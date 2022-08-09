@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 import { UpdateEmployeeProps } from './types';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
+import { ICONS } from 'constants/icons';
 import updateEmployeeSchema from 'containers/update-employee/validation';
 import Label from './Label';
 import Button from './Button';
@@ -15,9 +16,10 @@ import FileInput from './FileInput';
 import PopUp from './PopUp';
 import Loader from './Loader';
 
+
 const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
 
-    const {roleList, departmentList, addFile, updateData, getEmployeeDetails, data, isLoading, error } = props;
+    const { roleList, departmentList, addFile, updateData, getEmployeeDetails, data, isLoading, error } = props;
 
     const [errorMessage, setErrorMessage] = useState(false);
     const [file, setfiles] = useState(null);
@@ -65,13 +67,13 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
     const navigate = useNavigate();
 
     if (isLoading) {
-        return <Loader/>;
+        return <Loader />;
     }
 
     if (error) {
         return <PopUp description={POPUP_MESSAGES.updateEmployeeLoadingError}
-            popUpStyle={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50  mx-auto'}>
-        </PopUp>;
+            popUpStyle={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50  mx-auto'}
+            icon={ICONS.error} />;
     }
 
     return (
@@ -160,7 +162,7 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
                         <div className=' w-1/3 flex-initial' >
                             <Label name='Department' />
                             <DropdownMenu registerFunction={register}
-                                registerName='department' dropdownData={departmentList} 
+                                registerName='department' dropdownData={departmentList}
                                 defaults={data?.Department.name} />
                             <p className='pl-6 font-sans text-xs normal-case 
                         text-red-600'>{errors.department_id?.message}</p>
@@ -191,7 +193,7 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
                             <PopUp description='An employee with this e-mail id or user name already exists.'
                                 popUpStyle='mx-auto
                                 rounded-xl border-2 absolute inset-x-0 bottom-6 h-16 w-[15%] 
-                        min-w-[500px] border-rose-600 bg-red-50'></PopUp>
+                        min-w-[500px] border-rose-600 bg-red-50' icon={ICONS.error}></PopUp>
                         )}
                     </div>
                 </form>

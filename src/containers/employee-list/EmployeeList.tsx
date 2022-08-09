@@ -11,6 +11,7 @@ import PopUp from 'components/PopUp';
 import ListComponent from 'components/ListComponent';
 import MainBar from 'components/MainBar';
 import Loader from 'components/Loader';
+import { ICONS } from 'constants/icons';
 
 const EmployeeList: FC = () => {
     const [status, setStatus] = useState<string>(null);
@@ -48,8 +49,8 @@ const EmployeeList: FC = () => {
         return <PopUp description={POPUP_MESSAGES.employeeListLoadingError}
             popUpStyle={
                 `mx-auto rounded-xl border-2 absolute inset-x-0 bottom-6 h-16
-                 w-[15%] min-w-[500px] border-rose-600 bg-red-50`
-            }></PopUp>;
+                 w-[15%] min-w-[500px] border-rose-600 bg-red-50`}
+                icon={ICONS.error}></PopUp>;
     }
 
     return (

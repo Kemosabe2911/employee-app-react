@@ -1,27 +1,31 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 
-import { useLazyGetDepartmentDetailsQuery, useGetDepartmentListQuery } from 'services/api';
+import { useLazyGetDepartmentDetailsQuery, useGetDepartmentListQuery, useUpdateDepartmentMutation } from 'services/api';
+import { ICONS } from 'constants/icons';
 import DepartmentListComponent from 'components/DepartmentListComponent';
 import MainBar from 'components/MainBar';
 import PopUp from 'components/PopUp';
+import Loader from 'components/Loader';
 import DepartmentDetailsModal from 'components/DepartmentDetailsModal';
+import UpdateDepartmentComponentModal from 'components/UpdateDepartmentModal';
+
 
 const DepartmentList: FC = () => {
 
+    const [updateDepartment] = useUpdateDepartmentMutation();
     const { data: departmentListData, error, isLoading } = useGetDepartmentListQuery();
     const [getDepartmentDetails, { data: departmentDetailsData, }] = useLazyGetDepartmentDetailsQuery();
     const [clickedDepartmentId, setClickedDepartmentId] = useState(1);
-    const [openDeptDetailsModal,setOpenDeptDetailsModal] = useState(false);
-
-    useEffect(() => {
-        getDepartmentDetails(clickedDepartmentId);
-    }, [clickedDepartmentId]);
+    const [openDeptDetailsModal, setOpenDeptDetailsModal] = useState(false);
+    const [updateDeptModal, setUpdateDeptModal] = useState(false);
+    const [selectedEditDepartment, setSelectedEditDepartment] = useState(0);
 
     return (
         <div>
             {error ? (<PopUp description={'Cannot load Department List'}
-                popUpStyle={'mt-20 fixed inset-10 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'} />) :
-                (<div> {isLoading ? (<div>Loading</div>) : (
+                popUpStyle={'mt-20 fixed inset-10 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}
+                icon={ICONS.error} />) :
+                (<div> {isLoading ? (<Loader />) : (
                     <div>
                         <MainBar description='Department List'
                             buttonRequired={true}
@@ -45,16 +49,27 @@ const DepartmentList: FC = () => {
                                 </thead>
                                 {departmentListData?.map((dept) => (
                                     <tbody key={dept.id}>
-                                        <DepartmentListComponent 
+                                        <DepartmentListComponent
                                             department={dept}
-                                            setClickedDepartmentId={setClickedDepartmentId} 
-                                            setOpenDeptDetailsModal={setOpenDeptDetailsModal}/>
+                                            setClickedDepartmentId={setClickedDepartmentId}
+                                            setOpenDeptDetailsModal={setOpenDeptDetailsModal}
+                                            setUpdateDeptModal={setUpdateDeptModal}
+                                            setSelectedEditDepartment={setSelectedEditDepartment}
+                                        />
                                     </tbody>))}
                             </table>
                         </div>
                         {openDeptDetailsModal &&
                             <DepartmentDetailsModal departmentDetailsData={departmentDetailsData}
-                                setOpenDeptDetailsModal={setOpenDeptDetailsModal} />}
+                                setOpenDeptDetailsModal={setOpenDeptDetailsModal}
+                                clickedDepartmentId={clickedDepartmentId}
+                                getDepartmentDetails={getDepartmentDetails}
+                            />}
+                        {updateDeptModal &&
+                            <UpdateDepartmentComponentModal setUpdateDeptModal={setUpdateDeptModal}
+                                updateDepartment={updateDepartment} getDepartmentDetails={getDepartmentDetails}
+                                departmentDetailsData={departmentDetailsData}
+                                selectedEditDepartment={selectedEditDepartment} />}
                     </div>
                 )}
                 </div>)}

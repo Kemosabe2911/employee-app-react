@@ -9,6 +9,7 @@ import {ReactComponent as ConfirmPasswordIcon} from './confirmPassword.svg';
 import {ReactComponent as LogoutIcon} from './logout.svg';
 import {ReactComponent as ErrorIcon} from './error.svg';
 import {ReactComponent as SearchIcon} from './search.svg';
+import {ReactComponent as CloseIcon} from './close.svg';
 
 export {
 Profile,
@@ -21,5 +22,6 @@ SearchIcon,
 LastNameIcon,
 ConfirmPasswordIcon,
 LogoutIcon,
-ErrorIcon
+ErrorIcon,
+CloseIcon
 };

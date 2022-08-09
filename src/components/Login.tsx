@@ -4,15 +4,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
 import { MailIcon, PasswordIcon } from 'assets/icons/index';
-import { useAddLoginMutation } from 'services/api';
 import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
+import { LoginProps } from './types';
+import { POPUP_MESSAGES } from 'constants/popupMessages';
+import { ICONS } from 'constants/icons';
 import loginSchema from 'containers/login/validation';
 import InputField from './InputField';
 import Button from './Button';
 import PopUp from './PopUp';
 
-const Login: FC = () => {
+const Login: FC<LoginProps> = ({addLogin}) => {
+    
     const dispatch =useDispatch();
     const [signUpErrorMessage, setSignUpErrorMessage]=useState(false);
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
@@ -25,8 +28,6 @@ const Login: FC = () => {
     const handleSignUp = () => {
         navigate('/sign-up');
     };
-
-    const [addLogin] = useAddLoginMutation();
 
     return (
         <div className=" flex h-96 w-[27%] min-w-[400px] justify-center rounded-2xl bg-slate-50 p-10 shadow-2xl">
@@ -70,9 +71,9 @@ const Login: FC = () => {
                         <div onClick={handleSignUp} className="cursor-pointer pl-1 text-brightsCelurean">Sign Up</div>
                     </div>
                     {signUpErrorMessage && (
-                        <PopUp description='Invalid username or password ' popUpStyle=' mx-auto
+                        <PopUp description={POPUP_MESSAGES.login} popUpStyle=' mx-auto
                         rounded-xl border-2 mt-20 fixed inset-0 h-16 
-                        w-[15%] min-w-[450px] border-rose-600 bg-red-50'></PopUp>
+                        w-[15%] min-w-[450px] border-rose-600 bg-red-50' icon={ICONS.error}></PopUp>
                     )}
                 </div>
             </form>

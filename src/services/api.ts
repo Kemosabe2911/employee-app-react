@@ -1,15 +1,16 @@
 import apiWithTag from 'services';
 
-import { DepartmentDetailsApi, UpdateEmployeeReq, RoleDetailsApi} from 'components/types';
+import { DepartmentDetailsApi, UpdateEmployeeReq, RoleDetailsApi } from 'components/types';
 import { EmployeeListApiResponse } from 'components/types';
 import { EmployeeDetailsApi } from 'components/types';
+import { UpdateDepartmentResponse } from 'components/types';
 
 
 const employeeApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
     getDepartmentList: builder.query<DepartmentDetailsApi[], void>({
       query: () => '/department',
-      // providesTags: ['Employee']
+      providesTags: ['Employee']
     }),
     getRoleList: builder.query<RoleDetailsApi[], void>({
       query: () => '/role',
@@ -20,7 +21,7 @@ const employeeApi = apiWithTag.injectEndpoints({
         url:`/employee?search=${searchedElement}&sort_by=username&order=desc`,
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json' 
+          'Content-Type': 'application/json'
         }
       }),
       providesTags: ['Employee']
@@ -39,7 +40,7 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Employee'],
     }),
-    updateStatus:builder.mutation({
+    updateStatus: builder.mutation({
       query: ({ body, id }) => ({
         url: `/employee/${id}`,
         method: 'PATCH',
@@ -56,8 +57,8 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Employee'],
     }),
-    addFile:builder.mutation({
-      query:(payload) =>({
+    addFile: builder.mutation({
+      query: (payload) => ({
         url: `/employee/id-proof/${payload.id}`,
         method: 'PATCH',
         body: payload.body,
@@ -86,11 +87,26 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Employee'],
     }),
-    getLogout: builder.query<string,void>({
+    getLogout: builder.query<string, void>({
       query: () => '/logout',
       providesTags: ['Employee']
     }),
-
+    addDepartment: builder.mutation({
+      query: (body) => ({
+        url: '/department',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Employee'],
+    }),
+    updateDepartment: builder.mutation<any, UpdateDepartmentResponse >({
+      query: ({ body, id }) => ({
+        url: `/department/${id}`,
+        method: 'PUT',
+        body: body,
+      }),
+      invalidatesTags: ['Employee'],
+    }),
 
   }),
 });
@@ -109,4 +125,6 @@ export const {
   useAddLoginMutation,
   useAddSignUpMutation,
   useLazyGetLogoutQuery,
+  useAddDepartmentMutation,
+  useUpdateDepartmentMutation,
 } = employeeApi;

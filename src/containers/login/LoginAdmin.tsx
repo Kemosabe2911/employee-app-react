@@ -1,13 +1,15 @@
 import React,{FC} from 'react';
 
+import { useAddLoginMutation } from 'services/api';
 import Login from 'components/Login';
-// import { AuthenticationProps } from 'components/types';
-
 
 const LoginAdmin:FC = () => {
+
+    const [addLogin] = useAddLoginMutation();
+    
     return (
         <div className="flex justify-center py-56">
-            <Login ></Login>
+            <Login addLogin={addLogin}/>
         </div>
     );
 };
