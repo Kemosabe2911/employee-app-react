@@ -15,9 +15,9 @@ import CreateDepartmentPage from 'pages/CreateDepartmentPage';
 const PrivateLayout = () => {
 
     return (
-        <div className="flex">
+        <div className="flex h-full">
             <SideBar/>
-            <div className="relative left-[350px] flex h-[100vh] flex-col md:fixed">
+            <div className="relative left-[350px] flex h-[100vh] flex-col overflow-auto md:fixed">
                 <Suspense fallback="Loading">
                     <Routes>
                         <Route path={RoutesPath.CREATE_EMPLOYEE} element={<CreateEmployeePage />} />

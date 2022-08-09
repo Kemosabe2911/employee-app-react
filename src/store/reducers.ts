@@ -1,6 +1,5 @@
 import {createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-
 export interface AuthenticationState {
     value: string
 }

@@ -1,16 +1,21 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { FileInputProps } from './types';
+import { ICONS } from 'constants/icons';
 import FilesDragAndDrop from './FilesDragAndDrop';
 
 const FileInput: FC<FileInputProps> = (props) => {
 
   const { setFiles, files, defaultFileText, registerFunction, registerName } = props;
+
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [fileDataURL, setFileDataURL] = useState(null);
-  const [closePreview, setClosePreview] = useState(false);
+  const [closePreview, setClosePreview] = useState<boolean>(false);
+
   useEffect(() => {
-    let fileReader; let isCancel = false;
+    let fileReader:FileReader;
+    let isCancel:boolean = false;
+
     if (files) {
       fileReader = new FileReader();
       fileReader.onload = (e) => {
@@ -35,7 +40,6 @@ const FileInput: FC<FileInputProps> = (props) => {
   };
 
   let fileText = (defaultFileText) ? defaultFileText : 'Choose File';
-  const icon = 'fa fa-times';
 
   return (
     <div>
@@ -59,7 +63,7 @@ const FileInput: FC<FileInputProps> = (props) => {
               <div className=' w-32 pr-1 text-right'>
                 <button type='button' onClick={handleClose} className='cursor-pointer text-right '>
                   <span className={`h-[15px] w-[15px] pr-2  text-gray-500 transition 
-                         duration-150 ease-in-out hover:text-gray-600 ${icon}`} /></button>
+                         duration-150 ease-in-out hover:text-gray-600 ${ICONS.fileInput}`} /></button>
               </div>
 
               <img className='h-[100px]' src={fileDataURL} alt="preview" />

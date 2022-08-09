@@ -41,8 +41,9 @@ const CreateEmployee: FC = () => {
                       buttonDescription="nil" 
                       buttonIcon="nil" 
                       buttonNavigateUrl="nil"
-                      popUpRequired={false} />
-            <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
+                      popUpRequired={false} 
+                      mainbarElementsRequired={false}/>
+            <div className="w-[calc(100vw-350px)]  p-5">
                 <CreateEmployeeForm 
                     addEmployee={addEmployee}
                     addFile={addFile}

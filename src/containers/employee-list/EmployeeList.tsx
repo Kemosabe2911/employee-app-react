@@ -1,4 +1,6 @@
 import React, { FC, useState } from 'react';
+
+import { POPUP_MESSAGES } from 'constants/popupMessages';
 import {
     useDeleteEmployeeMutation, useGetDepartmentListQuery, useGetEmployeeListQuery,
     useGetRoleListQuery,
@@ -14,17 +16,20 @@ import { ICONS } from 'constants/icons';
 const EmployeeList: FC = () => {
     const [status, setStatus] = useState<string>(null);
     const [text, setText] = useState<string>('');
+    const [deleteClicked, setDelete] = useState<boolean>(false);
+    const [selectedId, setSelectedId] = useState<number>(0);
+
     const { data: EmployeeListData, error, isLoading } = useGetEmployeeListQuery(text);
     const { data: DepartmentData } = useGetDepartmentListQuery();
     const { data: RoleData } = useGetRoleListQuery();
     const [deleteEmployee] = useDeleteEmployeeMutation();
     const [updateStatus] = useUpdateStatusMutation();
-    const [deleteClicked, setDelete] = useState<boolean>(false);
-    const [selectedId, setSelectedId] = useState<number>(0);
+
     const handleDeleteEmployee = (clickedEmployeeId) => {
         deleteEmployee(clickedEmployeeId);
         setDelete(false);
     };
+
     const filterItem = (list) => {
         let booleanStatus;
         if (status == '1')
@@ -35,20 +40,19 @@ const EmployeeList: FC = () => {
         if (booleanStatus == list.is_active || status == null)
             return list;
     };
-
-
     if (isLoading) {
         return (
-            <Loader/>
-           );
+            <Loader />
+        );
+    }
+    if (error) {
+        return <PopUp description={POPUP_MESSAGES.employeeListLoadingError}
+            popUpStyle={
+                `mx-auto rounded-xl border-2 absolute inset-x-0 bottom-6 h-16
+                 w-[15%] min-w-[500px] border-rose-600 bg-red-50`}
+                icon={ICONS.error}></PopUp>;
     }
 
-    if (error) {
-        return <PopUp description={'Cannot load Employee List'} icon={ICONS.error}
-        popUpStyle={
-        'mx-auto rounded-xl border-2 absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px] border-rose-600 bg-red-50  '
-    }></PopUp>;
-    }
     return (
         <div>
             <MainBar description='Employee List'
@@ -59,7 +63,8 @@ const EmployeeList: FC = () => {
                 setStatus={setStatus}
                 text={text}
                 setText={setText}
-                popUpRequired={false} />
+                popUpRequired={false}
+                mainbarElementsRequired={true} />
             <table className='mx-auto mt-10 w-[96%] table-fixed align-middle '>
                 <thead>
                     <tr className=" h-[60px] rounded-xl bg-aliceBlue shadow-xl" >
@@ -79,7 +84,6 @@ const EmployeeList: FC = () => {
                                 employee={employee}
                                 RoleData={RoleData}
                                 DepartmentData={DepartmentData}
-                                deleteEmployee={deleteEmployee}
                                 deleteClicked={deleteClicked}
                                 setDelete={setDelete}
                                 handleDeleteEmployee={handleDeleteEmployee}

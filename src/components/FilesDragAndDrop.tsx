@@ -7,6 +7,9 @@ const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
 
   const { setOpenModal, setFiles, file } = props;
 
+  const [dragActive, setDragActive] = useState<boolean>(false);
+  const inputRef: React.MutableRefObject<any> = React.useRef(null);
+
   const handleUpload = (droppedFile: any) => {
     setFiles(droppedFile);
     setOpenModal(false);
@@ -14,10 +17,6 @@ const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
   const handleCancel = () => {
     setOpenModal(false);
   };
-
-  const [dragActive, setDragActive] = useState<boolean>(false);
-  const inputRef: React.MutableRefObject<any> = React.useRef(null);
-
   //handle drag events
   const handleDrag = (e: any) => {
     e.preventDefault();               //cancels the event if it is cancelable

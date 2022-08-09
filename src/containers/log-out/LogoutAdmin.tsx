@@ -9,10 +9,12 @@ const LogoutAdmin: FC = () => {
     const [logout] = useLazyGetLogoutQuery();
     
     return (
-        <><MainBar description='Log Out' buttonRequired={false}
-            buttonDescription="nil" buttonIcon="nil"
-            buttonNavigateUrl="nil"
-            popUpRequired={false}></MainBar>
+        <>
+            <MainBar description='Log Out' buttonRequired={false}
+                buttonDescription="nil" buttonIcon="nil"
+                buttonNavigateUrl="nil"
+                popUpRequired={false} 
+                mainbarElementsRequired={false}/>
             <div className="w-[calc(100vw-350px)]  p-5">
                 <Logout logout={logout}/>
             </div></>

@@ -15,7 +15,7 @@ import PopUp from './PopUp';
 import createEmployeeSchema from 'containers/create-employee/validation';
 
 const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
-    const { addEmployee, addFile, roleList, departmentList } = props;
+    const { addEmployee, addFile, roleList, departmentList  } = props;
     const { register, reset, handleSubmit, formState: { errors } } = useForm(
         {
             resolver: yupResolver(createEmployeeSchema),
@@ -26,9 +26,10 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
     const [errorMessage, setErrorMessage] = useState(false);
 
     return (
-        <div className='mx-auto mt-6 flex flex-initial '>
-            <div className=' m-4 mx-auto h-[1200px] w-[55%] overflow-auto rounded-xl bg-white shadow-xl 
-            md:h-[1000px] md:w-[90%] md:justify-center lg:h-[650px] lg:w-[90%]'>
+    
+        <div className=' mt-6 flex  flex-initial '>
+            <div className=' lg: mx-auto rounded-xl bg-white
+            shadow-xl xl:h-[650px] xl:w-[90%]'>
                 <form onSubmit={handleSubmit(async (SubmittedData) => {
                     const addEmployeeResponse = await addEmployee(SubmittedData);
                     if ('error' in addEmployeeResponse) {
@@ -45,6 +46,9 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                         navigate('/employee-list');
                     }
                 })}>
+                    <div>
+                        
+                    </div>
                     <div className=' p-2 md:justify-center  xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
                             <Label name='Employee Name' />
@@ -99,7 +103,7 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                             <p className='pl-6 font-sans text-xs normal-case
                                  text-red-600'>{errors.email?.message}</p>
                         </div>
-                        <div className='flex-wrap xl:w-1/3 xl:flex-initial  '>
+                        <div className='w-1/3 flex-initial  '>
                             <Label name='Role' />
                             <DropdownMenu registerFunction={register} registerName='role_id'
                                 dropdownData={roleList} />

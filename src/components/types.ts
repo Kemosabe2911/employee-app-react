@@ -1,9 +1,9 @@
-import { UseFormRegister } from 'react-hook-form';
 import React from 'react';
+import { UseFormRegister } from 'react-hook-form';
 import { MutationDefinition, BaseQueryFn, FetchArgs, FetchBaseQueryError, FetchBaseQueryMeta, QueryDefinition }
   from '@reduxjs/toolkit/dist/query';
 import { LazyQueryTrigger, MutationTrigger } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-
+import { SerializedError } from '@reduxjs/toolkit';
 
 export type MainBarInputField = {
   description: string;
@@ -15,6 +15,7 @@ export type MainBarInputField = {
   setText?: React.Dispatch<React.SetStateAction<string>>;
   text?: string;
   popUpRequired: boolean;
+  mainbarElementsRequired: boolean;
 };
 
 export type FileInputProps = {
@@ -58,14 +59,18 @@ export type Role = {
   role: string;
 }
 
+export type SearchElementProps = {
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
+
+};
+
 export type ListComponentProps = {
   status: string;
   text?: string;
   employee?: any;
   RoleData: Array<Role>;
   DepartmentData: Array<Dropdown>;
-  deleteEmployee: MutationTrigger<MutationDefinition<any, BaseQueryFn<string |
-    FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>;
   setDelete: React.Dispatch<React.SetStateAction<boolean>>;
   deleteClicked: boolean;
   // eslint-disable-next-line no-unused-vars
@@ -112,11 +117,30 @@ export type DeleteModalProps = {
 
 export type StatusModalProps = {
   statusclicked: number;
+  setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
+  updateStatus: MutationTrigger<MutationDefinition<any, BaseQueryFn<string |
+    FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
+  EmployeeListData: EmployeeListApiResponse[]
 };
 
 export type AddFileRequestType = {
   name: string;
   file: any;
+};
+
+export type UpdateEmployeeProps = {
+  roleList: Array<Dropdown>;
+  departmentList: Array<Dropdown>;
+  addFile: MutationTrigger<MutationDefinition<any, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError,
+    {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>;
+  updateData: MutationTrigger<MutationDefinition<UpdateEmployeeReq, BaseQueryFn<string |
+    FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
+  getEmployeeDetails: LazyQueryTrigger<QueryDefinition<string, BaseQueryFn<string |
+    FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', EmployeeDetailsApi, 'api'>>;
+  data: EmployeeDetailsApi;
+  isLoading: boolean;
+  error: FetchBaseQueryError | SerializedError
+
 };
 
 export type DepartmentDetailsApi = {
@@ -242,7 +266,7 @@ export type UpdateEmployeeReq = {
 export type PopUpProps = {
   description: string
   popUpStyle: string
-  icon:string
+  icon: string
 }
 
 export type EmployeeDetailsProps = {
@@ -283,9 +307,6 @@ export type EmployeeDetailsProps = {
   };
 }
 
-export type DepartmentListProps = {
-  department: DepartmentDetailsApi,
-};
 
 export type LoginProps = {
   addLogin: MutationTrigger<MutationDefinition<any,
@@ -316,8 +337,32 @@ export type SignUpProps = {
     {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
 }
 
-export type CreateDepartmentProps ={
-  setPopUpCreate?:React.Dispatch<React.SetStateAction<boolean>>,
-  addDepartment?: MutationTrigger<MutationDefinition<any, BaseQueryFn<string | FetchArgs, unknown, 
-  FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
+export type CreateDepartmentProps = {
+  setPopUpCreate?: React.Dispatch<React.SetStateAction<boolean>>,
+  addDepartment?: MutationTrigger<MutationDefinition<any, BaseQueryFn<string | FetchArgs, unknown,
+    FetchBaseQueryError, {}, FetchBaseQueryMeta>, 'Employee', any, 'api'>>
+}
+export type DepartmentListProps = {
+  department: DepartmentDetailsApi,
+  setClickedDepartmentId: React.Dispatch<React.SetStateAction<number>>,
+  setOpenDeptDetailsModal: React.Dispatch<React.SetStateAction<boolean>>,
+  setUpdateDeptModal: React.Dispatch<React.SetStateAction<boolean>>,
+  setSelectedEditDepartment: React.Dispatch<React.SetStateAction<number>>
+};
+
+export type UpdateDepartmentProps = {
+  setUpdateDeptModal: React.Dispatch<React.SetStateAction<boolean>>,
+  updateDepartment?: MutationTrigger<MutationDefinition<UpdateDepartmentResponse,
+    BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {},
+      FetchBaseQueryMeta>, 'Employee' | 'Department', any, 'api'>>,
+  getDepartmentDetails: LazyQueryTrigger<QueryDefinition<any,
+    BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError, {}, FetchBaseQueryMeta>,
+    'Employee' | 'Department', any, 'api'>>,
+    departmentDetailsData: any,
+    selectedEditDepartment: any
+}
+
+export type UpdateDepartmentResponse = {
+  id: number;
+  body: any;
 }

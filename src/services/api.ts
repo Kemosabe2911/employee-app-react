@@ -3,6 +3,7 @@ import apiWithTag from 'services';
 import { DepartmentDetailsApi, UpdateEmployeeReq, RoleDetailsApi } from 'components/types';
 import { EmployeeListApiResponse } from 'components/types';
 import { EmployeeDetailsApi } from 'components/types';
+import { UpdateDepartmentResponse } from 'components/types';
 
 
 const employeeApi = apiWithTag.injectEndpoints({
@@ -13,11 +14,11 @@ const employeeApi = apiWithTag.injectEndpoints({
     }),
     getRoleList: builder.query<RoleDetailsApi[], void>({
       query: () => '/role',
-      providesTags: ['Employee']
+      // providesTags: ['Employee']
     }),
     getEmployeeList: builder.query<EmployeeListApiResponse[], string>({
-      query: (searchedElement: string) => ({
-        url: `/employee?search=${searchedElement}`,
+      query: (searchedElement:string) => ({
+        url:`/employee?search=${searchedElement}&sort_by=username&order=desc`,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -27,6 +28,9 @@ const employeeApi = apiWithTag.injectEndpoints({
     }),
     getEmployeeDetails: builder.query<EmployeeDetailsApi, string>({
       query: (id) => `/employee/${id}`,
+    }),
+    getDepartmentDetails: builder.query({
+      query: (id) => `/department/${id}`,
     }),
     updateEmployee: builder.mutation<any, UpdateEmployeeReq>({
       query: ({ body, id }) => ({
@@ -95,6 +99,14 @@ const employeeApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: ['Employee'],
     }),
+    updateDepartment: builder.mutation<any, UpdateDepartmentResponse >({
+      query: ({ body, id }) => ({
+        url: `/department/${id}`,
+        method: 'PUT',
+        body: body,
+      }),
+      invalidatesTags: ['Employee'],
+    }),
 
   }),
 });
@@ -103,6 +115,7 @@ export const {
   useGetRoleListQuery,
   useGetDepartmentListQuery,
   useGetEmployeeListQuery,
+  useLazyGetDepartmentDetailsQuery,
   useLazyGetEmployeeDetailsQuery,
   useUpdateEmployeeMutation,
   useUpdateStatusMutation,
@@ -113,4 +126,5 @@ export const {
   useAddSignUpMutation,
   useLazyGetLogoutQuery,
   useAddDepartmentMutation,
+  useUpdateDepartmentMutation,
 } = employeeApi;

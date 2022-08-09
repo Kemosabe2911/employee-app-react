@@ -1,20 +1,29 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
-import { useGetDepartmentListQuery } from 'services/api';
+import { useLazyGetDepartmentDetailsQuery, useGetDepartmentListQuery, useUpdateDepartmentMutation } from 'services/api';
+import { ICONS } from 'constants/icons';
 import DepartmentListComponent from 'components/DepartmentListComponent';
 import MainBar from 'components/MainBar';
 import PopUp from 'components/PopUp';
 import Loader from 'components/Loader';
-import { ICONS } from 'constants/icons';
+import DepartmentDetailsModal from 'components/DepartmentDetailsModal';
+import UpdateDepartmentComponentModal from 'components/UpdateDepartmentModal';
+
 
 const DepartmentList: FC = () => {
 
-    const { data, error, isLoading } = useGetDepartmentListQuery();
+    const [updateDepartment] = useUpdateDepartmentMutation();
+    const { data: departmentListData, error, isLoading } = useGetDepartmentListQuery();
+    const [getDepartmentDetails, { data: departmentDetailsData, }] = useLazyGetDepartmentDetailsQuery();
+    const [clickedDepartmentId, setClickedDepartmentId] = useState(1);
+    const [openDeptDetailsModal, setOpenDeptDetailsModal] = useState(false);
+    const [updateDeptModal, setUpdateDeptModal] = useState(false);
+    const [selectedEditDepartment, setSelectedEditDepartment] = useState(0);
 
     return (
         <div>
             {error ? (<PopUp description={'Cannot load Department List'}
-                popUpStyle={'mt-20 fixed inset-10 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'} 
+                popUpStyle={'mt-20 fixed inset-10 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}
                 icon={ICONS.error} />) :
                 (<div> {isLoading ? (<Loader />) : (
                     <div>
@@ -23,7 +32,8 @@ const DepartmentList: FC = () => {
                             buttonDescription="Create Department"
                             buttonIcon="fa fa-plus"
                             buttonNavigateUrl="/department-list"
-                            popUpRequired={true} />
+                            popUpRequired={true}
+                            mainbarElementsRequired={false} />
 
                         <div className="w-[calc(100vw-350px)]  overflow-x-auto p-5">
                             <table className="mx-auto w-full min-w-[550px] table-auto">
@@ -37,12 +47,29 @@ const DepartmentList: FC = () => {
                                         <th className="w-1/5 font-normal">Actions</th>
                                     </tr>
                                 </thead>
-                                {data?.map((dept) => (
+                                {departmentListData?.map((dept) => (
                                     <tbody key={dept.id}>
-                                        <DepartmentListComponent department={dept} />
+                                        <DepartmentListComponent
+                                            department={dept}
+                                            setClickedDepartmentId={setClickedDepartmentId}
+                                            setOpenDeptDetailsModal={setOpenDeptDetailsModal}
+                                            setUpdateDeptModal={setUpdateDeptModal}
+                                            setSelectedEditDepartment={setSelectedEditDepartment}
+                                        />
                                     </tbody>))}
                             </table>
                         </div>
+                        {openDeptDetailsModal &&
+                            <DepartmentDetailsModal departmentDetailsData={departmentDetailsData}
+                                setOpenDeptDetailsModal={setOpenDeptDetailsModal}
+                                clickedDepartmentId={clickedDepartmentId}
+                                getDepartmentDetails={getDepartmentDetails}
+                            />}
+                        {updateDeptModal &&
+                            <UpdateDepartmentComponentModal setUpdateDeptModal={setUpdateDeptModal}
+                                updateDepartment={updateDepartment} getDepartmentDetails={getDepartmentDetails}
+                                departmentDetailsData={departmentDetailsData}
+                                selectedEditDepartment={selectedEditDepartment} />}
                     </div>
                 )}
                 </div>)}

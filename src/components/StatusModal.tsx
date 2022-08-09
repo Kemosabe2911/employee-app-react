@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Button from './Button';
+import { StatusModalProps } from './types';
 
-const StatusModal = (props) => {
+const StatusModal:FC<StatusModalProps> = (props) => {
 
     const { statusclicked, setStatusModal,updateStatus,EmployeeListData} = props;
     const changedEmployee = EmployeeListData?.filter(employee => employee.id === statusclicked)[0];
@@ -21,7 +22,7 @@ const StatusModal = (props) => {
         bg-white p-5 text-center opacity-100 shadow-lg'>
                 <p className="py-4 text-center text-lg">
                     Change the status of {changedEmployee.name} to
-                    {(changedEmployee.is_active) ? 'Inactive' : 'Active'} ?</p>
+                    {(changedEmployee.is_active) ? ' Inactive' : ' Active'} ?</p>
                 <div className='flex'>
                     <div className='w-1/2 flex-initial text-right'>
                         <Button type="button"
