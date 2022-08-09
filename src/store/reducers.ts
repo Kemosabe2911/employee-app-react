@@ -1,10 +1,22 @@
-import { combineReducers } from 'redux';
+import {createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+export interface AuthenticationState {
+    value: string
+}
+const initialState: AuthenticationState = { 
+value:localStorage.getItem('authentication')
+};
 
-import { store } from './store';
-import counter from 'reducer/slices/counter';
+export const authenticationSlice=createSlice({
+    name: 'authentication',
+    initialState,
+    reducers: {
+        changeAuthentication: (state, action: PayloadAction<string>) => {
+            state.value = action.payload;
+          },
+    }
+});
 
-const rootReducer = combineReducers({ counter });
+export const {changeAuthentication}=authenticationSlice.actions;
 
-export type RootState = ReturnType<typeof store.getState>;
-
-export default rootReducer;
+export default authenticationSlice.reducer;
