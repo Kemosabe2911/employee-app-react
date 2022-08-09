@@ -11,7 +11,7 @@ const CreateDepartment: FC = () => {
                 mainbarElementsRequired={false}/>
             <div className="w-[calc(100vw-350px)] overflow-x-auto p-5">
 
-            <CreateDepartmentComponent></CreateDepartmentComponent>
+            <CreateDepartmentComponent/>
 
         </div>
         </div >

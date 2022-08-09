@@ -2,8 +2,9 @@ import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { CreateEmployeeProps } from './types';
+import { CreateEmployeeProps} from './types';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
@@ -12,8 +13,11 @@ import Button from './Button';
 import FileInput from './FileInput';
 import PopUp from './PopUp';
 import createEmployeeSchema from 'containers/create-employee/validation';
+import { changePopup} from 'store/popupReducer';
+import type { RootState } from 'store/store';
 
 const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
+    const dispatch =useDispatch();
     const { addEmployee, addFile, roleList, departmentList  } = props;
     const { register, reset, handleSubmit, formState: { errors } } = useForm(
         {
@@ -23,6 +27,7 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
     const navigate = useNavigate();
     const [file, setfiles] = useState(null);
     const [errorMessage, setErrorMessage] = useState(false);
+    const message=useSelector((state:RootState) => state.popup.description);
 
     return (
     
@@ -33,6 +38,11 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                     const addEmployeeResponse = await addEmployee(SubmittedData);
                     if ('error' in addEmployeeResponse) {
                         setErrorMessage(true);
+                        const payload={
+                            types:'failure',
+                            description:POPUP_MESSAGES.duplicateUser
+                        };
+                        dispatch(changePopup(payload));
                     }
                     else {
                         if (file) {
@@ -137,7 +147,7 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                                 handleClick={() => navigate('/employee-list')} />
                         </div>
                         {errorMessage && (
-                            <PopUp description={POPUP_MESSAGES.duplicateUser}
+                            <PopUp description={message}
                                 popUpStyle='mx-auto rounded-xl border-2 
                                 absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
                          border-rose-600 bg-red-50 '/>
