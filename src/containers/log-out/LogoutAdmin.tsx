@@ -1,9 +1,13 @@
 import React, { FC } from 'react';
 
+import { useLazyGetLogoutQuery } from 'services/api';
 import Logout from 'components/Logout';
 import MainBar from 'components/MainBar';
 
 const LogoutAdmin: FC = () => {
+
+    const [logout] = useLazyGetLogoutQuery();
+    
     return (
         <>
             <MainBar description='Log Out' buttonRequired={false}
@@ -12,9 +16,8 @@ const LogoutAdmin: FC = () => {
                 popUpRequired={false} 
                 mainbarElementsRequired={false}/>
             <div className="w-[calc(100vw-350px)]  p-5">
-                <Logout />
-            </div>
-        </>
+                <Logout logout={logout}/>
+            </div></>
     );
 };
 export default LogoutAdmin;

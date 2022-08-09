@@ -1,18 +1,19 @@
-import React from 'react';
+import React,{FC} from 'react';
 
 import { useDispatch } from 'react-redux';
 import { changeAuthentication } from 'store/reducers';
-import { useLazyGetLogoutQuery } from 'services/api';
+import { LogoutProps } from './types';
 import Button from './Button';
 
-const Logout = (props) => {
-    const { setLogoutModal } = props;
-    const dispatch = useDispatch();
-    const [logout] = useLazyGetLogoutQuery();
+const Logout:FC<LogoutProps> = (props) => {
 
+    const {logout} =props;
+    const {setLogoutModal} =props;
+    const dispatch = useDispatch();
+   
     const handleLogout = () => {
         dispatch(changeAuthentication('false'));
-        logout();
+        logout;
     };
     const handleCancel = () => {
         setLogoutModal(false);

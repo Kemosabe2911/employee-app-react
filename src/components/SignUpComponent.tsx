@@ -4,16 +4,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
 import { MailIcon, PasswordIcon, NameIcon, LastNameIcon, ConfirmPasswordIcon } from 'assets/icons/index';
+import { SignUpProps } from './types';
 import signupSchema from 'containers/sign-up/validation';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
-import { useAddSignUpMutation } from 'services/api';
 import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
+import { ICONS } from 'constants/icons';
 import InputField from './InputField';
 import Button from './Button';
 import PopUp from './PopUp';
 
-const SignUp: FC = () => {
+
+const SignUp: FC<SignUpProps> = ({ addSignUp }) => {
 
     const [errorMessage, setErrorMessage] = useState(false);
     const dispatch = useDispatch();
@@ -24,7 +26,6 @@ const SignUp: FC = () => {
         }
     );
     const navigate = useNavigate();
-    const [addSignUp] = useAddSignUpMutation();
 
     return (
         <div className=" flex h-full w-[28%] min-w-[400px] justify-center rounded-2xl bg-slate-50 p-10 shadow-2xl">
@@ -94,7 +95,7 @@ const SignUp: FC = () => {
                         <PopUp description={POPUP_MESSAGES.signUpError}
                             popUpStyle=' mx-auto
                             rounded-xl border-2 mt-20 fixed inset-0 h-16 
-                            w-[15%] min-w-[450px] border-rose-600 bg-red-50'></PopUp>
+                            w-[15%] min-w-[450px] border-rose-600 bg-red-50' icon={ICONS.error}></PopUp>
                     )}
                 </div>
             </form >

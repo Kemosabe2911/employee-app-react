@@ -1,8 +1,13 @@
+import React, { useEffect } from 'react';
+
 import { ICONS } from 'constants/icons';
-import React from 'react';
 
 const DepartmentDetailsModal = (props) => {
-    const { departmentDetailsData , setOpenDeptDetailsModal} = props;
+    const { departmentDetailsData, setOpenDeptDetailsModal, clickedDepartmentId, getDepartmentDetails } = props;
+
+    useEffect(() => {
+        getDepartmentDetails(clickedDepartmentId);
+    }, [clickedDepartmentId]);
 
     return (
         <div className='fixed inset-0 h-full w-full overflow-y-auto bg-gray-600/60 pl-20'>
@@ -10,11 +15,11 @@ const DepartmentDetailsModal = (props) => {
                        opacity-100 shadow-lg'>
                 <div className='flex bg-brightsCelurean p-3 pt-3  pb-6 shadow-xl'>
                     <div className='w-full flex-initial text-center'>
-                    <p className=' pt-1 text-xl font-normal text-white'>
-                        {departmentDetailsData?.name} Department </p>
+                        <p className=' pt-1 text-xl font-normal text-white'>
+                            {departmentDetailsData?.name} Department </p>
                     </div>
                     <div className='ml-auto flex-initial rounded-full'>
-                        <button type='button' onClick={()=>setOpenDeptDetailsModal(false)} className='cursor-pointer'>
+                        <button type='button' onClick={() => setOpenDeptDetailsModal(false)} className='cursor-pointer'>
                             <span className={`h-[20px]  w-[20px]  text-white transition 
                          duration-150 ease-in-out hover:text-gray-600 ${ICONS.fileInput}`} /></button>
                     </div>
