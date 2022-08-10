@@ -65,7 +65,7 @@ const EmployeeList: FC = () => {
                 setText={setText}
                 popUpRequired={false}
                 mainbarElementsRequired={true} />
-            <table className='mx-auto mt-10 w-[96%] table-fixed align-middle '>
+            <table className='mx-auto mt-10 w-[96%] min-w-[870px] table-fixed align-middle '>
                 <thead>
                     <tr className=" h-[60px] rounded-xl bg-aliceBlue shadow-xl" >
                         {columns.map(column => {

@@ -43,7 +43,7 @@ const CreateEmployee: FC = () => {
                       buttonNavigateUrl="nil"
                       popUpRequired={false} 
                       mainbarElementsRequired={false}/>
-            <div className="w-[calc(100vw-350px)]  p-5">
+            <div className="w-[calc(100vw-350px)]  p-5 ">
                 <CreateEmployeeForm 
                     addEmployee={addEmployee}
                     addFile={addFile}

@@ -35,10 +35,10 @@ const DepartmentList: FC = () => {
                             popUpRequired={true}
                             mainbarElementsRequired={false} />
 
-                        <div className="w-[calc(100vw-350px)]  overflow-x-auto p-5">
-                            <table className="mx-auto w-full min-w-[550px] table-auto">
+                        <div className="w-[calc(100vw-350px)]  overflow-auto p-5">
+                            <table className="mx-auto w-full min-w-[870px] table-auto">
                                 <thead>
-                                    <tr className=" mt-8 ml-14 flex  h-16 w-[90%] min-w-[550px] gap-10
+                                    <tr className=" mt-8 ml-14 flex  h-16 w-[90%] min-w-[650px] gap-10
                  bg-aliceBlue p-5  text-center shadow-xl">
                                         <th className="w-1/5 font-normal">Department Id</th>
                                         <th className="w-1/5 font-normal">Department Name</th>

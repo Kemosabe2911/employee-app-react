@@ -17,7 +17,7 @@ const StatusModal:FC<StatusModalProps> = (props) => {
     };
 
     return (
-        <div className='fixed inset-0  h-full w-full overflow-y-auto  bg-gray-600/60'>
+        <div className='fixed inset-0   h-full  w-full overflow-y-auto bg-gray-600/60'>
             <div className='relative inset-x-36 top-80 mx-auto h-[175px] w-[400px] rounded-md border
         bg-white p-5 text-center opacity-100 shadow-lg'>
                 <p className="py-4 text-center text-lg">

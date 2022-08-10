@@ -17,7 +17,7 @@ const PrivateLayout = () => {
     return (
         <div className="flex h-full">
             <SideBar/>
-            <div className="relative left-[350px] flex h-[100vh] flex-col overflow-auto md:fixed">
+            <div className="relative left-[350px] flex h-[100vh] flex-col md:fixed">
                 <Suspense fallback="Loading">
                     <Routes>
                         <Route path={RoutesPath.CREATE_EMPLOYEE} element={<CreateEmployeePage />} />
