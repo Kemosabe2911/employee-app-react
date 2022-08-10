@@ -40,6 +40,9 @@ const Login: FC<LoginProps> = ({addLogin}) => {
                 }
                 else{
                 dispatch(changeAuthentication('true'));
+                localStorage.setItem('Name', 
+                loginResponse.data.User.first_name+' '+ loginResponse.data.User.last_name);
+                localStorage.setItem('Email',loginResponse.data.User.email );
                 }
                 reset();
             })}>

@@ -22,7 +22,7 @@ const MainBar: FC<MainBarInputField> = (props) => {
     };
 
     return (
-        <div className=" flex h-[150px] w-full flex-col flex-wrap  border-y-2 bg-white ">
+        <div className=" flex h-[150px] w-full  flex-col flex-wrap  border-y-2 bg-white ">
             <div className="w-[350px] p-14 text-2xl font-semibold text-slate-700">{description}</div>
             <div className="ml-auto pr-16">
                 <div className='flex w-[600px]'>

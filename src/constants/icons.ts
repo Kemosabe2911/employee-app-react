@@ -7,4 +7,5 @@ export const ICONS =
         filter: 'fa fa-filter',
         popup: 'fa fa-exclamation-circle',
         fileInput: 'fa fa-times',
+        user:'fa fa-user-circle-o '
 };
