@@ -2,46 +2,41 @@ import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { CreateEmployeeProps} from './types';
+import { CreateEmployeeProps } from './types';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
-import { ICONS } from 'constants/icons';
+import { changePopup } from 'store/popupReducer';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import Label from './Label';
 import Button from './Button';
 import FileInput from './FileInput';
-import PopUp from './PopUp';
 import createEmployeeSchema from 'containers/create-employee/validation';
-import { changePopup} from 'store/popupReducer';
-import type { RootState } from 'store/store';
 
 const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
-    const dispatch =useDispatch();
-    const { addEmployee, addFile, roleList, departmentList  } = props;
+
+    const { addEmployee, addFile, roleList, departmentList } = props;
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [file, setfiles] = useState(null);
     const { register, reset, handleSubmit, formState: { errors } } = useForm(
         {
             resolver: yupResolver(createEmployeeSchema),
         }
     );
-    const navigate = useNavigate();
-    const [file, setfiles] = useState(null);
-    const [errorMessage, setErrorMessage] = useState(false);
-    const message=useSelector((state:RootState) => state.popup.description);
 
     return (
-    
-        <div className=' mt-6 flex  flex-initial '>
+        <div className=' mt-6'>
             <div className=' lg: mx-auto rounded-xl bg-white
             shadow-xl xl:h-[650px] xl:w-[90%]'>
                 <form onSubmit={handleSubmit(async (SubmittedData) => {
                     const addEmployeeResponse = await addEmployee(SubmittedData);
                     if ('error' in addEmployeeResponse) {
-                        setErrorMessage(true);
-                        const payload={
-                            types:'failure',
-                            description:POPUP_MESSAGES.duplicateUser
+                        const payload = {
+                            types: 'failure',
+                            description: POPUP_MESSAGES.duplicateUser
                         };
                         dispatch(changePopup(payload));
                     }
@@ -52,12 +47,17 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                             formData.append('file', file);
                             addFile({ body: formData, id: addEmployeeResponse?.data?.id });
                         }
+                        const payload = {
+                            types: 'success',
+                            description: POPUP_MESSAGES.creationSuccess
+                        };
+                        dispatch(changePopup(payload));
                         reset();
                         navigate('/employee-list');
                     }
                 })}>
                     <div>
-                        
+
                     </div>
                     <div className=' p-2 md:justify-center  xl:flex'>
                         <div className='flex-wrap xl:w-1/3 xl:flex-initial '>
@@ -147,12 +147,6 @@ const CreateEmployeeForm: FC<CreateEmployeeProps> = (props) => {
                                 text='Cancel'
                                 handleClick={() => navigate('/employee-list')} />
                         </div>
-                        {errorMessage && (
-                            <PopUp description={message}
-                                popUpStyle='mx-auto rounded-xl border-2 
-                                absolute inset-x-0 bottom-6 h-16 w-[15%] min-w-[500px]
-                         border-rose-600 bg-red-50 ' icon={ICONS.error}/>
-                        )}
                     </div>
                 </form>
             </div>

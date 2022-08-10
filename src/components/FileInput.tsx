@@ -11,11 +11,9 @@ const FileInput: FC<FileInputProps> = (props) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [closePreview, setClosePreview] = useState<boolean>(false);
-
   useEffect(() => {
-    let fileReader:FileReader;
-    let isCancel:boolean = false;
-
+    let fileReader: FileReader;
+    let isCancel: boolean = false;
     if (files) {
       fileReader = new FileReader();
       fileReader.onload = (e) => {
@@ -45,12 +43,12 @@ const FileInput: FC<FileInputProps> = (props) => {
     <div>
       <label className="m-2 ml-4 font-sans text-lg" >Upload ID Proof</label>
       <div className='flex'>
-        <div className=" m-2 ml-4 flex h-10 w-64 flex-initial rounded-md border border-gray-300 
-                          text-sm leading-5">
+        <div className=" m-2 ml-4 flex h-10 w-64 flex-initial rounded-md border border-gray-300  text-sm 
+                        leading-5">
           <h6 className=' w-4/6 flex-initial p-2 text-sm leading-5 text-regentGrey'>
             {(files != null) ? (files.name) : fileText}</h6>
-          <button className='m-1 w-2/6 flex-initial rounded-md  border
-                                 border-gray-300 p-1 text-center text-sm leading-5 text-regentGrey'
+          <button className='m-1 w-2/6 flex-initial rounded-md  border border-gray-300 p-1 text-center
+                                   text-sm leading-5 text-regentGrey'
             type='button'
             onClick={() => {
               setOpenModal(true);
@@ -65,7 +63,6 @@ const FileInput: FC<FileInputProps> = (props) => {
                   <span className={`h-[15px] w-[15px] pr-2  text-gray-500 transition 
                          duration-150 ease-in-out hover:text-gray-600 ${ICONS.fileInput}`} /></button>
               </div>
-
               <img className='h-[100px]' src={fileDataURL} alt="preview" />
             </div>
             ) : <div></div>}

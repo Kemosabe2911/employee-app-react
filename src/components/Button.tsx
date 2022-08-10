@@ -5,6 +5,7 @@ import { ButtonProps } from './types';
 const Button: FC<ButtonProps> = (props) => {
 
     const {buttonClass, text, type, handleClick } = props;
+    
     return (
         <>
             <button

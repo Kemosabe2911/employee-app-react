@@ -265,9 +265,8 @@ export type UpdateEmployeeReq = {
 };
 
 export type PopUpProps = {
-  description: string
-  popUpStyle: string
-  icon: string
+  description?: string;
+   popUpStyle?: string
 }
 
 export type EmployeeDetailsProps = {

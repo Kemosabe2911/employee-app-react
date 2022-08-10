@@ -6,7 +6,6 @@ import Button from './Button';
 const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
 
   const { setOpenModal, setFiles, file } = props;
-
   const [dragActive, setDragActive] = useState<boolean>(false);
   const inputRef: React.MutableRefObject<any> = React.useRef(null);
 
@@ -17,7 +16,6 @@ const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
   const handleCancel = () => {
     setOpenModal(false);
   };
-  //handle drag events
   const handleDrag = (e: any) => {
     e.preventDefault();               //cancels the event if it is cancelable
     e.stopPropagation();              //To prevent  event from further propagation in the capturing and bubbling phases
@@ -28,11 +26,9 @@ const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
       setDragActive(false);
     }
   };
-
   const handleFiles = (files: any) => {
     handleUpload(files);
   };
-
   const handleDrop = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -42,14 +38,12 @@ const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
       //the drag operation.If the operation includes no files, the list is empty.
     }
   };
-
   const handleChange = function (e: any) {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {   // at least one file has been selected so do something
       handleFiles(e.target.files[0]);
     }
   };
-
   const onButtonClick = () => {
     inputRef.current.click();
   };
@@ -62,13 +56,13 @@ const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
           <p className='flex-initial text-xl font-normal'>Upload Proof</p>
         </div>
         <div onDragEnter={handleDrag}
-             onDragLeave={handleDrag}
-             onDragOver={handleDrag}
-             onDrop={handleDrop}
-             className='mx-auto h-[260px] w-[518px] rounded-md border-2 border-dashed border-gray-300'>
+          onDragLeave={handleDrag}
+          onDragOver={handleDrag}
+          onDrop={handleDrop}
+          className='mx-auto h-[260px] w-[518px] rounded-md border-2 border-dashed border-gray-300'>
           <label htmlFor="input-file-upload" className='h-[100%]'>
-            <input ref={inputRef} 
-                  type="file" className='hidden' onChange={handleChange} />
+            <input ref={inputRef}
+              type="file" className='hidden' onChange={handleChange} />
             <div className='p-20 text-center'>
               <p className='  text-xl font-normal text-brightCelurean'>Drag and drop your file here </p>
               <p className='p-1 text-sm font-normal'>Or</p>
@@ -86,17 +80,17 @@ const FilesDragAndDrop: FC<FilesDragAndDropProps> = (props) => {
         </div>
         <div className='m-4 mx-auto flex w-[100%]'>
           <div className='w-1/2 text-right'>
-            <Button type="button" 
+            <Button type="button"
               buttonClass='w-[149px] bg-brightCelurean text-white hover:bg-brightsCelurean border border-blue-500'
-              text='Upload' 
+              text='Upload'
               handleClick={() => handleUpload(file)} />
           </div>
           <div className='w-1/2 text-left'>
-            <Button type="button" 
-                    buttonClass='w-[149px] bg-white text-black hover:bg-white border border-zinc-900 
-                    hover:border-brightCelurean' 
-                    text='Close'
-                    handleClick={handleCancel} />
+            <Button type="button"
+              buttonClass='w-[149px] bg-white text-black hover:bg-white border border-zinc-900 
+                    hover:border-brightCelurean'
+              text='Close'
+              handleClick={handleCancel} />
           </div>
         </div>
       </div>

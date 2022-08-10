@@ -7,8 +7,8 @@ import Button from './Button';
 
 const Logout:FC<LogoutProps> = (props) => {
 
-    const {logout} =props;
-    const {setLogoutModal} =props;
+    const {logout,setLogoutModal} =props;
+    
     const dispatch = useDispatch();
    
     const handleLogout = () => {

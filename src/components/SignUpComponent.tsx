@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
@@ -9,23 +9,19 @@ import signupSchema from 'containers/sign-up/validation';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
 import { changeAuthentication } from 'store/reducers';
 import { useDispatch } from 'react-redux';
-import { ICONS } from 'constants/icons';
+import { changePopup } from 'store/popupReducer';
 import InputField from './InputField';
 import Button from './Button';
-import PopUp from './PopUp';
-
 
 const SignUp: FC<SignUpProps> = ({ addSignUp }) => {
 
-    const [errorMessage, setErrorMessage] = useState(false);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
             resolver: yupResolver(signupSchema),
         }
     );
-    const navigate = useNavigate();
 
     return (
         <div className=" flex h-full w-[28%] min-w-[400px] justify-center rounded-2xl bg-slate-50 p-10 shadow-2xl">
@@ -33,10 +29,19 @@ const SignUp: FC<SignUpProps> = ({ addSignUp }) => {
                 const signUpResponse = await addSignUp(data);
                 if ('error' in signUpResponse) {
                     dispatch(changeAuthentication('false'));
-                    setErrorMessage(true);
+                    const payload = {
+                        types: 'failure',
+                        description: POPUP_MESSAGES.signUpError
+                    };
+                    dispatch(changePopup(payload));
                 }
                 else {
                     dispatch(changeAuthentication('true'));
+                    const payload = {
+                        types: 'success',
+                        description: POPUP_MESSAGES.creationSuccess
+                    };
+                    dispatch(changePopup(payload));
                 }
                 reset();
             })}>
@@ -91,12 +96,7 @@ const SignUp: FC<SignUpProps> = ({ addSignUp }) => {
                             text='Cancel'
                             handleClick={() => navigate('/login')} />
                     </div>
-                    {errorMessage && (
-                        <PopUp description={POPUP_MESSAGES.signUpError}
-                            popUpStyle=' mx-auto
-                            rounded-xl border-2 mt-20 fixed inset-0 h-16 
-                            w-[15%] min-w-[450px] border-rose-600 bg-red-50' icon={ICONS.error}></PopUp>
-                    )}
+
                 </div>
             </form >
         </div >

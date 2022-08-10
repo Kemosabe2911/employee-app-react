@@ -7,13 +7,14 @@ import SearchElement from './SearchElement';
 import CreateDepartment from 'containers/create-department/CreateDepartment';
 
 const MainBar: FC<MainBarInputField> = (props) => {
+
     const { description, buttonRequired, buttonDescription, buttonIcon, buttonNavigateUrl, setStatus, setText,
         text, popUpRequired, mainbarElementsRequired,
     } = props;
 
     const [popUpCreate, setPopUpCreate] = useState(false);
-
     const navigate = useNavigate();
+
     const handleCreateClick = (selectedPath) => {
         if (popUpRequired == true) {
             setPopUpCreate(true);
@@ -45,23 +46,23 @@ const MainBar: FC<MainBarInputField> = (props) => {
                             </div>
                         </>
                         : <> </>}
-                    {buttonRequired ? 
-                    <div className='ml-auto flex-initial'>
-                        <button onClick={() => handleCreateClick(buttonNavigateUrl)}
-                            className="relative top-12 mr-8 h-[48px] w-[220px] rounded-full 
+                    {buttonRequired ?
+                        <div className='ml-auto flex-initial'>
+                            <button onClick={() => handleCreateClick(buttonNavigateUrl)}
+                                className="relative top-12 mr-8 h-[48px] w-[220px] rounded-full 
                                bg-aliceBlue">
-                            <div className="flex">
-                                <span className={`h-[48px] w-[48px] rounded-full bg-brightCelurean p-[15px]
+                                <div className="flex">
+                                    <span className={`h-[48px] w-[48px] rounded-full bg-brightCelurean p-[15px]
                          text-white duration-300 hover:scale-110 ${buttonIcon}`} />
-                                <span className="py-3 pl-4 text-sm font-light text-black">
-                                    {buttonDescription}</span>
-                            </div>
-                        </button>
-                    </div>
-            :
-            <div></div>}
-            </div></div>
-            { popUpCreate ? (<CreateDepartment setPopUpCreate={setPopUpCreate} />) : <></> }
+                                    <span className="py-3 pl-4 text-sm font-light text-black">
+                                        {buttonDescription}</span>
+                                </div>
+                            </button>
+                        </div>
+                        :
+                        <div></div>}
+                </div></div>
+            {popUpCreate ? (<CreateDepartment setPopUpCreate={setPopUpCreate} />) : <></>}
         </div >
     );
 };

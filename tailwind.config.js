@@ -18,7 +18,7 @@ module.exports = {
               transform: 'rotate(-9deg)'
           },
           '50%': {
-              transform: 'rotate(7deg)'
+              transform: 'rotate(9deg)'
           },
       },
       reverseSpin:{
@@ -31,11 +31,20 @@ module.exports = {
         '100%':{
           transform: 'rotate(-360deg)'
         }
-      }
+      },
+      translateUp:{
+        '0%':{
+          transform: 'translateY(100%);'
+        },
+        '50%,100%':{
+          transform: 'translateY(0%);'
+        },
+      },
   },
   animation: {
       wiggle: 'wiggle 0.4s ease-in-out infinite',
-      spinReverse: 'reverseSpin 1s linear infinite'
+      spinReverse: 'reverseSpin 1s linear infinite',
+      translateYaxis: 'translateUp 5s linear '
   }
 
   
@@ -48,5 +57,3 @@ module.exports = {
   
 }
 };
-
-   

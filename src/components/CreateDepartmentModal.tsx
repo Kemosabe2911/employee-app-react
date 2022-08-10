@@ -1,20 +1,21 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch } from 'react-redux';
 
 import { CreateDepartmentProps } from './types';
+import { changePopup } from 'store/popupReducer';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
 import { ICONS } from 'constants/icons';
 import createDepartmentSchema from 'containers/create-department/validation';
 import Label from './Label';
 import InputField from './InputField';
 import Button from './Button';
-import PopUp from './PopUp';
+
 
 const CreateDepartmentComponentModal: FC<CreateDepartmentProps> = ({ setPopUpCreate, addDepartment }) => {
 
-    const [errorMessage, setErrorMessage] = useState(false);
-
+    const dispatch = useDispatch();
     const { register, reset, handleSubmit, formState: { errors } } = useForm(
         {
             resolver: yupResolver(createDepartmentSchema)
@@ -28,9 +29,18 @@ const CreateDepartmentComponentModal: FC<CreateDepartmentProps> = ({ setPopUpCre
                 <form onSubmit={handleSubmit(async data => {
                     const addDepartmentResponse = await addDepartment(data);
                     if ('error' in addDepartmentResponse) {
-                        setErrorMessage(true);
+                        const payload = {
+                            types: 'failure',
+                            description: POPUP_MESSAGES.duplicateDepartment
+                        };
+                        dispatch(changePopup(payload));
                     }
                     else {
+                        const payload = {
+                            types: 'success',
+                            description: POPUP_MESSAGES.creationSuccess
+                        };
+                        dispatch(changePopup(payload));
                         setPopUpCreate(false);
                         reset();
                     }
@@ -45,10 +55,7 @@ const CreateDepartmentComponentModal: FC<CreateDepartmentProps> = ({ setPopUpCre
                          duration-150 ease-in-out hover:text-gray-600 ${ICONS.fileInput}`} /></button>
                         </div>
                     </div>
-                    {errorMessage && (
-                        <PopUp description={POPUP_MESSAGES.duplicateDepartment}
-                            popUpStyle='text-red-700 h-5' icon={ICONS.error} />
-                    )}
+
                     <div className="pt-4 pl-6">
                         <Label name="Department Name"></Label>
                         <InputField registerFunction={register} placeholder="Department Name"

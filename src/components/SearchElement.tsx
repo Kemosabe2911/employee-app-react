@@ -4,12 +4,15 @@ import { ICONS } from 'constants/icons';
 import { SearchElementProps } from './types';
 
 const SearchElement: FC<SearchElementProps> = (props) => {
-    const inputRef: React.MutableRefObject<any> = React.useRef(null);
+
     const { setText, text } = props;
+
+    const inputRef: React.MutableRefObject<any> = React.useRef(null);
+
     const handleText = () => {
         setText(inputRef.current.value);
     };
-   
+
     return (
         <>
             <span className={`h-[48px] w-[48px] flex-initial rounded-full bg-brightCelurean p-[16px]
