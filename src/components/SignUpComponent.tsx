@@ -42,6 +42,9 @@ const SignUp: FC<SignUpProps> = ({ addSignUp }) => {
                         description: POPUP_MESSAGES.creationSuccess
                     };
                     dispatch(changePopup(payload));
+                    localStorage.setItem('Name',
+                    signUpResponse.data.User.first_name + ' ' + signUpResponse.data.User.last_name);
+                    localStorage.setItem('Email', signUpResponse.data.User.email);
                 }
                 reset();
             })}>

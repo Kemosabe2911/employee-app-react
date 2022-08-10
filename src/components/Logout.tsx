@@ -13,6 +13,8 @@ const Logout:FC<LogoutProps> = (props) => {
    
     const handleLogout = () => {
         dispatch(changeAuthentication('false'));
+        localStorage.setItem('Name', '');
+        localStorage.setItem('Email','' );
         logout;
     };
     const handleCancel = () => {

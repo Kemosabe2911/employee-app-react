@@ -23,7 +23,7 @@ const CreateDepartmentComponentModal: FC<CreateDepartmentProps> = ({ setPopUpCre
     );
 
     return (
-        <div className='fixed inset-0  h-full w-full overflow-y-auto  bg-gray-600/60'>
+        <div className='fixed inset-0  h-full w-full overflow-y-auto  bg-gray-600/60 '>
             <div className='relative inset-x-36 top-32 mx-auto  w-[400px] rounded
         bg-white   opacity-100 shadow-xl'>
                 <form onSubmit={handleSubmit(async data => {
