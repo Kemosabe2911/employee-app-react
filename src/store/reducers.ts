@@ -2,7 +2,7 @@ import {createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 export interface AuthenticationState {
     value: string
-}
+} 
 const initialState: AuthenticationState = { 
 value:localStorage.getItem('authentication')
 };
@@ -20,3 +20,4 @@ export const authenticationSlice=createSlice({
 export const {changeAuthentication}=authenticationSlice.actions;
 
 export default authenticationSlice.reducer;
+

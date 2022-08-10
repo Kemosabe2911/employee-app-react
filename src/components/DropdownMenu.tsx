@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { DropdownMenuProps } from './types';
 
 const DropdownMenu: FC<DropdownMenuProps> = (props) => {
+
     const { dropdownData, registerFunction, registerName } = props;
 
     return (

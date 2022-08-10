@@ -18,6 +18,7 @@ export type MainBarInputField = {
   mainbarElementsRequired: boolean;
 };
 
+
 export type FileInputProps = {
   setFiles: React.Dispatch<any>;
   files: any;
@@ -264,9 +265,8 @@ export type UpdateEmployeeReq = {
 };
 
 export type PopUpProps = {
-  description: string
-  popUpStyle: string
-  icon: string
+  description?: string;
+   popUpStyle?: string
 }
 
 export type EmployeeDetailsProps = {

@@ -4,6 +4,7 @@ import { DeleteModalProps } from './types';
 import Button from './Button';
 
 const DeleteModal: FC<DeleteModalProps> = (props) => {
+
     const { setDelete, selectedId, handleDeleteEmployee, primaryText, secondaryText } = props;
 
     return (

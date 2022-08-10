@@ -8,12 +8,10 @@ const DepartmentListComponent: FC<DepartmentListProps> = (props) => {
     const { department, setOpenDeptDetailsModal, setClickedDepartmentId,
         setUpdateDeptModal, setSelectedEditDepartment } = props;
 
-
     const handleClick = (clickedDepartmentId) => {
         setOpenDeptDetailsModal(true);
         setClickedDepartmentId(clickedDepartmentId);
     };
-
     const handleEditClick = (id) => {
         setUpdateDeptModal(true);
         setSelectedEditDepartment(id);
@@ -21,8 +19,7 @@ const DepartmentListComponent: FC<DepartmentListProps> = (props) => {
 
     return (
         <>
-            <tr
-                className=" mt-3 ml-14 flex h-14  w-[90%] min-w-[550px] gap-10 
+            <tr className=" mt-3 ml-14 flex h-14  w-[90%] min-w-[550px] gap-10 
                             bg-white p-5 text-center shadow-xl ">
                 <td className="w-1/5">{department.id}</td>
                 <td onClick={() => handleClick(department.id)} className="ml-4 w-1/5 cursor-pointer text-center

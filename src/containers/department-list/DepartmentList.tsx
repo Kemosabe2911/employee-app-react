@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 
 import { useLazyGetDepartmentDetailsQuery, useGetDepartmentListQuery, useUpdateDepartmentMutation } from 'services/api';
-import { ICONS } from 'constants/icons';
 import DepartmentListComponent from 'components/DepartmentListComponent';
 import MainBar from 'components/MainBar';
 import PopUp from 'components/PopUp';
@@ -24,7 +23,7 @@ const DepartmentList: FC = () => {
         <div>
             {error ? (<PopUp description={'Cannot load Department List'}
                 popUpStyle={'mt-20 fixed inset-10 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50'}
-                icon={ICONS.error} />) :
+                />) :
                 (<div> {isLoading ? (<Loader />) : (
                     <div>
                         <MainBar description='Department List'

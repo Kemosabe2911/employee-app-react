@@ -3,17 +3,17 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { UpdateEmployeeProps } from './types';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
-import { ICONS } from 'constants/icons';
+import { changePopup } from 'store/popupReducer';
 import updateEmployeeSchema from 'containers/update-employee/validation';
 import Label from './Label';
 import Button from './Button';
 import DropdownMenu from './DropdownMenu';
 import InputField from './InputField';
 import FileInput from './FileInput';
-import PopUp from './PopUp';
 import Loader from './Loader';
 
 
@@ -21,13 +21,10 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
 
     const { roleList, departmentList, addFile, updateData, getEmployeeDetails, data, isLoading, error } = props;
 
-    const [errorMessage, setErrorMessage] = useState(false);
+    const dispatch = useDispatch();
     const [file, setfiles] = useState(null);
+    const navigate = useNavigate();
     const urlId = useParams();
-    useEffect(() => {
-        getEmployeeDetails(urlId.id);
-    }, [urlId]);
-
     const { register, handleSubmit, reset, formState: { errors } } = useForm(
         {
             resolver: yupResolver(updateEmployeeSchema),
@@ -48,6 +45,9 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
         }
     );
     useEffect(() => {
+        getEmployeeDetails(urlId.id);
+    }, [urlId]);
+    useEffect(() => {
         let defaultValues = {
 
             name: data?.name,
@@ -64,16 +64,17 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
         };
         reset(defaultValues);
     }, [data, reset]);
-    const navigate = useNavigate();
-
+   
     if (isLoading) {
         return <Loader />;
     }
 
     if (error) {
-        return <PopUp description={POPUP_MESSAGES.updateEmployeeLoadingError}
-            popUpStyle={'absolute inset-x-0 bottom-16 h-16 w-[15%] min-w-[450px] border-rose-600 bg-red-50  mx-auto'}
-            icon={ICONS.error} />;
+        const payload = {
+            types: 'failure',
+            description: POPUP_MESSAGES.loadingError
+        };
+        dispatch(changePopup(payload));
     }
 
     return (
@@ -84,7 +85,11 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
                     const updateId = parseInt(urlId.id);
                     const updateEmployeeResponse = await updateData({ body: updatedData, id: updateId });
                     if ('error' in updateEmployeeResponse) {
-                        setErrorMessage(true);
+                        const payload = {
+                            types: 'failure',
+                            description: POPUP_MESSAGES.duplicateDepartment
+                        };
+                        dispatch(changePopup(payload));
                     }
                     else {
                         if (file) {
@@ -93,6 +98,11 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
                             formData.append('file', file);
                             addFile({ body: formData, id: updateId });
                         }
+                        const payload = {
+                            types: 'success',
+                            description: POPUP_MESSAGES.updationSuccess
+                        };
+                        dispatch(changePopup(payload));
                         reset();
                         navigate('/employee-list');
                     }
@@ -189,12 +199,6 @@ const UpdateEmployee: FC<UpdateEmployeeProps> = (props) => {
                                 text='Cancel'
                                 handleClick={() => navigate('/employee-list')} />
                         </div>
-                        {errorMessage && (
-                            <PopUp description='An employee with this e-mail id or user name already exists.'
-                                popUpStyle='mx-auto
-                                rounded-xl border-2 absolute inset-x-0 bottom-6 h-16 w-[15%] 
-                        min-w-[500px] border-rose-600 bg-red-50' icon={ICONS.error}></PopUp>
-                        )}
                     </div>
                 </form>
             </div>

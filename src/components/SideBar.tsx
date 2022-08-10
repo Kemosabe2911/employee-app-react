@@ -7,7 +7,9 @@ import { LOGO } from 'constants/logo';
 import Logout from './Logout';
 
 const SideBar: FC = () => {
+    
     const location = useLocation();
+
     let currentPath = location.pathname;
     if ((currentPath == '/login') || (currentPath == '/sign-up') || (currentPath == '/')) {
         currentPath = '/employee-list';
@@ -18,6 +20,7 @@ const SideBar: FC = () => {
     if ((currentPath.startsWith('/update-employee')) || (currentPath.startsWith('/employee-details'))) {
         currentPath = '/employee-list';
     }
+
     const [buttonId, setId] = useState<string>(currentPath);
     const navigate = useNavigate();
     const [logoutModal, setLogoutModal] = useState(false);

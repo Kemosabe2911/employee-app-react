@@ -1,27 +1,23 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { UpdateDepartmentProps } from './types';
 import { POPUP_MESSAGES } from 'constants/popupMessages';
 import { ICONS } from 'constants/icons';
+import { changePopup } from 'store/popupReducer';
 import createDepartmentSchema from 'containers/create-department/validation';
 import Label from './Label';
 import InputField from './InputField';
 import Button from './Button';
-import PopUp from './PopUp';
-
 
 const UpdateDepartmentComponentModal: FC<UpdateDepartmentProps> = ({ setUpdateDeptModal, updateDepartment
     , getDepartmentDetails, departmentDetailsData, selectedEditDepartment }) => {
 
-    useEffect(() => {
-        getDepartmentDetails(selectedEditDepartment);
-    }, [selectedEditDepartment]);
-
-    const [errorMessage, setErrorMessage] = useState(false);
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { register, reset, handleSubmit, formState: { errors } } = useForm(
         {
             resolver: yupResolver(createDepartmentSchema),
@@ -34,9 +30,9 @@ const UpdateDepartmentComponentModal: FC<UpdateDepartmentProps> = ({ setUpdateDe
             }
         }
     );
-
-    const navigate = useNavigate();
-
+    useEffect(() => {
+        getDepartmentDetails(selectedEditDepartment);
+    }, [selectedEditDepartment]);
     useEffect(() => {
         let defaultValues = {
 
@@ -56,10 +52,19 @@ const UpdateDepartmentComponentModal: FC<UpdateDepartmentProps> = ({ setUpdateDe
                     const updateId = parseInt(selectedEditDepartment);
                     const addDepartmentResponse = await updateDepartment({ body: data, id: updateId });
                     if ('error' in addDepartmentResponse) {
-                        setErrorMessage(true);
+                        const payload = {
+                            types: 'failure',
+                            description: POPUP_MESSAGES.duplicateDepartment
+                        };
+                        dispatch(changePopup(payload));
                     }
                     else {
                         setUpdateDeptModal(false);
+                        const payload = {
+                            types: 'success',
+                            description: POPUP_MESSAGES.updationSuccess
+                        };
+                        dispatch(changePopup(payload));
                         reset();
                         navigate('/department-list');
                     }
@@ -74,10 +79,6 @@ const UpdateDepartmentComponentModal: FC<UpdateDepartmentProps> = ({ setUpdateDe
                          duration-150 ease-in-out hover:text-gray-600 ${ICONS.fileInput}`} /></button>
                         </div>
                     </div>
-                    {errorMessage && (
-                        <PopUp description={POPUP_MESSAGES.duplicateDepartment}
-                            popUpStyle='text-red-700 h-5' icon={ICONS.error} />
-                    )}
                     <div className="pt-4 pl-6">
                         <Label name="Department Name"></Label>
                         <InputField registerFunction={register} placeholder="Department Name"
